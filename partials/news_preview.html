@@ -1,0 +1,19 @@
+<!-- Content -->
+<div class="modal-body">
+    <div ng-if="item.banner_id" class="banner-img text-center"><img ng-src="{{item.pathImage}}"></div>
+    <div ng-if="!item.banner_id || item.show_news" class="text-center">
+        <p class="text-red text-center" ng-bind-html="item.title"></p>
+        <p>{{item.fromStr|local:[true,'yyyy/MM/dd HH:mm']}} &#126; {{item.toStr|local:[true, 'yyyy/MM/dd HH:mm']}}</p>
+    </div>
+    <div class="news-content" ng-if="item.show_news">
+        <pre class="border-none" ng-bind-html="item.content"></pre>
+    </div>
+    <hr>
+    <div class="view-detail text-center">
+        <a href="" ng-click="viewDetail()">{{item.view_detail}}</a>
+    </div>
+</div>
+<!-- Footer -->
+<div class="modal-footer">
+  <button class="btn btn-primary button-long" ng-click="Ok()">{{ 'DIALOG.OK' | translate}}</button>
+</div>

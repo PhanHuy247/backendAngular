@@ -1,0 +1,70 @@
+<!-- header -->
+<div class="modal-header">
+  <h4>{{title}}</h4>
+</div>
+
+<!-- Content -->
+<div class="modal-body">
+  <!-- User ID -->
+  <div class="row-fluid">
+    <label class="span2">{{'USER.INFO.USER_ID'|translate}}</label>
+    <span class="text-info span8">{{item.user_id}}</span>
+  </div>
+
+  <!-- User Name -->
+  <div class="row-fluid">
+    <label class="span2">{{'USER.INFO.USER_NAME'|translate}}</label>
+    <span class="text-info span10">{{item.user_name}}</span>
+  </div>
+  
+  <div class="row-fluid">
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>
+            <span>{{ 'USER.INFO.USER_ID' | translate }}</span>
+            <br>
+            <span>{{ 'USER.INFO.USER_NAME' | translate }}</span>
+          </th>
+          <th>
+            <span>{{ 'USER.INFO.USER_TYPE' | translate }}</span>
+            <br>
+            <span>{{ 'USER.INFO.EMAIL' | translate }}&nbsp;&#47;&nbsp;{{ 'USER.INFO.FACEBOOK_ID' | translate }}</span>
+          </th>
+          <th>
+            <span>{{ 'USER.INFO.GROUP' | translate }}</span>
+            <br>
+            <span>{{ 'USER.INFO.CM_CODE' | translate }}</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in friendFavoriteDetailList">
+          <td>
+            <span>
+              <a target="_blank" href="#/user/user_detail/{{item.user_id}}">{{ item.user_id}}</a>
+              <!-- <a class="btn-link" ng-click="userDetail(item.user_id)">{{item.user_id}}</a> -->
+            </span>
+            <br>
+            <span>{{ item.user_name}}</span>
+          </td>
+          <td>
+            <span>{{ item.user_type | label:[attributes.userTypes, true]}}</span>
+            <br>
+            <span>{{ item.email}}</span>
+          </td>
+          <td>
+            <span>{{ 'LAYOUT.NO_DATA' | translate }}</span>
+            <br>
+            <span>{{ item.cm_code == null ? 'LAYOUT.NO_DATA' : item.cm_code | translate }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="Ok()">{{ 'DIALOG.OK' | translate}}</button>
+</div>

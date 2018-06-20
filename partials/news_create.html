@@ -1,0 +1,246 @@
+<!-- Header -->
+<div class="page-header">
+    <h3>{{pageTitle}}</h3>
+</div>
+
+<div class="row-fluid">
+    <form action="" ng-submit="add()" id="addNews">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th class="span3">{{'SETTINGS.CREATE_NEWS.DISPLAY_PERIOD'|translate}}</th>
+                    <td>
+                        <div class="form-inline">
+                            <select ng-required="true" ng-model="input.from.year" class="span1" id="year-from"  ng-click="selectTimeFrom()">
+                                <option ng-repeat="(key, value) in properties.years">{{value}}</option>
+                            </select>
+                            <label for="year-from">{{'SETTINGS.CREATE_NEWS.YEAR'|translate}}</label>
+
+                            <select ng-required="true" ng-model="input.from.month" class="span1" id="month-from" ng-click="selectTimeFrom()">
+                                <option ng-repeat="(key, value) in properties.months">{{value}}</option>
+                            </select>
+                            <label for="month-from">{{'SETTINGS.CREATE_NEWS.MONTH'|translate}}</label>
+
+                            <select ng-required="true" ng-model="input.from.day" class="span1" id="day-from">
+                                <option ng-repeat="(key, value) in properties.days">{{value}}</option>
+                            </select>
+                            <label for="day-from">{{'SETTINGS.CREATE_NEWS.DAY'|translate}}</label>
+
+                            <select ng-required="true" ng-model="input.from.hour" class="span1" id="hour-from">
+                                <option ng-repeat="(key, value) in properties.hours">{{value}}</option>
+                            </select>
+                            <label for="hour-from">{{'SETTINGS.CREATE_NEWS.HOUR'|translate}}</label>
+
+                            <select ng-required="true" ng-model="input.from.minute" class="span1" id="minute-from">
+                                <option ng-repeat="(key, value) in properties.minutes">{{value}}</option>
+                            </select>
+                            <label for="minute-from">{{'SETTINGS.CREATE_NEWS.MIN'|translate}}</label>
+
+                            <span>&nbsp;</span>
+                            <span>&#126;</span>
+                            <span>&nbsp;</span>
+
+                            <select ng-model="input.to.year" class="span1" id="year-to" ng-click = "selectTimeTo()">
+                                <option ng-repeat="(key, value) in properties.years">{{value}}</option>
+                            </select>
+                            <label for="year-to">{{'SETTINGS.CREATE_NEWS.YEAR'|translate}}</label>
+
+                            <select ng-model="input.to.month" class="span1" id="month-to" ng-click = "selectTimeTo()">
+                                <option ng-repeat="(key, value) in properties.months">{{value}}</option>
+                            </select>
+                            <label for="month-to">{{'SETTINGS.CREATE_NEWS.MONTH'|translate}}</label>
+
+                            <select ng-model="input.to.day" class="span1" id="day-to">
+                                <option ng-repeat="(key, value) in properties.days">{{value}}</option>
+                            </select>
+                            <label for="day-to">{{'SETTINGS.CREATE_NEWS.DAY'|translate}}</label>
+
+                            <select ng-model="input.to.hour" class="span1" id="hour-to">
+                                <option ng-repeat="(key, value) in properties.hours">{{value}}</option>
+                            </select>
+                            <label for="hour-to">{{'SETTINGS.CREATE_NEWS.HOUR'|translate}}</label>
+
+                            <select ng-model="input.to.minute" class="span1" id="minute-to">
+                                <option ng-repeat="(key, value) in properties.minutes">{{value}}</option>
+                            </select>
+                            <label for="minute-to">{{'SETTINGS.CREATE_NEWS.MIN'|translate}}</label>
+                        </div>
+                    </td>
+                </tr>
+
+                    <tr>
+                    <th class="span3">{{'SETTINGS.CREATE_NEWS.OS'|translate}}</th>
+                    <td>
+                        <div class="form-inline">
+                            <div class="span2">
+                                <input class="margin-bottom-5px" type="radio" name="os" ng-model="input.device_type" id="IOS" value="ios"/>
+                                <label for="IOS">{{'USER.INFO.IOS_DEVICE'|translate}}</label>
+                            </div>
+                            <div class="span2">
+                                <input class="margin-bottom-5px" type="radio" name="os" ng-model="input.device_type" id="Android" value="android" />
+                                <label for="Android">{{'USER.INFO.ANDROID_DEVICE'|translate}}</label>
+                            </div>
+                            <div class="span1">
+                                <input class="margin-bottom-5px" type="radio" name="os" ng-model="input.device_type" id="both_os" value="" ng-checked="input.device_type == null">
+                                <label for="both_os">{{'SETTINGS.NEWS.BOTH'|translate}}</label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th class="span3">{{'SETTINGS.CREATE_NEWS.GENDER'|translate}}</th>
+                    <td>
+                        <div class="form-inline">
+                            <div class="span2">
+                                <input class="margin-bottom-5px" type="radio" name="gender" ng-model="input.target_gender" id="male" value="male" />
+                                <label for="male">{{'SETTINGS.NEWS.MALE'|translate}}</label>
+                            </div>
+                            <div class="span2">
+                                <input class="margin-bottom-5px" type="radio" name="gender" ng-model="input.target_gender" id="female" value="female" />
+                                <label for="female">{{'SETTINGS.NEWS.FEMALE'|translate}}</label>
+                            </div>
+                            <div class="span1">
+                                <input class="margin-bottom-5px" type="radio" name="gender" ng-model="input.target_gender" id="both_gender" value="" ng-checked="input.target_gender == null"/>
+                                <label for="both_gender">{{'SETTINGS.NEWS.BOTH'|translate}}</label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="span3">{{'USER.USER_LIST.LB_IS_PURCHASE'|translate}}</th>
+                    <td>
+                        <div class="form-inline">
+                            <div class = "span2">
+                                <input class="margin-bottom-5px" type="radio" name="isPurchase" ng-model = "input.is_purchase" id="purchased" value="1"/>
+                                <label for="purchased">{{'FORM.YES'|translate}}</label>
+                            </div>
+                            <div class = "span2">
+                                <input class="margin-bottom-5px" type="radio" name="isPurchase" ng-model = "input.is_purchase" id="notPurchase" value="0"/>
+                                <label for="notPurchase">{{'FORM.NO'|translate}}</label>
+                            </div>
+                            <div class = "span2">
+                                <input class="margin-bottom-5px" type="radio" name="isPurchase" ng-model = "input.is_purchase" id="purchase_all" value="" ng-checked="input.is_purchase==null"/>
+                                <label for="purchase_all">{{'SETTINGS.NEWS.BOTH'|translate}}</label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th class="span3">
+                        {{'USER.PROPERTY.SELECT_USER_TYPE.EMAIL'|translate}}</label>
+                    </th>
+                    <td>
+                        <div class="form-inline">
+                            <div class = "span2">
+                                <input class="margin-bottom-5px" type="radio" name="haveEmail" ng-model="input.have_email" id="haveEmail" value = "1"/>
+                                <label for="haveEmail">{{'FORM.YES'|translate}}</label>
+                            </div>
+                            <div class = "span2">
+                                <input class="margin-bottom-5px" type="radio" name="haveEmail" ng-model = "input.have_email" id="notHaveEmail" value="0"/>
+                                <label for="notHaveEmail">{{'FORM.NO'|translate}}</label>
+                            </div>
+                            <div class = "span2">
+                                <input class="margin-bottom-5px" type="radio" name="haveEmail" ng-model = "input.have_email" id="email_all" value="" ng-checked="input.email==null"/>
+                                <label for="email_all">{{'SETTINGS.NEWS.BOTH'|translate}}</label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- Register Time-->
+                <tr>
+                    <th class="span3">
+                        <label for="targetRegisterTime"><b>{{'USER.PROPERTY.SELECT_SORT.REGISTER_TIME'|translate}}</b>
+                        </label>
+                    </th>
+                    <td>
+                        <div class="control-group" id="targetRegisterTime">
+                            <div class="controls span2">
+                                <datetimepicker class="span12" ng-model="input.register_from.time" pick-time="false"
+                                                ng-label="true" label="{{'LAYOUT.DATE.FROM'|translate}}" />
+                            </div>
+                            <div class="span2">
+                            <select ng-model="input.register_type" class="span12"
+                                    ng-options = "c.value as c.label for c in properties.register_type">
+                            </select>
+                            </div>
+                            <div class="controls span2" ng-if="input.register_type == 2">
+                                <datetimepicker class="span12" ng-model="input.register_to.time" pick-time="false"
+                                                ng-label="true" label="{{'LAYOUT.DATE.TO'|translate}}" />
+                            </div>
+                        </div>
+                        <!--<div class="span8">-->
+                            <!--<div class = "span3">-->
+                                <!--<input type="number" ng-model="input.register_time" id="targetRegisterTime" min=0 class="span12"/>-->
+                            <!--</div>-->
+                            <!--<div class="span3">-->
+                                <!--<select ng-model="input.register_type" class="span12"-->
+                                        <!--ng-options = "c.value as c.label for c in properties.register_type">-->
+                                <!--</select>-->
+                            <!--</div>-->
+                            <!--<div class = "span4">-->
+                                <!--<input type="text" ng-model="properties.register_demo"  min=0 class="span12" ng-disabled="true"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </td>
+                </tr>
+                <!-- User Type-->
+                <tr>
+                    <th class="span3" for="targetUserType">{{'USER.INFO.USER_TYPE'|translate}}</th>
+                    <td>
+                        <div class="span2">
+                            <select class="span12" id="targetUserType"
+                                    ng-model="input.target_user_type"
+                                    ng-options="c.value as c.label for c in properties.user_type"></select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="span3">
+                        <label for="targetTitle"><b>{{'SETTINGS.CREATE_NEWS.TITLE'|translate}}</b></label></th>
+                    <td><input type="text" ng-model="input.title" class="span8" id="targetTitle" required></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+<div class="row-fluid">
+    <div class="span8">
+        <div class="span4">
+            <upload form="addNews" base64="input.base64" size="properties.size" source="input.imgSrc" accept="properties.accept" limit="properties.limit"></upload>
+            <p>{{'TEXT.IMAGE_SIZE'|translate}}</p>
+        </div>
+        <div class="span8">
+            <div class="page-header text-center">
+                <span >{{'SETTINGS.CREATE_NEWS.TEXT_INPUT_FORM'|translate}}</span>
+            </div> 
+            <div>
+                <textarea ng-model="input.content" required class="span12" rows="7" form="addNews"></textarea>
+            </div>
+            <span>
+                {{'TEXT.TAG_HTML'|translate}} <br>
+                &lt;A&gt; : {{'TEXT.TAG_A'|translate}} <br>
+                &lt;B&gt; : {{'TEXT.TAG_B'|translate}} <br>
+                &lt;BR&gt; : {{'TEXT.TAG_BR'|translate}} <br>
+                &lt;CENTER&gt; : {{'TEXT.TAG_CENTER'|translate}} <br>
+                &lt;DIV&gt; : {{'TEXT.TAG_DIV'|translate}} <br>
+                &lt;FONT&gt; : {{'TEXT.TAG_FONT'|translate}} <br>
+                &lt;H1&gt;～&lt;H6&gt; : {{'TEXT.TAG_H'|translate}} <br>
+                &lt;UL&gt; : {{'TEXT.TAG_UL'|translate}} <br>
+                &lt;LI&gt; : {{'TEXT.TAG_LI'|translate}} <br>
+                &lt;OL&gt; : {{'TEXT.TAG_OL'|translate}} <br>
+                &lt;TABLE&gt; :{{'TEXT.TAG_TABLE'|translate}}<br>
+                {{'TEXT.EXAMPLE_TAG'|translate}} : &lt;a href="http://www.24h.com.vn/"&gt; news &lt;/a&gt;<br>
+                {{'TEXT.RESULT'|translate}} : <a href="http://www.24h.com.vn/">news</a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <button class="btn btn-warning" type="button" ng-click="preview(input)" ng-if="editMode">{{'SETTINGS.CREATE_NEWS.PREVIEW'|translate}}</button>
+    <input class="btn btn-primary" type="submit" form="addNews" value="{{'SETTINGS.CREATE_NEWS.SAVE'|translate}}">
+</div>

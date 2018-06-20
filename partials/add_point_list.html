@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h4>{{'USER.ADD_POINT.TITLE'|translate}}</h4>
+</div>
+<div class="modal-body">
+  <div class="row-fluid">
+    <form class="form-horizontal" ng-submit="addPoint()" id="add-point-form">
+      <div class="control-group">
+        <label class="control-label">{{'USER.ADD_POINT.AMOUNT'|translate}}</label>
+        <div class="controls">
+          <input type="number" ng-model="input.amount" required>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-warning" ng-click="close()">{{'DIALOG.CANCEL'|translate}}</button>
+  <button type="submit" class="btn btn-primary"
+		  form="add-point-form">{{'DIALOG.CONFIRM'|translate}}</button>
+</div>

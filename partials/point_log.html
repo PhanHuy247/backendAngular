@@ -1,0 +1,219 @@
+<div class="page-header">
+  <div class="row-fluid">
+    <div class="span8">
+      <h3>{{'LOG.POINT.TITLE'|translate}}</h3>
+    </div>
+    <div class="span4 text-right">
+      <button type="submit" class="btn btn-primary" ng-click="exportCSV()">{{'FORM.BTN_EXPORT'|translate}}</button>
+    </div>
+  </div>
+</div>
+<form class="form-horizontal" ng-submit="beginSearch()">
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="control-group">
+        <label class="control-label" for="userType">{{'USER.INFO.USER_TYPE'|translate}}</label>
+        <div class="controls">
+          <select id="userType" ng-model="input.userType" class="span12"
+            ng-options="d.value as d.label for d in properties.userTypes"></select>
+        </div>
+      </div>
+      <div class="control-group" ng-show="input.userType.toString().length > 0">
+        <label class="control-label" for="account">
+          {{input.userType| label:[properties.userTypes, true]}}
+        </label>
+        <div class="controls">
+          <input type="text" class="span12" id="account" ng-model="input.account">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="userId">{{'USER.INFO.USER_ID'|translate}}</label>
+        <div class="controls">
+          <input type="text" class="span12" id="userId" ng-model="input.id">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">{{'LOG.POINT.ACTION_TIME'|translate}}</label>
+        <div class="controls">
+          <datetimepicker class="span12" pick-time="false" ng-model="input.fromTime"
+            ng-label="true" label="{{'LAYOUT.DATE.FROM'|translate}}" /> 
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label"></label>
+        <div class="controls">
+          <datetimepicker class="span12" pick-time="false" ng-model="input.toTime"
+            ng-label="true" label="{{'LAYOUT.DATE.TO'|translate}}" />
+        </div>
+      </div>
+    </div>
+    <div class="span6">
+      <div class="control-group">
+        <label class="control-label" for="purpose">{{'LOG.POINT.PURPOSE'|translate}}</label>
+        <div class="controls">
+          <select class="span12" id="purpose" ng-model="input.type"  
+            ng-change="changeFreePoint(input.type)"
+            ng-options="d.value as d.label for d in properties.types"></select>
+        </div>
+      </div>
+        <div class="control-group" ng-show="enableFreePoint_41">
+            <label class="control-label" for="free_point">{{'LOG.POINT.FREE_POINT'|translate}}</label>
+            <div class="controls">
+                <select class="span12" id="free_point" ng-model="input.free_point"
+                        ng-options="d.free_point_number as d.free_point_name for d in properties.freePoints">
+                    <option value="" selected="selected">{{'FORM.PLEASE_SELECT'|translate}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group" ng-show="enableFreePoint_42">
+            <label class="control-label" for="free_point">{{'LOG.POINT.SALE_TYPE'|translate}}</label>
+            <div class="controls">
+                <select class="span12" id="free_point" ng-model="input.sale_type"
+                        ng-options="d.value as d.label for d in properties.saleTypes">
+                    <option value="" selected="selected">{{'FORM.PLEASE_SELECT'|translate}}</option>
+                </select>
+            </div>
+        </div>
+      <div class="control-group">
+        <label class="control-label" for="usePoint">{{'LOG.POINT.USED_POINT'|translate}}</label>
+        <div class="controls">
+          <div class="span5">
+            <input type="number" min="-1000000" max="1000000" ng-model="input.from_point" class="span12">
+          </div>
+          <div class="span2 text-center">
+            <b>&sim;</b>
+          </div>
+          <div class="span5">
+            <input type="number" min="-1000000" max="1000000" ng-model="input.to_point" class="span12">
+          </div>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="cmCode">{{'USER.INFO.CM_CODE'|translate}}</label>
+        <div class="controls">
+          <input class="span12" id="cmCode" type="text" ng-model="input.cmCode">
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="control-group">
+    <label class="control-label" for="sort">{{'LOG.COMMON.SORT_BY' | translate}}</label>
+    <div class="controls">
+      <div class="form-inline">
+        <select id="sort" ng-model="input.sort"
+          ng-options="d.value as d.label for d in properties.sort"></select>
+        &nbsp;&nbsp;
+        <label class="radio" ng-repeat="item in properties.orderBys">
+          <input type="radio" ng-model="input.order" value="{{item.value}}">
+          <span>{{item.label}}</span>
+          &nbsp;&nbsp;
+        </label>
+        <button type="submit" class="btn btn-primary pull-right">{{'FORM.BTN_SEARCH'|translate}}</button>
+      </div>
+    </div>
+  </div>
+</form>
+<hr id="block-center-screen">
+<div class="row-fluid">
+  <div class="span8">
+    <pagination 
+        ng-hide="properties.total <= properties.itemsPerPage"
+        on-select-page="load(page)" page="properties.currentPage"
+        total-items="properties.total" boundary-links="true" rotate="false"
+        max-size="properties.numberPagesDisplay" items-per-page="properties.itemsPerPage"
+        next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+        previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+        first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+        last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}" />
+  </div>
+  <div class="span4 text-right pargin-top-margin">
+    <span>{{'LIST.TOTAL_ITEMS'|translate}}&#58;&nbsp;{{properties.total}}</span>
+  </div>
+
+</div>
+<table class="table table-hover table-bordered" ng-show="properties.total > 0">
+  <thead>
+    <tr>
+      <th>
+        <span>{{'USER.INFO.USER_ID'|translate}}</span><br>
+        <span>{{'USER.INFO.USER_NAME'|translate}}</span>
+      </th>
+      <th>
+        <span>{{'USER.INFO.USER_TYPE'|translate}}</span><br>
+        <span>{{'USER.INFO.EMAIL'| translate}}&nbsp;&#47;&nbsp;{{'USER.INFO.FACEBOOK_ID'|translate}}</span>
+      </th>
+      <th>
+        <span>{{'USER.INFO.GROUP'|translate}}</span><br>
+        <span>{{'USER.INFO.CM_CODE'|translate}}</span><br>
+        <span>{{'USER.INFO.IP'| translate}}</span>
+      </th>
+      <th>
+        <span>{{'LOG.POINT.PURPOSE'|translate}}</span>
+      </th>
+      <!--10_06_2014-->
+        <th  width="9%" >
+          <span>{{'USER.POINT_HISTORY.BEFORE_POINT'|translate}}</span>
+        </th>
+        <th  width="9%">
+          <span>{{'USER.POINT_HISTORY.TB_POINT'|translate}}</span>
+        </th>
+        <th  width="9%">
+          <span>{{'USER.POINT_HISTORY.AFTER_POINT'|translate}}</span>
+        </th>
+      <th>
+        <span>{{'LOG.POINT.ACTION_TIME'|translate}}</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in log">
+      <td>
+        <span>
+          <a href="#/user/user_detail/{{item.user_id}}" class="btn-link" target="_blank">{{item.user_id}}</a>
+          <!-- <a class="btn-link" ng-click="userDetail(item.user_id)">{{item.user_id}}</a> -->
+        </span>
+        <br>
+        <span>{{item.user_name}}</span>
+      </td>
+      <td>
+        <span>{{item.user_type|label:[properties.userTypes, true]}}</span><br>
+        <span>{{item.email}}</span>
+      </td>
+      <td>
+        <span>{{'LAYOUT.NO_DATA'|translate}}</span><br>
+        <span>{{item.cm_code == null ? 'LAYOUT.NO_DATA' : item.cm_code|translate}}</span><br>
+        <span>{{item.ip}}</span>
+      </td>
+      <td>
+        <span ng-if="item.isSetPartnerId" ng-bind-html="item.type"></span>
+        <span ng-if="!item.isSetPartnerId">{{item.type | label:[properties.types, true]}}</span>
+      </td>
+      <!--10_06_2014-->
+        <td>
+          <span>{{item.before_point|stat}}</span>
+        </td>
+        <td>
+          <span>{{item.point|stat}}</span>
+        </td>
+        <td>
+          <span>{{item.after_point|stat}}</span>
+        </td>
+      <td>
+        <span>{{item.time|local:[true]}}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="row-fluid">
+  <div class="span12">
+    <pagination ng-hide="properties.total <= properties.itemsPerPage"
+                on-select-page="load(page)" page="properties.currentPage"
+                total-items="properties.total" boundary-links="true" rotate="false"
+                max-size="properties.numberPagesDisplay" items-per-page="properties.itemsPerPage"
+                next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+                previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+                first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+                last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}" />
+  </div>
+</div>

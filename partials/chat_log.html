@@ -1,0 +1,269 @@
+<div class="page-header">
+    <div class="row-fluid">
+        <div class="span4">
+            <h3>{{'LOG.CHAT.TITLE'|translate}}</h3>
+        </div>
+        <div class="span8 text-right">
+            <button type="button" class="btn btn-primary" ng-click="exportCSV()">{{'FORM.BTN_EXPORT'|translate}}</button>
+        </div>
+    </div>
+</div>
+
+<form class="form-horizontal" ng-submit="searchChatLog()">
+    <div class="row-fluid">
+        <div class="span6">
+            <!-- User type -->
+            <div class="control-group">
+                <label class="control-label" for="userType">{{'USER.INFO.USER_TYPE'|translate}}</label>
+                <div class="controls">
+                    <select id="userType" ng-model="chat_log.userType" class="span12"
+                            ng-options="u.value as u.label for u in attributes.userTypes"></select>
+                </div>
+            </div>
+
+            <!-- Account -->
+            <div class="control-group" ng-if="chat_log.userType.toString().length > 0">
+                <label class="control-label" for="account">
+                    {{chat_log.userType| label:[attributes.userTypes, true]}}
+                </label>
+                <div class="controls">
+                    <input type="text" id="account" ng-model="chat_log.account" class="span12">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">{{'USER.USER_LIST.LB_GENDER'|translate}}</label>
+                <div class="controls">
+                    <select class="span12" ng-model="chat_log.gender"
+                            ng-options="d.value as d.label for d in attributes.gender">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="span6">
+            <!-- User ID -->
+            <div class="control-group">
+                <label class="control-label" for="userID">{{'USER.INFO.USER_ID'|translate}}</label>
+                <div class="controls">
+                    <input type="text" id="userID" ng-model="chat_log.userId" class="span12"/>
+                </div>
+            </div>
+
+            <!-- CM code -->
+            <div class="control-group">
+                <label class="control-label" for="cmCode">{{'USER.INFO.CM_CODE'|translate}}</label>
+                <div class="controls">
+                    <input type="text" id="cmCode" ng-model="chat_log.cmCode" class="span12"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Time -->
+    <div class="row-fluid">
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label">{{'LOG.CHAT.CHAT_TIME'|translate}}</label>
+                <div class="controls">
+                    <div class="row-fluid">
+                        <datetimepicker class="span12" ng-model="chat_log.fromTime"
+                                        pick-time="false" ng-label="true" label="{{'LAYOUT.DATE.FROM'|translate}}"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label"></label>
+                <div class="controls">
+                    <div class="row-fluid">
+                        <datetimepicker class="span12" ng-model="chat_log.toTime"
+                                        pick-time="false" ng-label="true" label="{{'LAYOUT.DATE.TO'|translate}}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="control-group">
+        <label class="control-label" for="sortBy">{{'LOG.COMMON.SORT_BY'|translate}}</label>
+        <div class="controls">
+            <div class="form-inline">
+                <select id="sortBy" ng-model="chat_log.sortBy"
+                        ng-options="s.value as s.label for s in attributes.sortBys"></select>
+                &nbsp;&nbsp;
+                <label class="radio" ng-repeat="item in attributes.orderBys">
+                    <input type="radio" name="order_by" value="{{item.value}}" ng-model="chat_log.orderBy">
+                    {{item.label}}
+                    &nbsp;&nbsp;
+                </label>
+
+                <button class="pull-right btn btn-primary" type="submit">
+                    {{'FORM.BTN_SEARCH'|translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <div class="control-group">
+        <div class="controls">
+            <div class="form-inline">
+                <label class="radio" ng-repeat="item in attributes.by_user_type" style="width: 100px;">
+                    <input type="radio" name="by_user_type" value="{{item.value}}" ng-model="chat_log.by_user_type">
+                    {{item.label}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <div class="form-inline">
+                <label class="radio" ng-repeat="item in attributes.message_type" style="width: 100px;">
+                    <input type="radio" name="message_type" value="{{item.value}}" ng-model="chat_log.message_type">
+                    {{item.label}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <hr>
+</form>
+
+<div class="row-fluid">
+    <div class="span8">
+        <div class="row-fluid">
+            <label class="span2">{{'USER.INFO.USER_ID'|translate}}</label>
+            <a href="#/user/user_detail/{{user.user_id}}">{{user.user_id}}</a>
+        </div>
+        <div class="row-fluid">
+            <label class="span2">{{'USER.INFO.USER_NAME'|translate}}</label>
+            <a href="#/user/user_detail/{{user.user_id}}">{{user.user_name}}</a>
+        </div>
+        <p id="block-center-screen"></p>
+        <div class="row-fluid">
+            <pagination
+                next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+                previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+                first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+                last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+                ng-hide="setting.totalItems <= setting.itemsPerPage"
+                on-select-page="load(page)"
+                class="span12"
+                page="setting.currentPage"
+                total-items="setting.totalItems"
+                boundary-links="true"
+                rotate="false"
+                max-size="setting.numberPagesDisplay"
+                items-per-page="setting.itemsPerPage">
+            </pagination>
+        </div>
+    </div>
+    <div class="span4 text-right pagination">
+        <span>{{'LIST.TOTAL_ITEMS'|translate}}&#58;&nbsp;{{setting.totalItems}}</span>
+    </div>
+</div>
+
+<div class="row-fluid" ng-if="setting.totalItems">
+    <div class="span12">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        <span ng-hide = "{{isLogAll}}">{{'USER.INFO.USER_ID'| translate}}</span>
+                        <span ng-show = "{{isLogAll}}">{{'USER.INFO.USER_ID_REQUEST'| translate}}</span>
+                        <br>
+                        <span ng-hide = "{{isLogAll}}">{{'USER.INFO.USER_NAME'| translate}}</span>
+                        <span ng-show = "{{isLogAll}}">{{'USER.INFO.USER_ID_RECEIVE'| translate}}</span>
+                    </th>
+                    <th>
+                        <span>{{'USER.INFO.USER_TYPE'| translate}}</span>
+                        <br>
+                        <span>
+                            {{'USER.INFO.EMAIL'| translate}}&nbsp;&#47;&nbsp;{{'USER.INFO.FACEBOOK_ID'| translate}}
+                        </span>
+                    </th>
+                    <th>
+                        <span>{{'USER.INFO.GROUP'| translate}}</span>
+                        <br>
+                        <span>{{'USER.INFO.CM_CODE'| translate}}</span>
+                        <br>
+                        <span>{{'USER.INFO.IP'| translate}}</span>
+                    </th>
+                    <th>
+                        {{'LOG.CHAT.CHAT_CONTENT'| translate}}
+                    </th>
+                    <th>
+                        {{'LOG.CHAT.BY'| translate}}
+                    </th>
+                    <th>
+                        {{'LOG.CHAT.CHAT_TIME'| translate}}
+                    </th>                    
+                    <th>
+                        {{'LOG.CHAT.LB_STATUS'| translate}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="chat in chatList">
+                    <td>
+                        <span ng-show = "{{isLogAll}}"><a ng-if="chat.is_Admin === 0" target="_blank" href="#user/user_detail/{{chat.request_id}}">{{chat.request_id}}</a> <br></span>
+                        <span ng-if="chat.is_Admin === 0"><a target="_blank" href="#user/user_detail/{{chat.user_id}}">{{chat.user_id}}</a></span>
+                        <span ng-if="chat.is_Admin === 1"><a>{{chat.user_id}}</a></span>
+                        <span ng-hide = "{{isLogAll}}"><br>{{chat.user_name}}</span>
+                    </td>
+                    <td>
+                        <span>{{chat.user_type| label:[attributes.userTypes, true]}}</span>
+                        <br>
+                        <span>{{chat.email}}</span>
+                    </td>
+                    <td>
+                        <span>{{'LAYOUT.NO_DATA'| translate}}</span>
+                        <br>
+                        <span>{{chat.cm_code == null ? 'LAYOUT.NO_DATA' : chat.cm_code| translate}}</span>
+                        <br>
+                        <span>{{chat.ip}}</span>
+                    </td>
+                    <td class="width-245px">
+                        {{chat.is_free != null ? chat.is_free : ''}}
+                        <div ng-bind-html="chat.content"></div>
+                        <videogular-area ng-if="chat.video_flag" source="chat.url"></videogular-area>
+                        <audiogular-area ng-if="chat.audio_flag" source="chat.url"></audiogular-area>
+                    </td>
+                    <td>
+                        {{chat.is_own|label:[attributes.statusLogChatSendReceive]}}
+                    </td>
+                    <td>
+                        <span>{{chat.time| local:[true]}}</span>
+                    </td>
+                    <td>
+                        <span ng-show="chat.mess_type === 'PP' && chat.is_Read === 1">{{'LOG.CHAT.STATUS_READ_MESSAGE'| translate}}</span>
+                        <span ng-show="chat.mess_type === 'PP' && chat.is_Read === 0">{{'LOG.CHAT.STATUS_UNREAD_MESSAGE'| translate}}</span>
+                        <span ng-show="chat.mess_type !== 'PP' && chat.is_Read === 1">{{'LOG.CHAT.STATUS_VIEW_MESSAGE'| translate}}</span>
+                        <span ng-show="chat.mess_type !== 'PP' && chat.is_Read === 0">{{'LOG.CHAT.STATUS_UNVIEW_MESSAGE'| translate}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span8">
+        <pagination
+            next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+            previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+            first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+            last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+            ng-hide="setting.totalItems <= setting.itemsPerPage"
+            on-select-page="load(page)"
+            class="span12"
+            page="setting.currentPage"
+            total-items="setting.totalItems"
+            boundary-links="true"
+            rotate="false"
+            max-size="setting.numberPagesDisplay"
+            items-per-page="setting.itemsPerPage">
+        </pagination>
+    </div>
+</div>

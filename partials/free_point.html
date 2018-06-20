@@ -1,0 +1,104 @@
+<!-- Header -->
+<div class="page-header">
+  <h3>{{'SETTINGS.FREE_POINT.TITLE'|translate}}</h3>
+</div>
+<p id="block-center-screen"></p>
+<!-- Pagination -->
+<div class="row-fluid">
+  <div class="span8">
+    <pagination
+      next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+      previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+      first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+      last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+      ng-hide="setting.totalItems <= setting.itemsPerPage"
+      on-select-page="pageSelect(page)"
+      page="setting.currentPage"
+      total-items="setting.totalItems"
+      boundary-links="true"
+      rotate="false"
+      max-size="setting.numberPagesDisplay"
+      items-per-page="setting.itemsPerPage">
+    </pagination>
+  </div>
+  <div class="span4 text-right pagination">
+    <span>{{'LIST.TOTAL_ITEMS'|translate}}&#58;&nbsp;{{setting.totalItems}}</span>
+  </div>
+</div>
+
+<!-- Table content -->
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>
+        <span>{{'SETTINGS.FREE_POINT.LB_NAME'|translate}}</span>
+      </th>
+      <th>
+        <span>{{'SETTINGS.FREE_POINT.LB_NUMBER'|translate}}</span>
+      </th>
+      <th class="span3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Line add new page -->
+    <tr>
+      <td>
+        <input type="text" ng-model="freePoint.free_point_name" class="span12" id="name" form="addPage" required>
+      </td>
+      <td>
+          <input type="number" min="1" step="1" ng-model="freePoint.free_point_number" class="span12" id="number" form="addPage" required>
+      </td>
+      <td>
+        <form id="addPage" ng-submit="add()">
+          <button type="submit"  ng-disabled="flag" class="btn btn-primary">{{'FORM.BTN_ADD'|translate}}</button>
+        </form>
+      </td>
+    </tr>
+    <!-- List banned word -->
+    <tr ng-repeat="item in freePoints">
+      <td>
+        <input type="text" ng-disabled="!item.isEdit" ng-model="item.free_point_name" class="span12"
+          form="edit-{{item.id}}" id="title-{{item.id}}" required>
+      </td>
+      <td>
+          <input type="number" min="1" step="1" ng-disabled="!item.isEdit" ng-model="item.free_point_number" class="span12"
+          form="edit-{{item.id}}" id="url-{{item.id}}" required>
+      </td>
+      <td>
+        <button type="button" ng-if="!item.isEdit" class="btn btn-info"
+          ng-click="edit(item)">{{'FORM.BTN_EDIT'|translate}}</button>
+        <form id="edit-{{item.id}}" ng-submit="save(item)">
+          <span>
+            <button type="button" ng-if="item.isEdit" class="btn btn-warning"
+              ng-click="cancel(item)">{{'FORM.BTN_CANCEL'|translate}}</button>
+          </span>
+          <span>
+            <button type="submit" ng-if="item.isEdit" class="btn btn-primary">
+              {{'FORM.BTN_SAVE'|translate}}
+            </button>
+          </span>
+        </form>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- Pagination -->
+<div class="row-fluid">
+  <div class="span12">
+    <pagination
+      next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+      previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+      first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+      last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+      ng-hide="setting.totalItems <= setting.itemsPerPage"
+      on-select-page="pageSelect(page)"
+      class="span12"
+      page="setting.currentPage"
+      total-items="setting.totalItems"
+      boundary-links="true"
+      rotate="false"
+      max-size="setting.numberPagesDisplay"
+      items-per-page="setting.itemsPerPage">
+    </pagination>
+  </div>
+</div>

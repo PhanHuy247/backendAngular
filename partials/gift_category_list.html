@@ -1,0 +1,64 @@
+<div class="page-header">
+  <h3>{{'GIFT_STAMP.GIFT_CATEGORY_LIST'|translate}}</h3>
+</div>
+<!--<sortable source="properties.giftCategories" active="properties.activeOrder"
+  key-prop="cat_id" on-save="saveOrder(orders)"></sortable>-->
+<table class="table table-hover table-bordered" ng-hide="properties.activeOrder">
+  <thead>
+    <tr>
+      <th>{{'GIFT_STAMP.INFO.VN_NAME'|translate}}</th>
+      <th>{{'GIFT_STAMP.INFO.EN_NAME'|translate}}</th>
+      <th class="span1">
+        <span>{{'GIFT_STAMP.INFO.NUMBER_OF_GIFTS'|translate}}</span>
+      </th>
+      <th class="span3"></th>
+    </tr>
+  </thead>
+  <tbody>
+	<!--
+    <tr>
+      <td>
+        <input type="text" class="span12" form="add"
+          ng-model="input.nameJP" required>
+      </td>
+      <td>
+        <input type="text" class="span12" form="add"
+          ng-model="input.nameEN" required>
+      </td>
+      <td></td>
+      <td>
+        <form ng-submit="add()" id="add">
+          <button  ng-disabled="flag" type="submit" class="btn btn-primary">{{'FORM.BTN_ADD'|translate}}</button>
+        </form>
+      </td>
+    </tr>
+	-->
+    <tr ng-repeat="category in properties.giftCategories">
+      <td>
+        <input type="text" class="span12" form="edit-{{category.cat_id}}" required
+          ng-model="category.jp_name" ng-disabled="!category.isEdit">
+      </td>
+      <td>
+        <input type="text" class="span12" form="edit-{{category.cat_id}}" required
+          ng-model="category.en_name" ng-disabled="!category.isEdit">
+      </td>
+      <td>
+        <div class="text-center">
+          <a href="#/settings/gift_category/{{category.cat_id}}" class="btn btn-link">{{category.gift_num|stat}}</a>
+        </div>
+      </td>
+      <td>
+        <button type="button" class="btn btn-info"
+          ng-hide="category.isEdit" ng-click="beginEdit(category)">{{'FORM.BTN_EDIT'|translate}}</button>
+        <!--<button type="button" class="btn btn-danger"
+          ng-hide="category.isEdit" ng-click="remove(category)">{{'FORM.BTN_DELETE'|translate}}</button>-->
+        <form ng-submit="save(category)" id="edit-{{category.cat_id}}">
+          <button type="button" class="btn btn-warning"
+            ng-show="category.isEdit" ng-click="discard(category)">{{'FORM.BTN_CANCEL'|translate}}</button>
+          <button type="submit" class="btn btn-primary"
+            ng-show="category.isEdit">{{'FORM.BTN_SAVE'|translate}}</button>
+        </form>
+      </td>
+    </tr>
+  </tbody>
+</table>

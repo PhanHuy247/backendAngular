@@ -1,0 +1,33 @@
+<div class="modal-header">
+    <h4>{{'USER.ADD_PURCHASE_POINT.TITLE'|translate}}</h4>
+</div>
+<div class="modal-body">
+    <div class="row-fluid">
+        <form class="form-horizontal" ng-submit="addPurchasePoint()" id="add-purchase-point-form">
+            <div class="control-group span">
+                <label class="control-label">{{'SETTINGS.PACKAGE.PRICE'|translate}}</label>
+                <div class="controls">
+                    <input type="number" ng-model="input.price" required min="0" max="100000">
+                </div>
+                <br>
+                <label class="control-label">{{'USER.ADD_POINT.AMOUNT'|translate}}</label>
+                <div class="controls">
+                    <input type="number" ng-model="input.point" required min="0" max="100000">
+                </div>
+                <br>
+                <label class="control-label">{{'LOG.PURCHASE_LOG.PURCHASE_TYPE_PRODUCTION'|translate}}</label>
+                <div class="controls">
+                    <select
+                            ng-model="input.production_type"
+                            ng-options="c.value as c.label for c in property.production_type" required></select>
+                </div>
+            </div>
+            <input type="hidden" ng-model="input.isAdded" ng-init="input.isAdded = true">
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-warning" ng-click="close()">{{'DIALOG.CANCEL'|translate}}</button>
+    <button type="submit" class="btn btn-primary"
+            form="add-purchase-point-form">{{'DIALOG.CONFIRM'|translate}}</button>
+</div>

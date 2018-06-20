@@ -1,0 +1,232 @@
+<div class="page-header">
+    <div class="row-fluid">
+        <div class="span4">
+            <h3>{{'LOG.BUZZ.TITLE'|translate}}</h3>
+        </div>
+        <div class="span8 text-right">
+            <button type="button" class="btn btn-primary" ng-click="exportCSV()">{{'FORM.BTN_EXPORT'|translate}}</button>
+        </div>
+    </div>
+</div>
+<form class="form-horizontal" ng-submit="searchLogBuzz()"> 
+    <div class="row-fluid">
+        <div class="span6">
+            <!-- User type -->
+            <div class="control-group">
+                <label class="control-label" for="userType">{{'USER.INFO.USER_TYPE'|translate}}</label>
+                <div class="controls">
+                    <select id="userType" ng-model="buzz.userType" class="span12"
+                            ng-options="u.value as u.label for u in attributes.userTypes">
+                    </select>
+                </div>
+            </div>
+
+            <!-- Email / Facebook ID -->
+            <div class="control-group" ng-if="buzz.userType.toString().length > 0">
+                <label class="control-label" for="account">
+                    {{buzz.userType| label:[attributes.userTypes, true]}}
+                </label>
+                <div class="controls">
+                    <input type="text" id="account" ng-model="buzz.account" class="span12">
+                </div>
+            </div>
+
+            <!-- User ID -->
+            <div class="control-group">
+                <label class="control-label" for="userId">{{'USER.INFO.USER_ID'|translate}}</label>
+                <div class="controls">
+                    <input type="text" id="userId" ng-model="buzz.userId" class="span12">
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <div class="controls">
+                    <div class="form-inline">
+                        <label class="radio" ng-repeat="item in attributes.buzz_status">
+                            <input type="radio" name="buzz_status" value="{{item.value}}" ng-model="buzz.buzz_status">
+                            {{item.label}}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="span6">
+            <!-- Buzz type -->
+            <div class="control-group">
+                <label class="control-label">{{'LOG.BUZZ.TYPE.LABEL'|translate}}</label>
+                <div class="controls">
+                    <select ng-model="buzz.type" class="span12"
+                            ng-options="t.value as t.label for t in attributes.buzzTypes">
+                    </select>
+                </div>
+            </div>
+
+            <!-- Posted buzz time -->
+            <div class="control-group">
+                <label class="control-label">{{'LOG.BUZZ.POSTED_TIME'|translate}}</label>
+                <div class="controls">
+                    <div class="row-fluid">
+                        <datetimepicker class="span12" ng-model="buzz.fromTime"
+                                        pick-time="false" ng-label="true" label="{{'LAYOUT.DATE.FROM'|translate}}"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label"></label>
+                <div class="controls">
+                    <div class="row-fluid">
+                        <datetimepicker class="span12" ng-model="buzz.toTime"
+                                        pick-time="false" ng-label="true" label="{{'LAYOUT.DATE.TO'|translate}}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="control-group">
+        <label class="control-label"></label>
+        <div class="controls">
+            <div class="form-inline">
+                <button type="submit" class="pull-right btn btn-primary">{{'FORM.BTN_SEARCH'|translate}}</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<hr id="block-center-screen">
+
+<div class="row-fluid">
+    <div class="span8">
+        <pagination
+            next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+            previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+            first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+            last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+            ng-hide="setting.totalItems <= setting.itemsPerPage"
+            on-select-page="load(page)"
+            class="span12"
+            page="setting.currentPage"
+            total-items="setting.totalItems"
+            boundary-links="true"
+            rotate="false"
+            max-size="setting.numberPagesDisplay"
+            items-per-page="setting.itemsPerPage">
+        </pagination>
+    </div>
+    <div class="span4 text-right pagination">
+        <span>{{'LIST.TOTAL_ITEMS'|translate}}&#58;&nbsp;{{setting.totalItems}}</span>
+    </div>
+</div>
+
+<div class="row-fluid" ng-if="setting.totalItems">
+    <div class="span12">
+        <table class="table table-bordered">
+            <tbody>
+                <tr ng-repeat="buzz in buzzList">
+                    <td>
+                        <!-- User ID -->
+                        <div class="row-fluid">
+                            <label class="span2">{{'USER.INFO.USER_ID'|translate}}</label>
+                            <span class="text-info span8">
+                                <a href="#/user/user_detail/{{buzz.user_id}}" class="btn-link"
+                                   target="_blank">{{buzz.user_id}}</a>
+                                <!-- <a class="btn-link" ng-click="userDetail(buzz.user_id)">{{buzz.user_id}}</a> -->
+                            </span>
+                            <a href="javascript:void(0);" ng-click="buzzDetail(buzz.buzz_id)" class="span2 text-right">{{'FORM.BTN_DETAIL'|translate}}</a>
+                        </div>
+
+                        <!-- User Name -->
+                        <div class="row-fluid">
+                            <label class="span2">{{'USER.INFO.USER_NAME'|translate}}</label>
+                            <span class="text-info span10">{{buzz.user_name}}</span>
+                        </div>
+
+                        <!-- Image ID: if image id already exists -->
+                        <div class="row-fluid" ng-if="buzz.buzz_type === 1">
+                            <label class="span2">{{'LOG.BUZZ_BUZZ_DETAIL.IMAGE_ID'|translate}}</label>
+                            <span class="text-info span10">{{buzz.buzz_val}}</span>
+                        </div>
+
+                        <!-- Buzz time -->
+                        <div class="row-fluid">
+                            <div class="span9">{{buzz.buzz_time|local:[true]}}</div>
+                            <span class="span1 text-right btn btn-primary" ng-if="buzz.buzz_status === 1">{{'LOG.BUZZ.STATUS.APPROVE'|translate}}</span>
+                            <span class="span1 text-right btn btn-primary" ng-if="buzz.buzz_status === 0">{{'LOG.BUZZ.STATUS.PENDING'|translate}}</span>
+                            <span class="span1 text-right btn btn-danger" ng-if="buzz.buzz_status === -1">{{'LOG.BUZZ.STATUS.DENY'|translate}}</span>
+                            <!--Status Delete-->
+                            <span class="span1 text-right btn btn-danger" ng-if="buzz.is_deleted === 1">{{'LOG.BUZZ.STATUS.DELETED'|translate}}</span>
+                        </div>
+
+                        <!-- Post -->
+                        <hr>
+                        <div class="row-fluid">
+                            <p ng-if="buzz.buzz_type === 0">{{buzz.buzz_val}}</p>
+                            <div ng-if="buzz.buzz_type === 1" style="height: {{setting.imageSize.height}}; width: {{setting.imageSize.width}};">
+                                <zoom ng-image="buzz" show-image="true"></zoom>
+                                <!-- <img class="auto-image-size" ng-src="{{imageUrl}}/api=load_img_admin&token={{token}}&img_id={{buzz.buzz_val}}&img_kind=2"
+                                     zoom-src="{{imageUrl}}/api=load_img_admin&token={{token}}&img_id={{buzz.buzz_val}}&img_kind=2"> -->
+
+                            </div>
+                            <div ng-if="buzz.buzz_type === 2" style="height: {{setting.giftSize.height}}; width: {{setting.giftSize.width}};">
+                                <img class="auto-image-size" ng-src="{{imageUrl}}/api=load_img_admin&token={{token}}&img_id={{buzz.buzz_val}}&img_kind=4">
+                            </div>
+                        </div>
+                        <hr>
+
+                        <!-- Number liked, number comment -->
+                        <div class="row-fluid">
+                            <div class="span3">
+                                <label class="label label-info " ng-click="showLikedList(buzz.buzz_id, buzz.like_num)">{{buzz.like_num}} {{'LOG.BUZZ.LIKE'|translate}}</label>
+                                <label class="label label-info" ng-click="showCommentList(buzz.buzz_id)">{{buzz.cmt_num}} {{'LOG.BUZZ.COMMENT'|translate}}</label>
+                            </div>
+                        </div>
+
+                        <!-- Comment -->
+                        <div class="row-fluid" ng-if="buzz.cmt_num">
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    <tr ng-repeat="cmt in buzz.comment">
+                                        <td>
+                                            <span>{{cmt.cmt_time|local:[true]}}</span>
+                                            <br>
+                                            <span>{{'USER.INFO.USER_ID'|translate}}&#58;&nbsp;{{cmt.user_id}}</span>
+                                            <hr>
+                                            <p>{{cmt.cmt_val}}</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table> <!-- End table list -->
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span8">
+        <pagination
+            next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+            previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+            first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+            last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+            ng-hide="setting.totalItems <= setting.itemsPerPage"
+            on-select-page="load(page)"
+            class="span12"
+            page="setting.currentPage"
+            total-items="setting.totalItems"
+            boundary-links="true"
+            rotate="false"
+            max-size="setting.numberPagesDisplay"
+            items-per-page="setting.itemsPerPage">
+        </pagination>
+    </div>
+</div>

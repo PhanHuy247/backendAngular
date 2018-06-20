@@ -1,0 +1,105 @@
+<div class="row-fluid">
+  <div class="input-prepend">
+    <span class="add-on">Filter</span>
+    <input class="span12" type="text" ng-model="filter">
+  </div>
+</div>
+<form ng-submit="create()">
+  <div class="row-fluid">
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="span2">Order</th>
+          <th class="span3">Group Screen</th>
+          <th>Title</th>
+          <th>Name</th>
+          <th>Path</th>
+          <th>Controller</th>
+          <th class="span2">Status</th>
+          <th class="span3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <input type="number" class="span12" min="-1" required
+              ng-model="input.order">
+          </td>
+          <td>
+            <select class="span12" ng-model="input.group_id" required
+              ng-options="group.id as group.title for group in groups">
+            </select>
+          </td>
+          <td>
+            <input type="text" class="span12" ng-model="input.title" required>
+          </td>
+          <td>
+            <input type="text" class="span12" ng-model="input.name" required>
+          </td>
+          <td>
+            <input type="text" class="span12" ng-model="input.path" required>
+          </td>
+          <td>
+            <input type="text" class="span12" ng-model="input.controller" required>
+          </td>
+          <td>
+            <select class="span12" ng-model="input.flag">
+              <option value="0">Disable</option>
+              <option value="1">Enable</option>
+            </select>
+          </td>
+          <td>
+            <button type="submit" class="btn btn-primary">Create</button>
+          </td>
+        </tr>
+        <tr ng-repeat="screen in screens | filter:filter | orderBy:[ 'group_id', 'order' ]">
+          <td>
+            <button type="button" class="btn" ng-click="configAPIs(screen)">APIs</button>
+          </td>
+          <td>
+            <input type="number" class="span12" min="-1" required
+              ng-disabled="!screen.isEdit" ng-model="screen.order">
+          </td>
+          <td>
+            <select  class="span12" ng-model="screen.group_id" ng-disabled="!screen.isEdit"
+              ng-options="group.id as group.title for group in groups">
+            </select>
+          </td>
+          <td>
+            <input type="text" class="span12" required
+              ng-disabled="!screen.isEdit" ng-model="screen.title">
+          </td>
+          <td>
+            <input type="text" class="span12" required
+              ng-disabled="!screen.isEdit" ng-model="screen.name">
+          </td>
+          <td>
+            <input type="text" class="span12" required
+              ng-disabled="!screen.isEdit" ng-model="screen.path">
+          </td>
+          <td>
+            <input type="text" class="span12" required
+              ng-disabled="!screen.isEdit" ng-model="screen.controller">
+          </td>
+          <td>
+            <select class="span12" ng-model="screen.flag" ng-disabled="!screen.isEdit">
+              <option value="0">Disable</option>
+              <option value="1">Enable</option>
+            </select>
+          </td>
+          <td>
+            <button type="button" class="btn btn-info"
+              ng-click="edit(screen)" ng-hide="screen.isEdit">Edit</button>
+            <button type="button" class="btn btn-primary"
+              ng-click="save(screen)" ng-show="screen.isEdit">Save</button>
+            <button type="button" class="btn btn-warning"
+              ng-click="cancelEdit(screen)" ng-show="screen.isEdit">Cancel</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</form>

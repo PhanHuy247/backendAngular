@@ -1,0 +1,535 @@
+<div class="page-header">
+    <h3>{{'SETTINGS.ACTION_PACKAGE.HEADER_TITLE'|translate}}</h3>
+</div>
+<div>
+    <tabset>
+        <tab ng-repeat="tabs in defineTab" heading="{{tabs.label}}">
+            <div ng-init="workspace = tabs.name">
+                <div class="tab-pane active" id="{{tabs.name}}">
+                    <accordion close-others="true">
+                        <accordion-group is-open="true" heading="{{'SETTINGS.PACKAGE.APPLE'|translate}}">
+                            <div class="row-fluid">
+                                <div class="span8"></div>
+                                <div class="span4 text-right pagination">
+                                    <span>{{'LIST.TOTAL_ITEMS'|translate}}&#58;&nbsp;{{setting_apple[tabs.name].totalItems}}</span>
+                                </div>
+                            </div>
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.PAGE_TITLE'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.PRICE'|translate}} (¥)</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.POINT_FIRST'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.DESCRIPTION_POINT_FIRST'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.POINT'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.OTHERS'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.CHAT'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.VIDEO_CAL'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.VOICE_CALL'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.GIFT'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.COMMENT'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.SUB_COMMENT'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.UNLOCK_BACKSTAGE'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.SAVE_IMAGE'|translate}}</span>
+                                        </th>
+                                        <th class="span2 align-center">{{'SETTINGS.ACTION_PACKAGE.ACTION'|translate}}</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <br><br><textarea rows="3" ng-model="package_apple.production_id" class="span12" id="{{tabs.name}}-apple-production-id" form="addApplePackage{{tabs.name}}" required></textarea>
+                                        </td>
+                                        <td>
+                                            <br><br><input type="number" min="0" step="any" ng-model="package_apple.price" class="span12" id="apple-price" form="addApplePackage{{tabs.name}}" required>
+                                        </td>
+                                        <td>
+                                            <br><br><input type="number" min="0" ng-model="package_apple.first_purchase_point" class="span12" id="apple-first-purchase-point" form="addApplePackage{{tabs.name}}" required>
+                                        </td>
+                                        <td>
+                                            <br><br><textarea rows="3" type="text" ng-model="package_apple.first_purchase_description" class="span12" id="{{tabs.name}}-apple-first-purchase-description" form="addApplePackage{{tabs.name}}" required></textarea>
+                                        </td>
+                                        <td>
+                                            <br><br><input type="number" min="0" ng-model="package_apple.point" class="span12" id="apple-point" form="addApplePackage{{tabs.name}}" required>
+                                        </td>
+                                        <td>
+                                            <div class="text-center verticalVolumeBar">
+                                                <input type="checkbox" ng-model="package_apple.use_other" id="apple-use-other" form="addApplePackage{{tabs.name}}" ><br><br>
+                                                <textarea rows="3" ng-model="package_apple.other_text" ng-disabled="!package_apple.use_other" class="span12" id="{{tabs.name}}-apple-other-text" form="addApplePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-model="package_apple.use_chat" id="apple-use-chat" form="addApplePackage{{tabs.name}}"><br><br>
+                                                <textarea rows="3" ng-model="package_apple.chat_text" ng-disabled="!package_apple.use_chat" class="span12" id="{{tabs.name}}-apple-chat-text" form="addApplePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-model="package_apple.use_video_call" id="apple-use-video-call" form="addApplePackage{{tabs.name}}" ><br><br>
+                                                <textarea rows="3" ng-model="package_apple.video_call_text" ng-disabled="!package_apple.use_video_call" class="span12" id="{{tabs.name}}-apple-video-call-text" form="addApplePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-model="package_apple.use_voice_call" id="apple-use-voice-call" form="addApplePackage{{tabs.name}}" ><br><br>
+                                                <textarea rows="3" ng-model="package_apple.voice_call_text" ng-disabled="!package_apple.use_voice_call" class="span12" id="{{tabs.name}}-apple-voice-call-text" form="addApplePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-model="package_apple.use_gift" id="apple-use-gift" form="addApplePackage{{tabs.name}}" ><br><br>
+                                                <textarea rows="3" ng-model="package_apple.gift_text" ng-disabled="!package_apple.use_gift" class="span12" id="{{tabs.name}}-apple-gift-text" form="addApplePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-model="package_apple.use_comment" id="apple-use-comment" form="addApplePackage{{tabs.name}}" ><br><br>
+                                                <textarea rows="3" ng-model="package_apple.comment_text" ng-disabled="!package_apple.use_comment" class="span12" id="{{tabs.name}}-apple-comment-text" form="addApplePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center verticalVolumeBar">
+                                                <input type="checkbox" ng-model="package_apple.use_sub_comment" id="apple-use-sub-comment" form="addApplePackage{{tabs.name}}" ><br><br>
+                                                <textarea rows="3" ng-model="package_apple.sub_comment_text" ng-disabled="!package_apple.use_sub_comment" class="span12" id="{{tabs.name}}-apple-sub-comment-text" form="addApplePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-model="package_apple.use_unlock_backstage" id="apple-use-unlock-backstage" form="addApplePackage{{tabs.name}}" ><br><br>
+                                                <textarea rows="3" ng-model="package_apple.unlock_backstage_text" ng-disabled="!package_apple.use_unlock_backstage" class="span12" id="{{tabs.name}}-apple-unlock-backstage-text" form="addApplePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center verticalVolumeBar">
+                                                <input type="checkbox" ng-model="package_apple.use_save_image" id="apple-use-save-image" form="addApplePackage{{tabs.name}}" ><br><br>
+                                                <textarea rows="3" ng-model="package_apple.save_image_text" ng-disabled="!package_apple.use_save_image" class="span12" id="{{tabs.name}}-apple-save-image-text" form="addApplePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td class="align-center" style="vertical-align: middle">
+                                            <form id="addApplePackage{{tabs.name}}" ng-submit="add(0, tabs.value)">
+                                                <button type="submit" ng-disabled="flag" class="btn btn-primary">
+                                                    {{'FORM.BTN_ADD'|translate}}
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+
+                                    <tr ng-repeat="item in packages_apple[tabs.name]">
+                                        <td>
+                                            <input type="text" ng-disabled="!item.isEdit" ng-model="item.production_id"
+                                                   class="span12" form="edit-{{item.id}}" id="production-id-{{item.id}}" required>
+                                        </td>
+                                        <td>
+                                            <input type="number" step="any" ng-disabled="!item.isEdit" ng-model="item.price"
+                                                   class="span12" form="edit-{{item.id}}" id="price-{{item.id}}" required>
+                                        </td>
+                                        <td>
+                                            <input type="number" ng-disabled="!item.isEdit" ng-model="item.first_purchase_point" class="span12"
+                                                   form="edit-{{item.id}}" id="first-purchase-point-{{item.id}}" required>
+                                        </td>
+                                        <td>
+                                            <br><br><textarea rows="3" ng-disabled="!item.isEdit" ng-model="item.first_purchase_description" class="span12"
+                                                                form="edit-{{item.id}}" id="first-purchase-description-{{item.id}}" required></textarea>
+                                        </td>
+                                        <td>
+                                            <br><br><input type="number" ng-disabled="!item.isEdit" ng-model="item.point" class="span12"
+                                                             form="edit-{{item.id}}" id="point-{{item.id}}" required>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_other" 
+                                                       form="edit-{{item.id}}" id="use-other-{{item.id}}"><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_other) || !item.isEdit" ng-model="item.other_text" class="span12"
+                                                          form="edit-{{item.id}}" id="other-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_chat" 
+                                                       form="edit-{{item.id}}" id="use-chat-{{item.id}}" ><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_chat) || !item.isEdit" ng-model="item.chat_text" class="span12"
+                                                          form="edit-{{item.id}}" id="chat-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_video_call" 
+                                                       form="edit-{{item.id}}" id="use-video-call-{{item.id}}"><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_video_call) || !item.isEdit" ng-model="item.video_call_text" class="span12"
+                                                          form="edit-{{item.id}}" id="video-call-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_voice_call" 
+                                                       form="edit-{{item.id}}" id="use-voice-call-{{item.id}}"><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_voice_call) || !item.isEdit" ng-model="item.voice_call_text" class="span12"
+                                                          form="edit-{{item.id}}" id="voice-call-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_gift" 
+                                                       form="edit-{{item.id}}" id="use-gift-{{item.id}}"><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_gift) || !item.isEdit" ng-model="item.gift_text" class="span12"
+                                                          form="edit-{{item.id}}" id="gift-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_comment" 
+                                                       form="edit-{{item.id}}" id="use-comment-{{item.id}}"><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_comment) || !item.isEdit" ng-model="item.comment_text" class="span12"
+                                                          form="edit-{{item.id}}" id="comment-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_sub_comment" 
+                                                       form="edit-{{item.id}}" id="use_sub_comment-{{item.id}}"><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_sub_comment) || !item.isEdit" ng-model="item.sub_comment_text" class="span12"
+                                                          form="edit-{{item.id}}" id="sub-comment-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_unlock_backstage" 
+                                                       form="edit-{{item.id}}" id="use_unlock_backstage-{{item.id}}"><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_unlock_backstage) || !item.isEdit" ng-model="item.unlock_backstage_text" class="span12"
+                                                          form="edit-{{item.id}}" id="unlock-backstage-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_save_image" 
+                                                       form="edit-{{item.id}}" id="use-save-image-{{item.id}}"><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_save_image) || !item.isEdit" ng-model="item.save_image_text" class="span12"
+                                                          form="edit-{{item.id}}" id="save-image-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td class="align-center" style="vertical-align: middle">
+                                            <button type="button" ng-if="!item.isEdit" class="btn btn-info"
+                                                    ng-click="edit(item)" style="margin-bottom: 6px">{{'FORM.BTN_EDIT'|translate}}
+                                            </button>
+                                            <button type="button" ng-if="!item.isEdit" class="btn btn-danger"
+                                                    ng-click="delete(item, $index, 0, tabs.value)">{{'FORM.BTN_DELETE'|translate}}
+                                            </button>
+                                            <form id="edit-{{item.id}}" ng-submit="save(item)">
+                                                <span style="margin-bottom: 6px">
+                                                    <button type="button" ng-if="item.isEdit" class="btn btn-warning"
+                                                            ng-click="cancel(item)">{{'FORM.BTN_CANCEL'|translate}}
+                                                    </button>
+                                                </span>
+                                                <span>
+                                                    <button type="submit" ng-if="item.isEdit" class="btn btn-primary">
+                                                        {{'FORM.BTN_SAVE'|translate}}
+                                                    </button>
+                                                </span>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- Pagination -->
+                            <div class="row-fluid">
+                                <div class="span12"></div>
+                            </div>
+                        </accordion-group>
+
+                        <!-- Google setting: Conversation setting -->
+                        <accordion-group heading="{{'SETTINGS.PACKAGE.GOOGLE'|translate}}">
+                            <!-- Pagination -->
+                            <div class="row-fluid">
+                                <div class="span8"></div>
+                                <div class="span4 text-right pagination">
+                                    <span>{{'LIST.TOTAL_ITEMS'|translate}}&#58;&nbsp;{{setting_google[tabs.name].totalItems}}</span>
+                                </div>
+                            </div>
+
+                            <!-- Table content -->
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.PAGE_TITLE'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.PRICE'|translate}} (¥)</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.POINT_FIRST'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.DESCRIPTION_POINT_FIRST'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.POINT'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.OTHERS'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.CHAT'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.VIDEO_CAL'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.VOICE_CALL'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.GIFT'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.COMMENT'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.SUB_COMMENT'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.UNLOCK_BACKSTAGE'|translate}}</span>
+                                        </th>
+                                        <th class="align-center">
+                                            <span>{{'SETTINGS.ACTION_PACKAGE.SAVE_IMAGE'|translate}}</span>
+                                        </th>
+                                        <th class="span2 align-center">{{'SETTINGS.ACTION_PACKAGE.ACTION'|translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <!-- Line add new page -->
+                                    <tr>
+                                        <td>
+                                            <br><br><textarea rows="3" ng-model="package_google.production_id" class="span12" id="{{tabs.name}}-google-production-id" form="addGooglePackage{{tabs.name}}" required></textarea>
+                                        </td>
+                                        <td>
+                                            <br><br><input type="number" min="0" step="any" ng-model="package_google.price" class="span12" id="google-price" form="addGooglePackage{{tabs.name}}" required>
+                                        </td>
+                                        <td>
+                                            <br><br><input type="number" min="0" ng-model="package_google.first_purchase_point" class="span12" id="google-first-purchase-point" form="addGooglePackage{{tabs.name}}" required>
+                                        </td>
+                                        <td>
+                                            <br><br><textarea rows="3" type="text" ng-model="package_google.first_purchase_description" class="span12" id="{{tabs.name}}-google-first-purchase-description" form="addGooglePackage{{tabs.name}}" required></textarea>
+                                        </td>
+                                        <td>
+                                            <br><br><input type="number" min="0" ng-model="package_google.point" class="span12" id="google-point" form="addGooglePackage{{tabs.name}}" required>
+                                        </td>
+                                        <td>
+                                            <div class="text-center verticalVolumeBar">
+                                                <input type="checkbox" ng-model="package_google.use_other" id="google-use-other" form="addGooglePackage{{tabs.name}}" ><br><br>
+                                                <textarea rows="3" ng-model="package_google.other_text" ng-disabled="!package_google.use_other" class="span12" id="{{tabs.name}}-google-other-text" form="addGooglePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-model="package_google.use_chat" id="google-use-chat" form="addGooglePackage{{tabs.name}}"><br><br>
+                                                <textarea rows="3" ng-model="package_google.chat_text" ng-disabled="!package_google.use_chat" class="span12" id="{{tabs.name}}-google-chat-text" form="addGooglePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-model="package_google.use_video_call" id="google-use-video-call" form="addGooglePackage{{tabs.name}}" ><br><br>
+                                                <textarea rows="3" ng-model="package_google.video_call_text" ng-disabled="!package_google.use_video_call" class="span12" id="{{tabs.name}}-google-video-call-text" form="addGooglePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-model="package_google.use_voice_call" id="google-use-voice-call" form="addGooglePackage{{tabs.name}}" ><br><br>
+                                                <textarea rows="3" ng-model="package_google.voice_call_text" ng-disabled="!package_google.use_voice_call" class="span12" id="{{tabs.name}}-google-voice-call-text" form="addGooglePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-model="package_google.use_gift" id="google-use-gift" form="addGooglePackage{{tabs.name}}" ><br><br>
+                                                <textarea rows="3" ng-model="package_google.gift_text" ng-disabled="!package_google.use_gift" class="span12" id="{{tabs.name}}-google-gift-text" form="addGooglePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-model="package_google.use_comment" id="google-use-comment" form="addGooglePackage{{tabs.name}}" ><br><br>
+                                                <textarea rows="3" ng-model="package_google.comment_text" ng-disabled="!package_google.use_comment" class="span12" id="{{tabs.name}}-google-comment-text" form="addGooglePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-model="package_google.use_sub_comment" id="google-use-sub-comment" form="addGooglePackage{{tabs.name}}" ><br><br>
+                                                <textarea rows="3" ng-model="package_google.sub_comment_text" ng-disabled="!package_google.use_sub_comment" class="span12" id="{{tabs.name}}-google-sub-comment-text" form="addGooglePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-model="package_google.use_unlock_backstage" id="google-use-unlock-backstage" form="addGooglePackage{{tabs.name}}" ><br><br>
+                                                <textarea rows="3" ng-model="package_google.unlock_backstage_text" ng-disabled="!package_google.use_unlock_backstage" class="span12" id="{{tabs.name}}-google-unlock-backstage-text" form="addGooglePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center verticalVolumeBar">
+                                                <input type="checkbox" ng-model="package_google.use_save_image" id="google-use-save-image" form="addGooglePackage{{tabs.name}}" ><br><br>
+                                                <textarea rows="3" ng-model="package_google.save_image_text" ng-disabled="!package_google.use_save_image" class="span12" id="{{tabs.name}}-google-save-image-text" form="addGooglePackage{{tabs.name}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td class="align-center" style="vertical-align: middle">
+                                            <form id="addGooglePackage{{tabs.name}}" ng-submit="add(1, tabs.value)">
+                                                <button type="submit" ng-disabled="flag" class="btn btn-primary">
+                                                    {{'FORM.BTN_ADD'|translate}}
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+
+                                    <tr ng-repeat="item in packages_google[tabs.name]">
+                                        <td>
+                                            <input type="text" ng-disabled="!item.isEdit" ng-model="item.production_id"
+                                                   class="span12" form="edit-{{item.id}}" id="production-id-{{item.id}}" required>
+                                        </td>
+                                        <td>
+                                            <input type="number" step="any" ng-disabled="!item.isEdit" ng-model="item.price"
+                                                   class="span12" form="edit-{{item.id}}" id="price-{{item.id}}" required>
+                                        </td>
+                                        <td>
+                                            <br><br><input type="number" ng-disabled="!item.isEdit" ng-model="item.first_purchase_point" class="span12"
+                                                    form="edit-{{item.id}}" id="first-purchase-point-{{item.id}}" required>
+                                        </td>
+                                        <td>
+                                            <br><br><textarea rows="3" ng-disabled="!item.isEdit" ng-model="item.first_purchase_description" class="span12"
+                                                        form="edit-{{item.id}}" id="first-purchase-description-{{item.id}}" required></textarea>
+                                        </td>
+                                        <td>
+                                            <br><br><input type="number" ng-disabled="!item.isEdit" ng-model="item.point" class="span12"
+                                                            form="edit-{{item.id}}" id="point-{{item.id}}" required>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_other" 
+                                                       form="edit-{{item.id}}" id="use-other-{{item.id}}"><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_other) || !item.isEdit" ng-model="item.other_text" class="span12"
+                                                          form="edit-{{item.id}}" id="other-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_chat" 
+                                                       form="edit-{{item.id}}" id="use-chat-{{item.id}}" ><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_chat) || !item.isEdit" ng-model="item.chat_text" class="span12"
+                                                          form="edit-{{item.id}}" id="chat-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_video_call" 
+                                                       form="edit-{{item.id}}" id="use-video-call-{{item.id}}"><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_video_call) || !item.isEdit" ng-model="item.video_call_text" class="span12"
+                                                          form="edit-{{item.id}}" id="video-call-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_voice_call" 
+                                                       form="edit-{{item.id}}" id="use-voice-call-{{item.id}}"><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_voice_call) || !item.isEdit" ng-model="item.voice_call_text" class="span12"
+                                                          form="edit-{{item.id}}" id="voice-call-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_gift" 
+                                                       form="edit-{{item.id}}" id="use-gift-{{item.id}}"><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_gift) || !item.isEdit" ng-model="item.gift_text" class="span12"
+                                                          form="edit-{{item.id}}" id="gift-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_comment" 
+                                                       form="edit-{{item.id}}" id="use-comment-{{item.id}}"><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_comment) || !item.isEdit" ng-model="item.comment_text" class="span12"
+                                                          form="edit-{{item.id}}" id="comment-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_sub_comment" onchange="clearField(item.sub_comment_text)"
+                                                       form="edit-{{item.id}}" id="use-sub-comment-{{item.id}}" ><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_sub_comment) || !item.isEdit" ng-model="item.sub_comment_text" class="span12"
+                                                          form="edit-{{item.id}}" id="sub-comment-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_unlock_backstage" 
+                                                       form="edit-{{item.id}}" id="use-unlock-backstage-{{item.id}}"><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_unlock_backstage) || !item.isEdit" ng-model="item.unlock_backstage_text" class="span12"
+                                                          form="edit-{{item.id}}" id="unlock-backstage-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-disabled="!item.isEdit" ng-model="item.use_save_image" 
+                                                       form="edit-{{item.id}}" id="use-save-image-{{item.id}}"><br><br>
+                                                <textarea rows="3" ng-disabled="(item.isEdit && !item.use_save_image) || !item.isEdit" ng-model="item.save_image_text" class="span12"
+                                                          form="edit-{{item.id}}" id="save-image-text-{{item.id}}" required></textarea>
+                                            </div>
+                                        </td>
+                                        <td class="align-center" style="vertical-align: middle">
+                                            <button type="button" ng-if="!item.isEdit" class="btn btn-info"
+                                                    ng-click="edit(item)" style="margin-bottom: 6px">{{'FORM.BTN_EDIT'|translate}}
+                                            </button>
+                                            <button type="button" ng-if="!item.isEdit" class="btn btn-danger"
+                                                    ng-click="delete(item, $index, 1, tabs.value)">{{'FORM.BTN_DELETE'|translate}}
+                                            </button>
+                                            <form id="edit-{{item.id}}" ng-submit="save(item)">
+                                                <span style="margin-bottom: 6px">
+                                                    <button type="button" ng-if="item.isEdit" class="btn btn-warning"
+                                                            ng-click="cancel(item)">{{'FORM.BTN_CANCEL'|translate}}
+                                                    </button>
+                                                </span>
+                                                <span>
+                                                    <button type="submit" ng-if="item.isEdit" class="btn btn-primary">
+                                                        {{'FORM.BTN_SAVE'|translate}}
+                                                    </button>
+                                                </span>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- Pagination -->
+                            <div class="row-fluid">
+                                <div class="span12"></div>
+                            </div>
+                        </accordion-group>
+                    </accordion>
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>
+<div class="tab-content" ng-repeat="tabs in defineTab"></div>

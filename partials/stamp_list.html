@@ -1,0 +1,60 @@
+<div class="page-header">
+	<h3>{{'GIFT_STAMP.STAMP_LIST'|translate}}</h3>
+</div>
+<div class="row-fluid">
+  <div class="span6 form-horizontal">
+    <div class="control-group">
+      <label class="control-label">{{'GIFT_STAMP.INFO.JP_CATEGORY_NAME'|translate}}</label>
+      <div class="controls">
+        <input type="text" class="span12" readonly
+          ng-value="properties.category.jp_name">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">{{'GIFT_STAMP.INFO.STAMP_TYPE'|translate}}</label>
+      <div class="controls">
+        <input type="text" class="span12" readonly
+          value="{{properties.category.type|label:[properties.categoryTypes, true]}}">
+      </div>
+    </div>
+  </div>
+  <div class="span6 form-horizontal">
+    <div class="control-group">
+      <label class="control-label">{{'GIFT_STAMP.INFO.EN_CATEGORY_NAME'|translate}}</label>
+      <div class="controls">
+        <input type="text" class="span12" readonly
+          ng-value="properties.category.en_name">
+      </div>
+    </div>
+  </div>
+</div>
+<sortable source="properties.stamps" active="properties.activeOrder"
+  key-prop="id" on-save="saveOrder(orders)"
+  show-image="true"></sortable>
+<form ng-submit="add()" ng-hide="properties.activeOrder" id="add">
+	<hr>
+	<label>{{'GIFT_STAMP.CREATE_STAMP'|translate}}</label>
+	<upload base64="properties.input.base64" size="properties.size" ng-required="true" form="add"></upload>
+	<br>
+  <button type="submit" class="btn btn-primary" form="add">{{'FORM.BTN_ADD'|translate}}</button>
+</form>
+
+<hr>
+<ul class="thumbnails" id="stamp-list" ng-hide="properties.activeOrder">
+  <li ng-repeat="stamp in properties.stamps">
+    <div class="thumbnail">
+      <upload base64="stamp.base64" source="stamp.imgSrc" size="properties.size"
+		form="edit-{{stamp.id}}" ng-required="true" ng-disabled="!stamp.isEdit"></upload>
+      <div class="footer" ng-hide="stamp.isEdit">
+				<button type="button" class="btn btn-info" ng-click="beginEdit(stamp)">{{'FORM.BTN_EDIT'|translate}}</button>
+				<button type="button" class="btn btn-danger" ng-click="remove(stamp)">{{'FORM.BTN_DELETE'|translate}}</button>
+      </div>
+      <div class="footer" ng-show="stamp.isEdit">
+        <form ng-submit="save(stamp)" id="edit-{{stamp.id}}" name="edit_{{stamp.id}}">
+          <button type="button" class="btn btn-warning" ng-click="discard(stamp)">{{'FORM.BTN_CANCEL'|translate}}</button>
+          <button type="submit" class="btn btn-primary">{{'FORM.BTN_SAVE'|translate}}</button>
+        </form>
+      </div>
+    </div>
+  </li>
+</ul>

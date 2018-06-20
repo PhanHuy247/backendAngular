@@ -1,0 +1,16 @@
+<div class="modal-header">
+  <h4>{{ data.title }}</h4>
+</div>
+<div class="modal-body">
+  <div class="row-fluid">
+    <p>{{ data.message }}</p>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" focus-me="true"
+    ng-hide="isConfirmDialog" ng-click="close()">{{ 'DIALOG.CLOSE' | translate }}</button>
+  <button type="button" class="btn btn-warning" autofocus
+    ng-show="isConfirmDialog" ng-click="close(false)">{{ 'DIALOG.CANCEL' | translate }}</button>
+  <button type="button" class="btn btn-primary"
+    ng-show="isConfirmDialog" ng-click="close(true)">{{ 'DIALOG.CONFIRM' | translate }}</button>
+</div>

@@ -1,0 +1,156 @@
+<!-- Title -->
+<div class="page-header">
+  <h3>{{'CM_CODE_LIST.TITLE'|translate}}</h3>
+</div>
+<!-- Form search -->
+<form class="form-horizontal" ng-submit="searchCmCode()">
+  <div class="row-fluid">
+    <div class="span4">
+      <div class="control-group">
+        <label class="control-label" for="inputAgency">{{'ADVERTISE_COMMON.AFF_NAME'|translate}}</label>
+        <div class="controls">
+          <select id="inputAgency" ng-model="input.affId" class="span12"
+		  ng-change="changeAff()" ng-options="a.aff_id as a.aff_name for a in affiliateList">
+	      <option value="">{{'FORM.PLEASE_SELECT'|translate}}</option>
+	  </select>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="inputCMcode">{{'FORM.STATUS'|translate}}</label>
+        <div class="controls">
+          <select id="inputStatus" ng-model="input.status" class="span12"
+            ng-options="s.value as s.label for s in attributes.status">
+	      
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="span4">
+      <div class="control-group">
+        <label class="control-label" for="inputMedia">{{'CM_CODE_LIST.MEDIA'|translate}}</label>
+        <div class="controls">
+          <select id="inputMedia" ng-model="input.mediaId" class="span12"
+		  ng-options="m.media_id as m.media_name for m in mediaList">
+	      <option value="">{{'FORM.PLEASE_SELECT'|translate}}</option>
+	  </select>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="inputType">{{'CM_CODE_LIST.TYPE'|translate}}</label>
+        <div class="controls">
+          <select id="inputType" ng-model="input.type" class="span12"
+            ng-options="t.value as t.label for t in attributes.trackUrl">
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="span4">
+      <div class="control-group">
+        <label class="control-label" for="inputCMcode">{{'CM_CODE_LIST.CM_CODE'|translate}}</label>
+        <div class="controls">
+          <input type="text" id="inputCMcode" class="span12" ng-model="input.cmCode">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Button search -->
+  <div class="row-fluid">
+    <div class="span12 text-right">
+      <button type="submit" class="btn btn-primary">{{'FORM.BTN_SEARCH'|translate}}</button>
+    </div>
+  </div>
+</form>
+<hr id="block-center-screen">
+<div class="row-fluid">
+  <div class="span8">
+    <pagination
+      next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+      previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+      first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+      last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+      ng-hide="setting.totalItems <= setting.itemsPerPage"
+      on-select-page="load(page)"
+      class="span12"
+      page="setting.currentPage"
+      total-items="setting.totalItems"
+      boundary-links="true"
+      rotate="false"
+      max-size="setting.numberPagesDisplay"
+      items-per-page="setting.itemsPerPage">
+    </pagination>
+  </div>
+  <div class="span4 text-right pagination">
+    <span>{{'LIST.TOTAL_ITEMS'|translate}}&#58;&nbsp;{{setting.totalItems}}</span>
+  </div>
+</div>
+
+<!-- Table list CM code -->
+<div class="row-fluid" ng-show="setting.totalItems">
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th>
+          <span>{{'ADVERTISE_COMMON.AFF_NAME'|translate}}</span><br>
+          <span>{{'CM_CODE_LIST.MEDIA'|translate}}</span>
+        </th>
+        <th>
+          <span>{{'CM_CODE_LIST.CM_CODE'|translate}}</span>
+        </th>
+        <th>
+          <span>{{'FORM.STATUS'|translate}}</span>
+        </th>
+        <th>
+          <span>{{'CM_CODE_LIST.MONEY'|translate}}</span>
+        </th>
+        <th>
+          <span>{{'CM_CODE_LIST.TYPE'|translate}}</span>
+        </th>
+        <th class="span1">
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in listCmCode">
+        <td>
+          <span>{{item.aff_name}}</span><br>
+          <span>{{item.media_name}}</span>
+        </td>
+        <td>
+          <span>{{item.cm_code}}</span>
+        </td>
+        <td>
+          <span>{{item.flag | label:[attributes.status, true]}}</span>
+        </td>
+        <td>
+          <span>{{item.money}}</span>
+        </td>
+        <td>
+          <span>{{item.type | label:[attributes.trackUrl, true]}}</span>
+        </td>
+        <td>
+          <a href="#/advertise/cm_code_update/{{item.cm_code_id}}" class="btn-link"
+            ng-click="Detail(item)">{{'FORM.BTN_DETAIL'|translate}}</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="row-fluid">
+  <div class="span12">
+    <pagination
+      next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+      previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+      first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+      last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+      ng-hide="setting.totalItems <= setting.itemsPerPage"
+      on-select-page="load(page)"
+      class="span12"
+      page="setting.currentPage"
+      total-items="setting.totalItems"
+      boundary-links="true"
+      rotate="false"
+      max-size="setting.numberPagesDisplay"
+      items-per-page="setting.itemsPerPage">
+    </pagination>
+  </div>
+</div>

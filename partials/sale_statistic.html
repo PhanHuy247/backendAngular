@@ -1,0 +1,256 @@
+<div class="page-header">
+  <h3>{{'STATISTIC.HEADER_SALES'|translate}}</h3>
+</div>
+
+<div class="row-fluid">
+    <div class="span1">
+      <button type="button" class="btn span12" ng-click="changeDate(-1)">{{'STATISTIC.PREV'|translate}}</button>
+    </div>
+    <div class="span2" ng-show="type != 3">
+      <select class="span12 text-center" ng-model="selectedDate"
+              ng-change="selectorChange()"
+              ng-options="d for d in selectiveDate"></select>
+    </div>
+    <div class="span2" ng-show="type == 3">
+    <datetimepicker class="span12 text-center" ng-model="selectedDateDay"  ng-change="selectorChange()" ng-min="minDateApp" ng-max="today"/>
+  </div>
+    <div class="span1">
+      <button type="button" class="btn span12" ng-click="changeDate(1)">{{'STATISTIC.NEXT'|translate}}</button>
+    </div>
+  <form class="form-horizontal pull-right">
+    <div class="control-group">
+      <label class="control-label" for="viewby">{{'STATISTIC.VIEW_BY'|translate}}</label>
+      <div class="controls">
+        <select class="span12" id="viewby" ng-model="type" ng-change="displayByType()">
+          <option value="3">{{'STATISTIC.VIEW_DAY'|translate}}</option>
+          <option value="1">{{'STATISTIC.VIEW_MONTH'|translate}}</option>
+          <option value="2">{{'STATISTIC.VIEW_YEAR'|translate}}</option>
+        </select>
+      </div>
+    </div>
+  </form>
+</div>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th rowspan="2" class="span2">
+  <div class="text-center">
+    <span>{{type == 1 ? 'STATISTIC.MONTH' : (type == 2 ? 'STATISTIC.VIEW_MONTH' : 'STATISTIC.DAY')|translate}}</span>
+  </div>
+</th>
+<th colspan="2">
+<div class="text-center">
+  <span>{{'STATISTIC.IOS_ENVIROMENT'|translate}}</span>
+</div>
+</th>
+<th colspan="2">
+<div class="text-center">
+  <span>{{'STATISTIC.ANDROID_ENVIROMENT'|translate}}</span>
+</div>
+</th>
+<th colspan="2">
+<div class="text-center">
+  <span>{{'STATISTIC.BISCASH'|translate}}</span>
+</div>
+</th>
+<th colspan="2">
+<div class="text-center">
+  <span>{{'STATISTIC.CREDIT'|translate}}</span>
+</div>
+</th>
+<th colspan="2">
+<div class="text-center">
+  <span>{{'STATISTIC.POINT_BACK'|translate}}</span>
+</div>
+</th>
+<th colspan="2">
+<div class="text-center">
+  <span>{{'STATISTIC.C_CHECK'|translate}}</span>
+</div>
+</th>
+<th colspan="2">
+<div class="text-center">
+  <span>{{'STATISTIC.CONBONI'|translate}}</span>
+</div>
+</th>
+<th colspan="2">
+<div class="text-center">
+  <span>{{'STATISTIC.TOTAL'|translate}}</span>
+</div>
+</th>
+</tr>
+<tr>
+  <th class="span3">
+<div class="text-center">
+  <span>{{'STATISTIC.NUMBER'|translate}}</span>
+</div>
+</th>
+<th class="span3">
+<div class="text-center">
+  <span>{{'STATISTIC.AMOUNT'|translate}} (¥)</span>
+</div>
+</th>
+<th class="span3">
+<div class="text-center">
+  <span>{{'STATISTIC.NUMBER'|translate}}</span>
+</div>
+</th>
+<th class="span3">
+<div class="text-center">
+  <span>{{'STATISTIC.AMOUNT'|translate}} (¥)</span>
+</div>
+</th>
+<th class="span3">
+<div class="text-center">
+  <span>{{'STATISTIC.NUMBER'|translate}}</span>
+</div>
+</th>
+<th class="span3">
+<div class="text-center">
+  <span>{{'STATISTIC.AMOUNT'|translate}} (¥)</span>
+</div>
+</th>
+<th class="span3">
+<div class="text-center">
+  <span>{{'STATISTIC.NUMBER'|translate}}</span>
+</div>
+</th>
+<th class="span3">
+<div class="text-center">
+  <span>{{'STATISTIC.AMOUNT'|translate}} (¥)</span>
+</div>
+</th>
+<th class="span3">
+<div class="text-center">
+  <span>{{'STATISTIC.NUMBER'|translate}}</span>
+</div>
+</th>
+<th class="span3">
+<div class="text-center">
+  <span>{{'STATISTIC.AMOUNT'|translate}} (¥)</span>
+</div>
+</th>
+<th class="span3">
+<div class="text-center">
+  <span>{{'STATISTIC.NUMBER'|translate}}</span>
+</div>
+</th>
+<th class="span3">
+<div class="text-center">
+  <span>{{'STATISTIC.AMOUNT'|translate}} (¥)</span>
+</div>
+</th>
+<th class="span3">
+<div class="text-center">
+  <span>{{'STATISTIC.NUMBER'|translate}}</span>
+</div>
+</th>
+<th class="span3">
+<div class="text-center">
+  <span>{{'STATISTIC.AMOUNT'|translate}} (¥)</span>
+</div>
+<th class="span3">
+<div class="text-center">
+  <span>{{'STATISTIC.NUMBER'|translate}}</span>
+</div>
+</th>
+<th class="span3">
+<div class="text-center">
+  <span>{{'STATISTIC.AMOUNT'|translate}} (¥)</span>
+</div>
+</th>
+</tr>
+</thead>
+<tbody>
+  <tr ng-repeat="item in rows">
+    <td>
+      <div class="text-center">
+        <span>{{item.text}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{item.ios_times|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{item.ios_money|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{item.android_times|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{item.android_money|stat}}</span>
+      </div>
+    </td>
+
+    <td>
+      <div class="text-right">
+        <span>{{item.biscash_times|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{item.biscash_money|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{item.credit_times|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{item.credit_money|stat}}</span>
+      </div>
+    </td>
+
+    <td>
+      <div class="text-right">
+        <span>{{item.point_back_times|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{item.point_back_money|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{item.c_check_times|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{item.c_check_money|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{item.conboni_times|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{item.conboni_money|stat}}</span>
+      </div>
+    </td>
+
+    <td>
+      <div class="text-right">
+        <span>{{item.ios_times + item.android_times + item.biscash_times + item.credit_times + item.point_back_times + item.c_check_times + item.conboni_times|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{item.ios_money + item.android_money  + item.biscash_money  + item.credit_money + item.point_back_money + item.c_check_money + item.conboni_money|stat}}</span>
+      </div>
+    </td>
+  </tr>
+</tbody>
+</table>

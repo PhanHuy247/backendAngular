@@ -1,0 +1,206 @@
+<div class="page-header">
+    <h3>{{'SETTINGS.PACKAGE.HEADER_TITLE'|translate}}</h3>
+</div>
+
+<accordion close-others="true">
+    <!-- Apple setting -->
+    <accordion-group is-open="true"  heading="{{'SETTINGS.PACKAGE.APPLE'|translate}}">
+        <!-- Pagination -->
+        <div class="row-fluid">
+            <div class="span8">
+                
+            </div>
+            <div class="span4 text-right pagination">
+                <span>{{'LIST.TOTAL_ITEMS'|translate}}&#58;&nbsp;{{setting_apple.totalItems}}</span>
+            </div>
+        </div>
+
+        <!-- Table content -->
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        <span>{{'SETTINGS.PACKAGE.PAGE_TITLE'|translate}}</span>
+                    </th>
+                    <th>
+                        <span>{{'SETTINGS.PACKAGE.PRICE'|translate}} (¥)</span>
+                    </th>
+                    <th>
+                        <span>{{'SETTINGS.PACKAGE.POINT'|translate}}</span>
+                    </th>
+                    <th>
+                        <span>{{'SETTINGS.PACKAGE.DESCRIPTION'|translate}}</span>
+                    </th>
+                    <th class="span3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Line add new page -->
+                <tr>
+                    <td>
+                        <input type="text" ng-model="package_apple.production_id" class="span12" id="production_id" form="addApplePackage" required>
+                    </td>
+                    <td>
+                        <input type="number" min="0" step="any" ng-model="package_apple.price" class="span12" id="price" form="addApplePackage" required>
+                    </td>
+                    <td>
+                        <input type="number" min="0" ng-model="package_apple.point" class="span12" id="point" form="addApplePackage" required>
+                    </td>
+                    <td>
+                        <input type="text" ng-model="package_apple.des" class="span12" id="des" form="addApplePackage" required>
+                    </td>
+                    <td>
+                        <form id="addApplePackage" ng-submit="add(0)">
+                            <button type="submit"  ng-disabled="flag" class="btn btn-primary">{{'FORM.BTN_ADD'|translate}}</button>
+                        </form>
+                    </td>
+                </tr>
+                <!-- List banned word -->
+                <tr ng-repeat="item in packages_apple">
+                    <td>
+                        <input type="text" ng-disabled="!item.isEdit" ng-model="item.production_id" class="span12"
+                               form="edit-{{item.id}}" id="production_id-{{item.id}}" required>
+                    </td>
+                    <td>
+                        <input type="number" min="0" step="any" ng-disabled="!item.isEdit" ng-model="item.price" class="span12"
+                               form="edit-{{item.id}}" id="price-{{item.id}}" required>
+                    </td>
+                    <td>
+                        <input type="number" min="0" ng-disabled="!item.isEdit" ng-model="item.point" class="span12"
+                               form="edit-{{item.id}}" id="point-{{item.id}}" required>
+                    </td>
+                    <td>
+                        <input type="text" ng-disabled="!item.isEdit" ng-model="item.des" class="span12"
+                               form="edit-{{item.id}}" id="des-{{item.id}}" required>
+                    </td>
+                    
+                    <td>
+                        <button type="button" ng-if="!item.isEdit" class="btn btn-info"
+                                ng-click="edit(item)">{{'FORM.BTN_EDIT'|translate}}</button>
+                        <button type="button" ng-if="!item.isEdit" class="btn btn-danger"
+                                ng-click="delete(item, $index, 0)">{{'FORM.BTN_DELETE'|translate}}</button>
+                        <form id="edit-{{item.id}}" ng-submit="save(item)">
+                            <span>
+                                <button type="button" ng-if="item.isEdit" class="btn btn-warning"
+                                        ng-click="cancel(item)">{{'FORM.BTN_CANCEL'|translate}}</button>
+                            </span>
+                            <span>
+                                <button type="submit" ng-if="item.isEdit" class="btn btn-primary">
+                                    {{'FORM.BTN_SAVE'|translate}}
+                                </button>
+                            </span>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Pagination -->
+        <div class="row-fluid">
+            <div class="span12">
+               
+            </div>
+        </div>
+
+    </accordion-group>
+
+
+    <!-- Google setting: Conversation setting -->
+    <accordion-group heading="{{'SETTINGS.PACKAGE.GOOGLE'|translate}}">
+        <!-- Pagination -->
+        <div class="row-fluid">
+            <div class="span8">
+                
+            </div>
+            <div class="span4 text-right pagination">
+                <span>{{'LIST.TOTAL_ITEMS'|translate}}&#58;&nbsp;{{setting_google.totalItems}}</span>
+            </div>
+        </div>
+
+        <!-- Table content -->
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        <span>{{'SETTINGS.PACKAGE.PAGE_TITLE'|translate}}</span>
+                    </th>
+                    <th>
+                        <span>{{'SETTINGS.PACKAGE.PRICE'|translate}}(¥)</span>
+                    </th>
+                    <th>
+                        <span>{{'SETTINGS.PACKAGE.POINT'|translate}}</span>
+                    </th>
+                    <th>
+                        <span>{{'SETTINGS.PACKAGE.DESCRIPTION'|translate}}</span>
+                    </th>
+                    <th class="span3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Line add new page -->
+                <tr>
+                    <td>
+                        <input type="text" ng-model="package_google.production_id" class="span12" id="production_id" form="addGooglePackage" required>
+                    </td>
+                    <td>
+                        <input type="number" min="0" step="any" ng-model="package_google.price" class="span12" id="price" form="addGooglePackage" required>
+                    </td>
+                    <td>
+                        <input type="number" min="0" ng-model="package_google.point" class="span12" id="point" form="addGooglePackage" required>
+                    </td>
+                    <td>
+                        <input type="text" ng-model="package_google.des" class="span12" id="des" form="addGooglePackage" required>
+                    </td>
+                    <td>
+                        <form id="addGooglePackage" ng-submit="add(1)">
+                            <button type="submit"  ng-disabled="flag" class="btn btn-primary">{{'FORM.BTN_ADD'|translate}}</button>
+                        </form>
+                    </td>
+                </tr>
+                <!-- List banned word -->
+                <tr ng-repeat="item in packages_google">
+                    <td>
+                        <input type="text" ng-disabled="!item.isEdit" ng-model="item.production_id" class="span12"
+                               form="edit-{{item.id}}" id="production_id-{{item.id}}" required>
+                    </td>
+                    <td>
+                        <input type="number" min="0" step="any" ng-disabled="!item.isEdit" ng-model="item.price" class="span12"
+                               form="edit-{{item.id}}" id="price-{{item.id}}" required>
+                    </td>
+                    <td>
+                        <input type="number" min="0" ng-disabled="!item.isEdit" ng-model="item.point" class="span12"
+                               form="edit-{{item.id}}" id="point-{{item.id}}" required>
+                    </td>
+                    <td>
+                        <input type="text" ng-disabled="!item.isEdit" ng-model="item.des" class="span12"
+                               form="edit-{{item.id}}" id="des-{{item.id}}" required>
+                    </td>
+                    
+                    <td>
+                        <button type="button" ng-if="!item.isEdit" class="btn btn-info"
+                                ng-click="edit(item)">{{'FORM.BTN_EDIT'|translate}}</button>
+                        <button type="button" ng-if="!item.isEdit" class="btn btn-danger"
+                                ng-click="delete(item, $index, 1)">{{'FORM.BTN_DELETE'|translate}}</button>
+                        <form id="edit-{{item.id}}" ng-submit="save(item)">
+                            <span>
+                                <button type="button" ng-if="item.isEdit" class="btn btn-warning"
+                                        ng-click="cancel(item)">{{'FORM.BTN_CANCEL'|translate}}</button>
+                            </span>
+                            <span>
+                                <button type="submit" ng-if="item.isEdit" class="btn btn-primary">
+                                    {{'FORM.BTN_SAVE'|translate}}
+                                </button>
+                            </span>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Pagination -->
+        <div class="row-fluid">
+            <div class="span12">
+                
+            </div>
+        </div>
+    </accordion-group>
+
+</accordion>

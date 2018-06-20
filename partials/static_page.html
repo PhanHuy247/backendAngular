@@ -1,0 +1,17 @@
+<div class="page-header">
+  <h3>{{'SETTINGS.STATIC_PAGES.TITLE'|translate}}</h3>
+</div>
+<tabset justified="true">
+  <tab ng-repeat="page in properties.pages" heading="{{page.label|translate}}">
+    <form>
+      <fieldset>
+        <text-angular ng-model="page.html" class="span12"></text-angular>
+      </fieldset>
+      <br>
+      <button type="button" class="btn btn-warning"
+        ng-click="reset(page)">{{'SETTINGS.STATIC_PAGES.RESET_CHANGE_BTN'|translate}}</button>
+      <button type="button" class="btn btn-primary"
+        ng-click="save(page)">{{'SETTINGS.STATIC_PAGES.SAVE_PAGE_BTN'|translate}}</button>
+    </form>
+  </tab>
+</tabset>

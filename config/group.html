@@ -1,0 +1,72 @@
+<div class="row-fluid">
+  <div class="input-prepend">
+    <span class="add-on">Filter</span>
+    <input class="span12" type="text" ng-model="filter">
+  </div>
+</div>
+<form ng-submit="create()">
+  <div class="row-fluid">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="span2">Order</th>
+          <th>Title</th>
+          <th>Name</th>
+          <th class="span2">Status</th>
+          <th class="span3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <input type="number" class="span12" min="-1" required
+              ng-model="input.order">
+          </td>
+          <td>
+            <input type="text" ng-model="input.title" required class="span12">
+          </td>
+          <td>
+            <input type="text" ng-model="input.name" required class="span12">
+          </td>
+          <td>
+            <select class="span12" ng-model="input.flag">
+              <option value="0">Disable</option>
+              <option value="1">Enable</option>
+            </select>
+          </td>
+          <td>
+            <button type="submit" class="btn btn-primary">Create</button>
+          </td>
+        </tr>
+        <tr ng-repeat="group in groups | filter:filter | orderBy:'order'">
+          <td>
+            <input type="number" class="span12" min="-1" required
+              ng-disabled="!group.isEdit" ng-model="group.order">
+          </td>
+          <td>
+            <input type="text" class="span12" required
+              ng-model="group.title" ng-disabled="!group.isEdit">
+          </td>
+          <td>
+            <input type="text" class="span12" required
+              ng-model="group.name" ng-disabled="!group.isEdit">
+          </td>
+          <td>
+            <select class="span12" ng-model="group.flag" ng-disabled="!group.isEdit">
+              <option value="0">Disable</option>
+              <option value="1">Enable</option>
+            </select>
+          </td>
+          <td>
+            <button type="button" class="btn btn-info"
+              ng-click="edit(group)" ng-hide="group.isEdit">Edit</button>
+            <button type="button" class="btn btn-primary"
+              ng-click="save(group)" ng-show="group.isEdit">Save</button>
+            <button type="button" class="btn btn-warning"
+              ng-click="cancelEdit(group)" ng-show="group.isEdit">Cancel</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</form>

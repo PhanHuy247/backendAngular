@@ -1,0 +1,157 @@
+<div class="modal-header">
+	<h4>{{'LOG.BUZZ_DETAIL.TITLE'|translate}}</h4>
+</div>
+<div class="modal-body">
+	<!-- User ID -->
+	<div class="row-fluid">
+		<label class="span2">{{'USER.INFO.USER_ID'|translate}}</label>
+		<span class="text-info span8">
+			<a target="_blank" href="#/user/user_detail/{{buzzDetail.user_id}}">{{buzzDetail.user_id}}</a>
+			<!-- <a class="btn-link" ng-click="userDetail(buzzDetail.user_id)">{{buzzDetail.user_id}}</a> -->
+		</span>
+		<button type="button" ng-click="buzzDelete(buzzDetail.buzz_id)" class="btn btn-danger span2 text-right">{{'LOG.BUZZ_DETAIL.BTN_DELETE_THIS_BUZZ'|translate}}</button>
+	</div>
+
+	<!-- User Name -->
+	<div class="row-fluid">
+		<label class="span2">{{'USER.INFO.USER_NAME'|translate}}</label>
+		<span class="text-info span10">{{buzzDetail.user_name}}</span>
+	</div>
+
+	<!-- Image ID: if image id already exists -->
+	<div class="row-fluid text-length-format" ng-if="buzzDetail.buzz_type === 1">
+		<label class="span2">{{'LOG.BUZZ_BUZZ_DETAIL.IMAGE_ID'|translate}}</label>
+		<span class="text-info span10">{{buzzDetail.buzz_val}}</span>
+	</div>
+
+	<!-- Buzz time -->
+	<div class="row-fluid">
+		<div class="span8">{{buzzDetail.buzz_time|local:[true]}}</div>
+	</div>
+
+	<!-- Post -->
+	<hr>
+	<div class="row-fluid">
+		<span ng-if="!allowTypeDisplay">{{buzzDetail.buzz_val}}</span>
+		<span ng-if="allowTypeDisplay">
+			<img ng-src="{{pathImage}}">
+		</span>
+	</div>
+	<hr>
+
+	<!-- Number liked, number comment -->
+	<div class="row-fluid">
+		<div class="span3">
+			<label class="label label-info" ng-click="showLikedList(buzzDetail.buzz_id, buzzDetail.like_num)">{{buzzDetail.like_num}} {{'LOG.BUZZ.LIKE'|translate}}</label>
+			<label class="label cursor-default label-info">{{setting.totalItems}} {{'LOG.BUZZ.COMMENT'|translate}}</label>
+		</div>
+	</div>
+
+	<hr>
+
+	<div class="row-fluid">
+		<div class="span8">
+			<pagination
+				next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+				previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+				first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+				last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+				ng-hide="setting.totalItems <= setting.itemsPerPage"
+				on-select-page="load(page)"
+				class="span12"
+				page="setting.currentPage"
+				total-items="setting.totalItems"
+				boundary-links="true"
+				rotate="false"
+				max-size="setting.numberPagesDisplay"
+				items-per-page="setting.itemsPerPage">
+			</pagination>
+		</div>
+	</div>
+
+	<!-- Comment -->
+	<div class="row-fluid">
+		<table class="table table-bordered table-striped">
+			<tbody>
+				<tr ng-repeat="cmt in comments">
+					<td>
+						<span>{{cmt.cmt_time|local:[true]}}</span>
+						<br>
+						<span>
+							{{'USER.INFO.USER_ID'|translate}}&#58;&nbsp;
+							<a target="_blank" href="#/user/user_detail/{{cmt.user_id}}">{{cmt.user_id}}</a>
+						</span>
+						<hr>
+						<p>{{cmt.cmt_val}}</p>
+						<div class="row-fluid sub-comment" ng-if="cmt.sub_comment_number">
+										<table class="table table-bordered">
+										  <tbody>
+											<tr ng-repeat="sub_cmt in (cmtLoader = cmt.sub_comment | limitTo : subCmtLimit)">
+											  <td>
+												<span>{{sub_cmt.time|local:[true]}}</span>
+												<br>
+												<span>
+												  {{'USER.INFO.USER_ID'|translate}}&#58;&nbsp;
+												  <a target="_blank" href="#/user/user_detail/{{sub_cmt.user_id}}">{{sub_cmt.user_id}}</a>
+												</span>
+												<hr>
+												<p>{{sub_cmt.value}}</p>
+											  </td>
+											  <td class="span1">
+												<button type="button" ng-click="subCommentDelete(sub_cmt.sub_comment_id, $index, $parent.$index)" class="btn btn-sm btn-danger">{{'FORM.BTN_DELETE'|translate}}</button>
+											  </td>
+											</tr>
+										  </tbody>
+										</table>
+										<a  ng-if="cmt.viewMoreSubCmt" ng-click="viewMore(cmt.cmt_id,$index)" class="span2 text-left">View more</a>
+								</div>  
+					</td>
+					<td class="span1">
+						<button type="button" ng-click="commentDelete(cmt.cmt_id, $index)" class="btn btn-danger">{{'FORM.BTN_DELETE'|translate}}</button>
+					</td>
+
+				</tr>
+			</tbody>
+		</table>
+		<!-- <div class="comment">
+				<div ng-repeat="cmt in comments">
+					<div class="span12 row">
+						<div class="span11">
+							<span>{{cmt.cmt_time|local:[true]}}</span><br>
+							<span>
+								{{'USER.INFO.USER_ID'|translate}}&#58;&nbsp;
+								<a target="_blank" href="#/user/user_detail/{{cmt.user_id}}">{{cmt.user_id}}</a>
+							</span>
+						<hr>
+						<p>{{cmt.cmt_val}}</p>	
+						</div>
+					</div>
+
+				</div>
+
+		</div> -->
+	</div>
+
+	<div class="row-fluid">
+		<div class="span8">
+			<pagination
+				next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+				previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+				first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+				last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+				ng-hide="setting.totalItems <= setting.itemsPerPage"
+				on-select-page="load(page)"
+				class="span12"
+				page="setting.currentPage"
+				total-items="setting.totalItems"
+				boundary-links="true"
+				rotate="false"
+				max-size="setting.numberPagesDisplay"
+				items-per-page="setting.itemsPerPage">
+			</pagination>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-info" ng-click="close()">{{'DIALOG.CLOSE'|translate}}</button>
+</div>

@@ -1,0 +1,652 @@
+<div class="page-header">
+    <h3>{{'SETTINGS.GENERAL.HEADER_TITLE'|translate}}</h3>
+</div>
+
+<accordion close-others="true">
+    <!-- Point setting -->
+    <!-- <accordion-group is-open="true"  heading="{{'SETTINGS.GENERAL.POINT_SETTING.TITLE'|translate}}">
+        <form class="form-horizontal row-fluid" ng-submit="pointSetting(orderedInput)">
+            <table class="table table-hover table-bordered ">
+                <thead>
+                    <tr>
+                        <th style="width : 100px"  rowspan="2">{{'SETTINGS.GENERAL.POINT_SETTING.LB_AREA'|translate}}</th>
+                        <th style="width : 100px" rowspan="2">{{'SETTINGS.GENERAL.POINT_SETTING.ITEM'|translate}}</th>
+                        <th>{{'USER.INFO.FEMALE'|translate}}</th>
+                        <th>{{'USER.INFO.MALE'|translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in orderedInput.areasAddPoint">
+                        <td ng-if="$first" rowspan="15">{{'SETTINGS.GENERAL.POINT_SETTING.LB_AREAS_ADD_POINT'|translate}}</td>
+                        <td>{{item.label}}</td>
+                        <td>
+                            <input class="span12" type="number" step="1"  min="{{item.min}}" max="{{item.max}}" ng-model="item.value['female_req_point']" />
+                        </td>
+                        <td>
+                            <input class="span12 areasAddPoint_{{item.name}}_male_req_point" type="number" step="1"  min="{{item.min}}" max="{{item.max}}" ng-model="item.value['male_req_point']" />
+                        </td>
+                </tbody>
+            </table>
+
+            <table class="table table-hover table-bordered ">
+                <thead>
+                    <tr>
+                        <th style="width : 100px" rowspan="2">{{'SETTINGS.GENERAL.POINT_SETTING.LB_AREA'|translate}}</th>
+                        <th style="width : 100px" rowspan="2">{{'SETTINGS.GENERAL.POINT_SETTING.ITEM'|translate}}</th>
+                        <th colspan="2">{{'USER.INFO.FEMALE'|translate}}</th>
+                        <th colspan="2">{{'USER.INFO.MALE'|translate}}</th>
+                    </tr>
+                    <tr>
+                        <th class="span3">{{'SETTINGS.GENERAL.CONVERSATION_SETTING.RETURN_CUSTOMER'|translate}}</th>
+                        <th class="span3">{{'SETTINGS.GENERAL.CONVERSATION_SETTING.NEW_CUSTOMER'|translate}}</th>
+                        <th class="span3">{{'SETTINGS.GENERAL.CONVERSATION_SETTING.RETURN_CUSTOMER'|translate}}</th>
+                        <th class="span3">{{'SETTINGS.GENERAL.CONVERSATION_SETTING.NEW_CUSTOMER'|translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in orderedInput.areasAddPointReceiveGift">
+                        <td ng-if="$first" rowspan="15">{{'SETTINGS.GENERAL.POINT_SETTING.LB_AREAS_ADD_POINT'|translate}}</td>
+                        <td>{{item.label}}</td>
+                        <td>
+                            <input class="span12" type="number" step="1"  min="{{item.min}}" max="{{item.max}}" ng-model="item.value['female_req_point']" />
+                        </td>
+                        <td>
+                            <input class="span12" type="number" step="1"  min="{{item.min}}" max="{{item.max}}" ng-model="item.value['potential_female_customer_req_point']" />
+                        </td>
+                        <td>
+                            <input class="span12" type="number" step="1"  min="{{item.min}}" max="{{item.max}}" ng-model="item.value['male_req_point']" />
+                        </td>
+                        <td>
+                            <input class="span12" type="number" step="1"  min="{{item.min}}" max="{{item.max}}" ng-model="item.value['potential_male_customer_req_point']" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-hover table-bordered ">
+                <thead>
+                    <tr>
+                        <th style="width : 100px">{{'SETTINGS.GENERAL.POINT_SETTING.LB_AREA'|translate}}</th>
+                        <th style="width : 100px">{{'SETTINGS.GENERAL.POINT_SETTING.ITEM'|translate}}</th>
+                        <th>{{'USER.INFO.FEMALE'|translate}}</th>
+                        <th>{{'USER.INFO.MALE'|translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in orderedInput.areasMinusPoint">
+                        <td ng-if="$first" rowspan="{{orderedInput.areasMinusPoint.length}}">{{'SETTINGS.GENERAL.POINT_SETTING.LB_AREAS_MINUS_POINT'|translate}}</td>
+                        <td>{{item.label}}</td>
+                        <td ng-repeat="(key,valueitem) in item.value"><input id="{{item.label}}-{{value}}"  min="{{item.min}}" max="{{item.max}}" type="number" step="1" ng-model="item.value[key]" /></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="text-center margin-top-bottom-20px">
+                <button type="button" class="btn btn-warning" ng-click="cancel('orderedInput')">{{'FORM.BTN_CANCEL'|translate}}</button>
+                <button type="submit" class="btn btn-primary" >{{'FORM.BTN_SAVE'|translate}}</button>
+            </div>
+        </form>
+
+    </accordion-group> -->
+
+    <!--#11014: Set upload setting -->
+    <accordion-group is-open="true" heading="{{'SETTINGS.GENERAL.UPLOAD_SETTING.TITLE'|translate}}">
+        <!-- Form set upload setting -->
+        <form class="form-horizontal" ng-submit="saveUploadSetting(input_upload)">
+            <div class="row-fluid">
+                <div class="span6">
+                    <!--Length of buzz-->
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.UPLOAD_SETTING.LENGTH_OF_BUZZ'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid ">
+                                <input type="text" ng-model="input_upload.max_length_buzz" class="span11" id="max_length_buzz" required="required">
+                            </div>
+                        </div>
+                    </div>
+                    <!--Max file size-->
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.UPLOAD_SETTING.MAX_FILE_SIZE'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid ">
+                                <input type="text" ng-model="input_upload.max_file_size" class="span11" id="max_file_size" required="required">
+                            </div>
+                        </div>
+                    </div>
+                    <!--Total file size-->
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.UPLOAD_SETTING.TOTAL_FILE_SIZE'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid ">
+                                <input type="text" ng-model="input_upload.total_file_size" class="span11" id="total_file_size" required="required">
+                            </div>
+                        </div>
+                    </div>
+                    <!--Max image number-->
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.UPLOAD_SETTING.MAX_IMAGE_NUMBER'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid ">
+                                <input type="text" ng-model="input_upload.max_image_number" class="span11" id="max_image_number" required="required">
+                            </div>
+                        </div>
+                    </div>
+                    <!--Max video number-->
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.UPLOAD_SETTING.MAX_VIDEO_NUMBER'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid ">
+                                <input type="text" ng-model="input_upload.max_video_number" class="span11" id="max_video_number" required="required">
+                            </div>
+                        </div>
+                    </div>
+                    <!--Max audio number-->
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.UPLOAD_SETTING.MAX_AUDIO_NUMBER'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid ">
+                                <input type="text" ng-model="input_upload.max_audio_number" class="span11" id="max_audio_number" required="required">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="span6">
+                    <!--Total file upload-->
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.UPLOAD_SETTING.TOTAL_FILE_UPLOAD'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid ">
+                                <input type="text" ng-model="input_upload.total_file_upload" class="span11" id="total_file_upload" required="required">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Max file per Album-->
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.UPLOAD_SETTING.MAX_FILE_PER_ALBUM'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid ">
+                                <input type="text" ng-model="input_upload.max_file_per_album" class="span11" id="max_file_per_album" required="required">
+                            </div>
+                        </div>
+                    </div>
+                    <!--Default audio image--> 
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.UPLOAD_SETTING.DEFAULT_AUDIO_IMAGE'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid ">
+                                <upload form="edit-{{input_upload.default_audio_img_id}}" size="property.size" 
+                                        base64="input_upload.base64AudioImg"
+                                        files="input_upload.filesAudioImg"
+                                        source="input_upload.imgSrcAudioImg"
+                                         > 
+                                </upload>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Share has deleted file--> 
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.UPLOAD_SETTING.SHARE_HAS_DELETED_IMAGE'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid ">
+                                <upload form="edit-{{input_upload.share_has_deleted_img_id}}" size="property.size" 
+                                        base64="input_upload.base64DeletedImg"
+                                        files="input_upload.filesDeletedImg"                         
+                                        source="input_upload.imgSrcDeletedImg"> 
+                                </upload>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- buton submit -->
+                <div class="text-center margin-top-bottom-20px">
+                    <button type="button" class="btn btn-warning" ng-click="cancel('upload')">{{'FORM.BTN_CANCEL'|translate}}</button>
+                    <button type="submit" class="btn btn-primary">{{'FORM.BTN_SAVE'|translate}}</button>
+                </div>
+            </div>
+        </form>
+    </accordion-group>
+    <!--end #11014-->
+
+
+
+    <!-- Video-voice setting -->
+    <accordion-group heading="{{'SETTINGS.GENERAL.CONVERSATION_SETTING.TITLE'|translate}}">
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a href="#{{defineTab.conversation.video_call}}" data-toggle="tab">{{'SETTINGS.GENERAL.CONVERSATION_SETTING.VIDEO_CALL'|translate}}</a></li>
+            <li><a href="#{{defineTab.conversation.voice_call}}" data-toggle="tab">{{'SETTINGS.GENERAL.CONVERSATION_SETTING.VOICE_CALL'|translate}}</a></li>
+        </ul>
+
+        <form class="form-horizontal row-fluid"  ng-submit="conversationSetting(orderedInput)">
+            <div class="tab-content">
+                <!--Tab video call-->
+                <div class="tab-pane active" id="{{defineTab.conversation.video_call}}">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th colspan="2">{{'SETTINGS.GENERAL.CONVERSATION_SETTING.CALLER'|translate}}</th>
+                                <th colspan="2">{{'SETTINGS.GENERAL.CONVERSATION_SETTING.RECEIVER'|translate}}</th>
+                            </tr>
+                            <tr>
+                                <th>{{'SETTINGS.GENERAL.CONVERSATION_SETTING.RETURN_CUSTOMER'|translate}}</th>
+                                <th>{{'SETTINGS.GENERAL.CONVERSATION_SETTING.NEW_CUSTOMER'|translate}}</th>
+                                <th>{{'SETTINGS.GENERAL.CONVERSATION_SETTING.RETURN_CUSTOMER'|translate}}</th>
+                                <th>{{'SETTINGS.GENERAL.CONVERSATION_SETTING.NEW_CUSTOMER'|translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="(key,item) in sConversation.video_call">
+                                <td ng-if="item.name == 'female_female'" colspan="2">
+                                    <label  id="video_call_caller_{{item.name}}"  class="control-group">{{item.data.caller.label|translate}} <input   min="-1000000000" max="1000000000" type="number" ng-model="item.data.caller.value" class="span12" /></label>
+                                </td>
+                                <td ng-if="item.name !== 'female_female'">
+                                    <label  id="video_call_caller_{{item.name}}"  class="control-group">{{item.data.caller.label|translate}} <input   min="-1000000000" max="1000000000" type="number" ng-model="item.data.caller.value" class="span12" /></label>
+                                </td>
+                                <td ng-hide="item.name == 'female_female'">
+                                    <label  id="video_call_potential_customer_caller_{{item.name}}"  class="control-group">{{item.data.potential_customer_caller.label|translate}} <input   min="-1000000000" max="1000000000" type="number" ng-model="item.data.potential_customer_caller.value" class="span12" /></label>
+                                </td>
+                                <td ng-if="item.name == 'female_female'" colspan="2">
+                                    <label  id="video_call_receiver_{{item.name}}"  class="control-group">{{item.data.receiver.label|translate}} <input  min="-1000000000" max="1000000000" type="number"  ng-model="item.data.receiver.value" class="span12" /></label>
+                                </td>
+                                <td ng-if="item.name !== 'female_female'">
+                                    <label  id="video_call_receiver_{{item.name}}"  class="control-group">{{item.data.receiver.label|translate}} <input  min="-1000000000" max="1000000000" type="number"  ng-model="item.data.receiver.value" class="span12" /></label>
+                                </td>
+                                <td ng-hide="item.name == 'female_female'">
+                                    <label  id="video_call_potential_customer_receiver_{{item.name}}"  class="control-group">{{item.data.potential_customer_receiver.label|translate}} <input  min="-1000000000" max="1000000000" type="number"  ng-model="item.data.potential_customer_receiver.value" class="span12" /></label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--Tab voice call-->
+                <div class="tab-pane" id="{{defineTab.conversation.voice_call}}">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th colspan="2">{{'SETTINGS.GENERAL.CONVERSATION_SETTING.CALLER'|translate}}</th>
+                                <th colspan="2">{{'SETTINGS.GENERAL.CONVERSATION_SETTING.RECEIVER'|translate}}</th>
+                            </tr>
+                            <tr>
+                                <th>{{'SETTINGS.GENERAL.CONVERSATION_SETTING.RETURN_CUSTOMER'|translate}}</th>
+                                <th>{{'SETTINGS.GENERAL.CONVERSATION_SETTING.NEW_CUSTOMER'|translate}}</th>
+                                <th>{{'SETTINGS.GENERAL.CONVERSATION_SETTING.RETURN_CUSTOMER'|translate}}</th>
+                                <th>{{'SETTINGS.GENERAL.CONVERSATION_SETTING.NEW_CUSTOMER'|translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="(key,item) in sConversation.voice_call">
+                                <td ng-if="item.name == 'female_female'" colspan="2">
+                                    <label id="voice_call_caller_{{item.name}}" class="control-group">{{item.data.caller.label|translate}} <input  min="-1000000000" max="1000000000" type="number" ng-model="item.data.caller.value" class="span12" /></label>
+                                </td>
+                                <td ng-if="item.name !== 'female_female'">
+                                    <label id="voice_call_caller_{{item.name}}" class="control-group">{{item.data.caller.label|translate}} <input  min="-1000000000" max="1000000000" type="number" ng-model="item.data.caller.value" class="span12" /></label>
+                                </td>
+                                <td ng-hide="item.name == 'female_female'">
+                                    <label id="voice_call_potential_customer_caller_{{item.name}}"  class="control-group">{{item.data.potential_customer_caller.label|translate}} <input   min="-1000000000" max="1000000000" type="number" ng-model="item.data.potential_customer_caller.value" class="span12" /></label>
+                                </td>
+                                <td ng-if="item.name == 'female_female'" colspan="2">
+                                    <label id="voice_call_receiver_{{item.name}}" class="control-group">{{item.data.receiver.label|translate}} <input  min="-1000000000" max="1000000000" type="number"  ng-model="item.data.receiver.value" class="span12" /></label>
+                                </td>
+                                <td ng-if="item.name !== 'female_female'">
+                                    <label id="voice_call_receiver_{{item.name}}" class="control-group">{{item.data.receiver.label|translate}} <input  min="-1000000000" max="1000000000" type="number"  ng-model="item.data.receiver.value" class="span12" /></label>
+                                </td>
+                                <td ng-hide="item.name == 'female_female'">
+                                    <label id="voice_call_potential_customer_receiver_{{item.name}}"  class="control-group">{{item.data.potential_customer_receiver.label|translate}} <input  min="-1000000000" max="1000000000" type="number"  ng-model="item.data.potential_customer_receiver.value" class="span12" /></label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="text-center margin-top-bottom-20px">
+                <button class="btn btn-warning" type="button" ng-click="cancel('sConversation')"> {{'FORM.BTN_CANCEL'|translate}}</button>
+                <button class="btn btn-primary" type="submit">{{'FORM.BTN_SAVE'|translate}}</button>
+            </div>
+        </form>
+    </accordion-group>
+
+    <!-- Distance setting -->
+    <accordion-group heading="{{'SETTINGS.GENERAL.DISTANCE_SETTING.TITLE'|translate}}">
+        <!-- Form distance setting -->
+        <form class="form-horizontal" ng-submit="distanceSetting()">
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.DISTANCE_SETTING.NEAR'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid input-append">
+                                <span>
+                                    <input type="number" min="0" max="100000" step="any" ng-model="distance.near" class="span10" id="near">
+                                </span>
+                                <span class="add-on">{{'SETTINGS.GENERAL.DISTANCE_SETTING.KM'|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.DISTANCE_SETTING.LOCAL_BUZZ'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid input-append">
+                                <span>
+                                    <input type="number" min="0" max="100000" step="any" ng-model="distance.local_buzz" class="span10"
+                                           id="local_buzz">
+                                </span>
+                                <span class="add-on">{{'SETTINGS.GENERAL.DISTANCE_SETTING.KM'|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.DISTANCE_SETTING.CITY'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid input-append">
+                                <span>
+                                    <input type="number" min="0" max="100000" step="any" ng-model="distance.city" class="span10" id="city">
+                                </span>
+                                <span class="add-on">{{'SETTINGS.GENERAL.DISTANCE_SETTING.KM'|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.DISTANCE_SETTING.COUNTRY'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid input-append">
+                                <span>
+                                    <input type="number" min="0" max="100000" step="any" ng-model="distance.country" class="span10" id="country">
+                                </span>
+                                <span class="add-on">{{'SETTINGS.GENERAL.DISTANCE_SETTING.KM'|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- buton submit -->
+                <div class="text-center margin-top-bottom-20px">
+                    <button type="button" class="btn btn-warning" ng-click="cancel('distance')">{{'FORM.BTN_CANCEL'|translate}}</button>
+                    <button type="submit" class="btn btn-primary">{{'FORM.BTN_SAVE'|translate}}</button>
+                </div>
+            </div>
+        </form>
+    </accordion-group>
+
+    <!-- Version setting -->
+    <accordion-group heading="{{'SETTINGS.GENERAL.VERSION_SETTING.TITLE'|translate}}">
+        <!-- Form other setting -->
+        <form class="form-horizontal" ng-submit="versionSetting()">
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.VERSION_SETTING.ANDROID_USABLE_VERSION'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid ">
+                                <input type="text" ng-model="version.android_usable_version" class="span11" id="android_usable_version" pattern="[0-9a-z.]{1,500}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.VERSION_SETTING.IOS_ENTERPRISE_USABLE_VERSION'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid ">
+                                <input type="text" ng-model="version.ios_enterprise_usable_version" class="span11" id="ios_enterprise_usable_version" pattern="[0-9a-z.]{1,500}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.VERSION_SETTING.IOS_NON_ENTERPRISE_USABLE_VERSION'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid ">
+                                <input type="text" ng-model="version.ios_non_enterprise_usable_version" class="span11" id="ios_non_enterprise_usable_version" pattern="[0-9a-z.]{1,500}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- buton submit -->
+            <div class="text-center margin-top-bottom-20px">
+                <button type="button" class="btn btn-warning" ng-click="cancel('other')">{{'FORM.BTN_CANCEL'|translate}}</button>
+                <button type="submit" class="btn btn-primary">{{'FORM.BTN_SAVE'|translate}}</button>
+            </div>
+        </form>
+    </accordion-group>
+
+    <!-- Other setting -->
+    <accordion-group heading="{{'SETTINGS.GENERAL.OTHER_SETTING.TITLE'|translate}}">
+        <!-- Form other setting -->
+        <form class="form-horizontal" ng-submit="otherSetting()">
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.TURN_OFF_SAFARY_IOS'|translate}}</label>
+                        <div class="controls">
+                            <select class="span11" ng-model="other.turn_off_safary"
+                                    ng-options="t.value as t.label for t in state"></select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.TURN_OFF_SAFARY_VERSION_IOS'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid ">
+                                <input type="text" ng-model="other.turn_off_safary_version" class="span11" id="turn_off_safary_version" required="required" pattern="[0-9a-z.]{1,500}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="control-group">
+                                <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.TURN_OFF_LOGIN_BY_MOCOM_IOS'|translate}}</label>
+                                <div class="controls">
+                                  <div class="row-fluid">
+                                    <select class="span11" ng-model="other.turn_off_login_by_mocom"
+                                    ng-options="tm.value as tm.label for tm in state"></select>
+                                  </div>
+                                </div>
+                              </div> -->
+
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.TURN_OFF_GET_FREE_POINT_IOS'|translate}}</label>
+                        <div class="controls">
+                            <select class="span11" ng-model="other.turn_off_get_free_point"
+                                    ng-options="tp.value as tp.label for tp in state"></select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.TURN_OFF_USER_INFO_IOS'|translate}}</label>
+                        <div class="controls">
+                            <select class="span11" ng-model="other.turn_off_extended_user_info"
+                                    ng-options="tp.value as tp.label for tp in state"></select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.TURN_OFF_SHOW_NEWS_IOS'|translate}}</label>
+                        <div class="controls">
+                            <select class="span11" ng-model="other.turn_off_show_news"
+                                    ng-options="tp.value as tp.label for tp in state"></select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.UNLOCK_BACKSTAGE_TIME'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid input-append">
+                                <span>
+                                    <input type="number" min="1" max="500" ng-model="other.unlock_bckstg_time" class="span10" id="unlock_bckstg_time">
+                                </span>
+                                <span class="add-on">{{'SETTINGS.GENERAL.OTHER_SETTING.HOURS'|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.UNLOCK_LISTEN_AUDIO_TIME'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid input-append">
+                                <span><input type="number" min="1" ng-model="other.unlock_listen_audio_time" class="span10" id="unlock_listen_audio_time"></span>
+                                <span class="add-on">{{'SETTINGS.GENERAL.OTHER_SETTING.HOURS'|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.UNLOCK_WATCH_VIDEO_TIME'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid input-append">
+                                <span><input type="number" min="1" ng-model="other.unlock_watch_video_time" class="span10" id="unlock_watch_video_time"></span>
+                                <span class="add-on">{{'SETTINGS.GENERAL.OTHER_SETTING.HOURS'|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.UNLOCK_VIEW_IMAGE_TIME'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid input-append">
+                                <span><input type="number" min="1" ng-model="other.unlock_view_image_time" class="span10" id="unlock_view_image_time"></span>
+                                <span class="add-on">{{'SETTINGS.GENERAL.OTHER_SETTING.HOURS'|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Setting on/off point-->
+                    <div class="control-group">
+                        <label class="control-label">
+                            {{'SETTINGS.GENERAL.POINT_SETTING.LB_AREAS_PAY_POINT'|translate}}
+                        </label>
+                        <div class="controls" style="padding-top: 5px;">
+                            <label  data-ng-repeat="showPaymentPage in property.showPaymentPage">
+                                <input type="radio" ng-model="other.showPaymentPage" value="{{showPaymentPage.value}}">
+                                <span>{{showPaymentPage.label}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.TURN_OFF_SAFARY_ANDROI'|translate}}</label>
+                        <div class="controls">
+                            <select class="span11" ng-model="other.turn_off_browser_android"
+                                    ng-options="t.value as t.label for t in state"></select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.TURN_OFF_SAFARY_VERSION_ANDROI'|translate}}</label>
+                        <div class="controls">
+                            <div class="row-fluid ">
+                                <input type="text" ng-model="other.turn_off_browser_android_version" class="span11" id="turn_off_browser_android_version" required="required" pattern="[0-9a-z.]{1,500}">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="control-group">
+                      <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.TURN_OFF_LOGIN_BY_MOCOM_ANDROI'|translate}}</label>
+                      <div class="controls">
+                        <div class="row-fluid">
+                          <select class="span11" ng-model="other.turn_off_login_by_mocom_android"
+                          ng-options="tm.value as tm.label for tm in state"></select>
+                        </div>
+                      </div>
+                    </div> -->
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.TURN_OFF_GET_FREE_POINT_ANDROI'|translate}}</label>
+                        <div class="controls">
+                            <select class="span11" ng-model="other.turn_off_get_free_point_android"
+                                    ng-options="tp.value as tp.label for tp in state"></select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.TURN_OFF_USER_INFO_ANDROID'|translate}}</label>
+                        <div class="controls">
+                            <select class="span11" ng-model="other.turn_off_extended_user_info_android"
+                                    ng-options="tp.value as tp.label for tp in state"></select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.TURN_OFF_SHOW_NEWS_ANDROID'|translate}}</label>
+                        <div class="controls">
+                            <select class="span11" ng-model="other.turn_off_show_news_android"
+                                    ng-options="tp.value as tp.label for tp in state"></select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">
+                            {{'SETTINGS.GENERAL.OTHER_SETTING.AUTO_IMAGE'|translate}}</label>
+                        <div class="controls">
+                            <select class="span11" ng-model="other.auto_approved_img">
+                                <option value="0">{{'SETTINGS.GENERAL.OTHER_SETTING.PENDING'|translate}}</option>
+                                <option value="1">{{'SETTINGS.GENERAL.OTHER_SETTING.APPROVED'|translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">
+                            {{'SETTINGS.GENERAL.OTHER_SETTING.AUTO_VIDEO'|translate}}</label>
+                        <div class="controls">
+                            <select class="span11" ng-model="other.auto_approved_video"
+                                    ng-options="setting_state.value as setting_state.label for setting_state in property.autoApprove">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">
+                            {{'SETTINGS.GENERAL.OTHER_SETTING.AUTO_BUZZ'|translate}}</label>
+                        <div class="controls">
+                            <select class="span11" ng-model="other.auto_approved_buzz">
+                                <option value="0">{{'SETTINGS.GENERAL.OTHER_SETTING.PENDING'|translate}}</option>
+                                <option value="1">{{'SETTINGS.GENERAL.OTHER_SETTING.APPROVED'|translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">
+                            {{'SETTINGS.GENERAL.OTHER_SETTING.AUTO_COMMENT'|translate}}</label>
+                        <div class="controls">
+                            <select class="span11" ng-model="other.auto_approved_comment">
+                                <option value="0">{{'SETTINGS.GENERAL.OTHER_SETTING.PENDING'|translate}}</option>
+                                <option value="1">{{'SETTINGS.GENERAL.OTHER_SETTING.APPROVED'|translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">
+                            {{'SETTINGS.GENERAL.OTHER_SETTING.AUTO_USER_INFO'|translate}}</label>
+                        <div class="controls">
+                            <select class="span11" ng-model="other.auto_approved_user_info">
+                                <option value="0">{{'SETTINGS.GENERAL.OTHER_SETTING.PENDING'|translate}}</option>
+                                <option value="1">{{'SETTINGS.GENERAL.OTHER_SETTING.APPROVED'|translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--Auto Hide Reported Images:Không hiển thị ảnh bị cảnh cáo-->
+                    <div class="control-group">
+                        <label class="control-label">
+                            {{'SETTINGS.GENERAL.OTHER_SETTING.AUTO_HIDE_REPORTED_IMAGE'|translate}}
+                        </label>
+                        <div class="controls">
+                            <select class="span11" ng-model="other.auto_hide_reported_image">
+                                <option value="1">{{'FORM.HIDE'|translate}}</option>
+                                <option value="0">{{'FORM.SHOW'|translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--#10990: Auto Hide Reported Video/Audio:Không hiển thị Video/Audio bị cảnh cáo-->
+                    <div class="control-group">
+                        <label class="control-label">
+                            {{'SETTINGS.GENERAL.OTHER_SETTING.AUTO_HIDE_REPORTED_VIDEO'|translate}}
+                        </label>
+                        <div class="controls">
+                            <select class="span11" ng-model="other.auto_hide_reported_video">
+                                <option value="1">{{'FORM.HIDE'|translate}}</option>
+                                <option value="0">{{'FORM.SHOW'|translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- buton submit -->
+            <div class="text-center margin-top-bottom-20px">
+                <button type="button" class="btn btn-warning" ng-click="cancel('other')">{{'FORM.BTN_CANCEL'|translate}}</button>
+                <button type="submit" class="btn btn-primary">{{'FORM.BTN_SAVE'|translate}}</button>
+            </div>
+        </form>
+    </accordion-group>
+</accordion>

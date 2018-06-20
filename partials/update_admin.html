@@ -1,0 +1,55 @@
+<div class="page-header">
+  <h3 ng-show="!editMode">{{'LIST_ADMIN.HEADER_ADD'|translate}}</h3>
+  <h3>{{editMode?'LIST_ADMIN.HEADER_UPDATE':''|translate}}</h3>
+</div>
+<div class="row-fluid">
+  <div class="span6">
+    <form class="form-horizontal" ng-submit="save()">
+      <div class="control-group">
+        <label class="control-label">{{'ACCOUNT.INFO.ACCOUNT_ID'|translate}}</label>
+        <div class="controls">
+          <input type="text" ng-model="user.email" required class="span12" id="email">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">{{'ACCOUNT.INFO.ACCOUNT_NAME'|translate}}</label>
+        <div class="controls">
+          <input type="text" ng-model="user.name" required class="span12">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="password">{{'ACCOUNT.INFO.NEW_PASSWORD'|translate}}</label>
+        <div class="controls">
+          <input type="password" ng-model="user.password" class="span12" ng-trim="false" id="password">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">{{'ACCOUNT.INFO.CONFIRM_PASSWORD'|translate}}</label>
+        <div class="controls">
+          <input type="password" ng-model="user.confirmedPassword" class="span12" ng-trim="false">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">{{'ACCOUNT.INFO.ACCOUNT_GROUP'|translate}}</label>
+        <div class="controls">
+          <select ng-options="d.id as d.name for d in properties.roles" ng-model="user.role_id" class="span6">
+          </select>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">{{'ACCOUNT.INFO.ACCOUNT_STATUS'|translate}}</label>
+        <div class="controls">
+          <select ng-model="user.flag" class="span6"
+            ng-options="d.value as d.label for d in properties.statuses">
+          </select>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <a class="btn btn-warning" href="#/account">{{'FORM.BTN_CANCEL'|translate}}</a>
+          <button type="submit"  ng-disabled="flag" class="btn btn-primary">{{'FORM.BTN_SAVE'|translate}}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

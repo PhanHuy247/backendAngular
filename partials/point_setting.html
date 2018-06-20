@@ -1,0 +1,360 @@
+<div class="page-header">
+  <h3>{{'SETTINGS.GENERAL.HEADER_TITLE'|translate}}</h3>
+</div>
+
+<accordion close-others="true">
+  <!-- Point setting -->
+  <accordion-group is-open="true" heading="{{'SETTINGS.GENERAL.POINT_SETTING.TITLE'|translate}}">
+    
+    <!--2014.11.06-->
+    <form class="form-horizontal row-fluid" ng-submit="pointSetting(orderedInput)">
+      <table class="table table-hover table-bordered ">
+        <thead>
+          <tr>
+           <th style="width : 100px">{{'SETTINGS.GENERAL.POINT_SETTING.LB_AREA'|translate}}</th>
+           <th style="width : 100px">{{'SETTINGS.GENERAL.POINT_SETTING.ITEM'|translate}}</th>
+           <th>{{'USER.INFO.MALE'|translate}}</th>
+           <th>{{'USER.INFO.FEMALE'|translate}}</th>
+           <th>{{'USER.INFO.OTHER'|translate}}</th>
+          </tr>
+          
+        </thead>
+        <tbody>
+         <tr ng-repeat="item in orderedInput.areasAddPoint">
+          <td ng-if="$first" rowspan="13">Areas Add Point</td>
+          <td> {{item.label}}</td>
+          <td ng-repeat="(key,valueitem) in item.value">
+           <input id="{{item.label}}-{{value}}" type="number" step="any" ng-model="item.value[key]" />
+          </td>
+         </tr>
+         <tr ng-repeat="item in orderedInput.areasMinusPoint">
+          <td ng-if="$first" rowspan="{{orderedInput.areasMinusPoint.length}}">Areas Minus Point</td>
+          <td>{{item.label}}</td>
+          <td ng-repeat="(key,valueitem) in item.value"><input id="{{item.label}}-{{value}}" type="number" step="any" ng-model="item.value[key]" /></td>
+         </tr>
+        </tbody>
+        
+      </table>
+     <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+           <th style="width : 100px" rowspan="3">&nbsp;</th>
+           <th style="width : 100px" rowspan="3">{{'SETTINGS.GENERAL.POINT_SETTING.ITEM'|translate}}</th>
+           <th colspan="3">{{'SETTINGS.GENERAL.POINT_SETTING.LB_PEOPLE_WHO_GIVE_POINT'|translate}}</th>
+           <th colspan="6">{{'SETTINGS.GENERAL.POINT_SETTING.LB_PEOPLE_WHO_RECEIVE_POINT'|translate}}</th>
+          </tr>
+          <tr>
+           <th rowspan="2">{{'USER.INFO.MALE'|translate}}</th>
+           <th rowspan="2">{{'USER.INFO.FEMALE'|translate}}</th>
+           <th rowspan="2">{{'USER.INFO.OTHER'|translate}}</th>
+           <th colspan="2">{{'USER.INFO.MALE'|translate}}</th>
+           <th colspan="2">{{'USER.INFO.FEMALE'|translate}}</th>
+           <th colspan="2">{{'USER.INFO.OTHER'|translate}}</th>
+          </tr>
+          <tr>
+           <th>{{'SETTINGS.GENERAL.POINT_SETTING.LB_TRADABLE'|translate}}</th>
+           <th>{{'SETTINGS.GENERAL.POINT_SETTING.LB_UNTRADABLE'|translate}}</th>
+           <th>{{'SETTINGS.GENERAL.POINT_SETTING.LB_TRADABLE'|translate}}</th>
+           <th>{{'SETTINGS.GENERAL.POINT_SETTING.LB_UNTRADABLE'|translate}}</th>
+           <th>{{'SETTINGS.GENERAL.POINT_SETTING.LB_TRADABLE'|translate}}</th>
+           <th>{{'SETTINGS.GENERAL.POINT_SETTING.LB_UNTRADABLE'|translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+         <tr ng-repeat="item in orderedInput.areasAddMinusPoint">
+          <td >&nbsp;</td>
+          <td>{{item.label}}</td>
+          <td ng-repeat="(key,valueitem) in item.value">
+           <input class="span12" type="number" step="any" ng-model="item.value[key]" />
+          </td>
+         </tr>
+        </tbody>
+        
+      </table>
+      <div class="text-center span12 margin-top-bottom-20px">
+        <button type="button" class="btn btn-warning" ng-click="cancelSetPoint()">{{'FORM.BTN_CANCEL'|translate}}</button>
+        <button type="submit" class="btn btn-primary" >{{'FORM.BTN_SAVE'|translate}}</button>
+      </div>
+    </form>
+    
+  </accordion-group>
+
+  <!-- Distance setting -->
+  <accordion-group heading="{{'SETTINGS.GENERAL.DISTANCE_SETTING.TITLE'|translate}}">
+    <!-- Form distance setting -->
+    <form class="form-horizontal" ng-submit="distanceSetting()">
+      <div class="row-fluid">
+        <div class="span6">
+          <div class="control-group">
+            <label class="control-label">{{'SETTINGS.GENERAL.DISTANCE_SETTING.NEAR'|translate}}</label>
+            <div class="controls">
+              <div class="row-fluid input-append">
+                <span>
+                  <input type="number" min="0" max="100000" step="any" ng-model="distance.near" class="span10" id="near">
+                </span>
+                <span class="add-on">{{'SETTINGS.GENERAL.DISTANCE_SETTING.KM'|translate}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">{{'SETTINGS.GENERAL.DISTANCE_SETTING.STATE'|translate}}</label>
+            <div class="controls">
+              <div class="row-fluid input-append">
+                <span>
+                  <input type="number" min="0" max="100000" step="any" ng-model="distance.state" class="span10"
+                    id="state">
+                </span>
+                <span class="add-on">{{'SETTINGS.GENERAL.DISTANCE_SETTING.KM'|translate}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">{{'SETTINGS.GENERAL.DISTANCE_SETTING.LOCAL_BUZZ'|translate}}</label>
+            <div class="controls">
+              <div class="row-fluid input-append">
+                <span>
+                  <input type="number" min="0" max="100000" step="any" ng-model="distance.local_buzz" class="span10"
+                    id="local_buzz">
+                </span>
+                <span class="add-on">{{'SETTINGS.GENERAL.DISTANCE_SETTING.KM'|translate}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="span6">
+          <div class="control-group">
+            <label class="control-label">{{'SETTINGS.GENERAL.DISTANCE_SETTING.CITY'|translate}}</label>
+            <div class="controls">
+              <div class="row-fluid input-append">
+                <span>
+                  <input type="number" min="0" max="100000" step="any" ng-model="distance.city" class="span10" id="city">
+                </span>
+                <span class="add-on">{{'SETTINGS.GENERAL.DISTANCE_SETTING.KM'|translate}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">{{'SETTINGS.GENERAL.DISTANCE_SETTING.COUNTRY'|translate}}</label>
+            <div class="controls">
+              <div class="row-fluid input-append">
+                <span>
+                  <input type="number" min="0" max="100000" step="any" ng-model="distance.country" class="span10" id="country">
+                </span>
+                <span class="add-on">{{'SETTINGS.GENERAL.DISTANCE_SETTING.KM'|translate}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- buton submit -->
+        <div class="text-center span12 margin-top-bottom-20px">
+          <button type="button" class="btn btn-warning" ng-click="cancelSetDistance()">{{'FORM.BTN_CANCEL'|translate}}</button>
+          <button type="submit" class="btn btn-primary">{{'FORM.BTN_SAVE'|translate}}</button>
+        </div>
+      </div>
+    </form>
+  </accordion-group>
+
+  <!-- Shake chat setting -->
+  <accordion-group heading="{{'SETTINGS.GENERAL.SHAKE_CHAT_SETTING.TITLE'|translate}}">
+    <!-- Form other setting -->
+    <form class="form-horizontal" ng-submit="shakeChatSetting()">
+      <div class="row-fluid">
+        <div class="span6">
+          <div class="control-group">
+            <label class="control-label">
+              {{'SETTINGS.GENERAL.SHAKE_CHAT_SETTING.BY.LABEL'|translate}}
+            </label>
+            <div class="controls">
+              <div class="row-fluid">
+                <label class="radio span6">
+                  <input type="radio" name="radio" ng-model="chat.type" value="1"/> 
+                  {{'SETTINGS.GENERAL.SHAKE_CHAT_SETTING.BY.RADIO_BACK_END'|translate}}
+                </label>
+
+                <label class="radio span6">
+                  <input type="radio" name="radio" ng-model="chat.type" value="2" />
+                  {{'SETTINGS.GENERAL.SHAKE_CHAT_SETTING.BY.RADIO_MEET_PEOPLE'|translate}}
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">
+              {{'SETTINGS.GENERAL.SHAKE_CHAT_SETTING.INTERESTED_IN.LABEL'|translate}}
+            </label>
+            <div class="controls">
+              <select ng-model="chat.inters_in" class="span12" ng-disabled="chat.type == 2">
+                <option value="0">
+                  {{'SETTINGS.GENERAL.SHAKE_CHAT_SETTING.INTERESTED_IN.OPT_BOTH'|translate}}
+                </option>
+                <option value="1">
+                  {{'SETTINGS.GENERAL.SHAKE_CHAT_SETTING.INTERESTED_IN.OPT_OPPOSITE'|translate}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">
+              {{'SETTINGS.GENERAL.SHAKE_CHAT_SETTING.DISTANCE.LABEL'|translate}}
+            </label>
+            <div class="controls">
+              <select type="text" ng-model="chat.distance" class="span12" ng-disabled="chat.type == 2">
+                <option value="0">
+                  {{'SETTINGS.GENERAL.SHAKE_CHAT_SETTING.DISTANCE.NEAR'|translate}}
+                </option>
+                <option value="1">
+                  {{'SETTINGS.GENERAL.SHAKE_CHAT_SETTING.DISTANCE.CITY'|translate}}
+                </option>
+                <option value="2">
+                  {{'SETTINGS.GENERAL.SHAKE_CHAT_SETTING.DISTANCE.STATE'|translate}}
+                </option>
+                <option value="3">
+                  {{'SETTINGS.GENERAL.SHAKE_CHAT_SETTING.DISTANCE.COUNTRY'|translate}}
+                </option>
+                <option value="4">
+                  {{'SETTINGS.GENERAL.SHAKE_CHAT_SETTING.DISTANCE.WORLD'|translate}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="span6">
+          <div class="control-group">
+            <label class="control-label">{{'SETTINGS.GENERAL.SHAKE_CHAT_SETTING.AGE'|translate}}</label>
+            <div class="controls">
+              <div class="row-fluid">
+                <span class="span5">
+                  <input type="number" min="18" max="120" ng-model="chat.lower_age" class="span12" ng-disabled="chat.type == 2"
+                    id="lower_age">
+                </span>
+                <label class="span2 text-center">&sim;</label>
+                <span class="span5">
+                  <input type="number" min="18" max="120" ng-model="chat.upper_age" class="span12" ng-disabled="chat.type == 2"
+                    id="upper_age">
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">{{'SETTINGS.GENERAL.SHAKE_CHAT_SETTING.ETHNICITY.LABEL'|translate}}</label>
+            <div class="controls">
+              <select ng-model="chat.ethn" class="span12" ng-disabled="chat.type == 2">
+                <option value="0">
+                  {{'SETTINGS.GENERAL.SHAKE_CHAT_SETTING.ETHNICITY.OPT_ALL'|translate}}
+                </option>
+                <option value="1">
+                  {{'SETTINGS.GENERAL.SHAKE_CHAT_SETTING.ETHNICITY.OPT_SAME'|translate}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- buton submit -->
+        <div class="text-center span12 margin-top-bottom-20px">
+          <button type="button" class="btn btn-warning" ng-click="cancelSetShakeChat()">{{'FORM.BTN_CANCEL'|translate}}</button>
+          <button type="submit" class="btn btn-primary">{{'FORM.BTN_SAVE'|translate}}</button>
+        </div>
+      </div>
+    </form>
+  </accordion-group>
+
+  <!-- Other setting -->
+  <accordion-group heading="{{'SETTINGS.GENERAL.OTHER_SETTING.TITLE'|translate}}">
+    <!-- Form other setting -->
+    <form class="form-horizontal" ng-submit="otherSetting()">
+      <div class="row-fluid">
+        <div class="span6">
+          <div class="control-group">
+            <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.WINK_NUM'|translate}}</label>
+            <div class="controls">
+              <div class="row-fluid input-append">
+                <span>
+                  <input type="number" min="1" max="10000" ng-model="other.wink_bomb_number" class="span10" id="wink_bomb_number">
+                </span>
+                <span class="add-on">&times;100</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.LOOK_AT_ME_TIME'|translate}}</label>
+            <div class="controls">
+              <div class="row-fluid input-append">
+                <span>
+                  <input type="number" min="1" max="500" ng-model="other.look_time" class="span10" id="look_time">
+                </span>
+                <span class="add-on">{{'SETTINGS.GENERAL.OTHER_SETTING.HOURS'|translate}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.UNLOCK_FAVORITE_TIME'|translate}}</label>
+            <div class="controls">
+              <div class="row-fluid input-append">
+                <span>
+                  <input type="number" min="1" max="500" ng-model="other.unlock_fvt_time" class="span10" id="unlock_fvt_time">
+                </span>
+                <span class="add-on">{{'SETTINGS.GENERAL.OTHER_SETTING.HOURS'|translate}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="span6">
+          <div class="control-group">
+            <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.UNLOCK_CHECK_OUT_TIME'|translate}}</label>
+            <div class="controls">
+              <div class="row-fluid input-append">
+                <span>
+                  <input type="number" min="1" max="500" ng-model="other.unlock_chk_out_time" class="span10" id="unlock_chk_out_time">
+                </span>
+                <span class="add-on">{{'SETTINGS.GENERAL.OTHER_SETTING.HOURS'|translate}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">{{'SETTINGS.GENERAL.OTHER_SETTING.UNLOCK_BACKSTAGE_TIME'|translate}}</label>
+            <div class="controls">
+              <div class="row-fluid input-append">
+                <span>
+                  <input type="number" min="1" max="500" ng-model="other.unlock_bckstg_time" class="span10" id="unlock_bckstg_time">
+                </span>
+                <span class="add-on">{{'SETTINGS.GENERAL.OTHER_SETTING.HOURS'|translate}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">
+              {{'SETTINGS.GENERAL.OTHER_SETTING.AUTO'|translate}} &minus; {{'SETTINGS.GENERAL.OTHER_SETTING.APPROVED'|translate}}
+            </label>
+            <div class="controls">
+              <select class="span12" ng-model="other.auto_approved_img">
+                <option value="0">{{'SETTINGS.GENERAL.OTHER_SETTING.PENDING'|translate}}</option>
+                <option value="1">{{'SETTINGS.GENERAL.OTHER_SETTING.APPROVED'|translate}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- buton submit -->
+        <div class="text-center span12 margin-top-bottom-20px">
+          <button type="button" class="btn btn-warning" ng-click="cancelSetOther()">{{'FORM.BTN_CANCEL'|translate}}</button>
+          <button type="submit" class="btn btn-primary">{{'FORM.BTN_SAVE'|translate}}</button>
+        </div>
+      </div>
+    </form>
+  </accordion-group>
+</accordion>

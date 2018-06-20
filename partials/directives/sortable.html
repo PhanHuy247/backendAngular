@@ -1,0 +1,43 @@
+<div class="row-fluid" ng-hide="active">
+  <div class="span12">
+    <button type="button" class="btn btn-info"
+      ng-click="activate()">{{'SORTABLE.BTN_EDIT_ORDER'|translate}}</button>
+  </div>
+</div>
+<div class="row-fluid" ng-show="active">
+  <div class="span12">
+    <button type="button" class="btn btn-warning"
+      ng-click="discard()">{{'SORTABLE.BTN_DISCARD_CHANGES'|translate}}</button>
+    <button type="button" class="btn btn-primary"
+      ng-click="save()">{{'SORTABLE.BTN_SAVE_CHANGES'|translate}}</button>
+  </div>
+</div>
+<br>
+<div class="row-fluid" ng-show="active">
+  <div class="span12">
+    <ul class="sortable nav nav-tabs nav-stacked">
+      <li ng-repeat="item in activeSource" key="{{item[keyProp]}}">
+        <a>
+          <div class="row-fluid">
+            <div class="sortable-thumbnail span" style="width: {{size.width}}; height: {{size.height}}; line-height: {{size.height}}">
+              <img ng-src="{{item.imgSrc}}" ng-if="item.hasImage">
+            </div>
+            <div class="span8">
+              <span>{{item.jp_name}}</span><br>
+              <span>{{item.en_name}}</span>
+            </div>
+            <div class="pull-right">#{{item.order}}</div>
+          </div>
+          
+          
+        </a>
+        
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="row-fluid" ng-show="active">
+  <div class="alert alert-info">
+    <b>{{'SORTABLE.HELP_LABEL'|translate}}</b>
+  </div>
+</div>

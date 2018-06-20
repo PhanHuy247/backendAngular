@@ -1,0 +1,87 @@
+<div class="page-header">
+  <h3>{{'MEDIA_SETTINGS.TITLE'|translate}}</h3>
+</div>
+
+<div class="row-fluid">
+<table class="table table-hover table-bordered">
+  <thead>
+  <th class="span3">{{'ADVERTISE_COMMON.AFF_NAME'|translate}}</th>
+  <th>{{'MEDIA_SETTINGS.MEDIA_NAME'|translate}}</th>
+  <th class="span2">{{'FORM.STATUS'|translate}}</th>
+  <th class="span4">{{'MEDIA_SETTINGS.MEDIA_URL'|translate}}</th>
+  <th class="span3"></th>
+  </thead>
+  <tbody>
+    <tr>
+      <!-- Affiliate -->
+      <td>
+        <select ng-model="input.affId" class="span12" form="addMedia"
+          ng-options="c.aff_id as c.aff_name for c in affiliateList" required>
+        </select>
+      </td>
+
+      <!-- Media name -->
+      <td>
+        <input type="text" ng-model="input.mediaName" class="span12" id="mediaName" form="addMedia" required>
+      </td>
+
+      <!-- Media status -->
+      <td>
+        <select ng-model="input.status" class="span12" form="addMedia" id="status"
+          ng-options="s.value as s.label for s in attributes.status" required>
+        </select>
+      </td>
+
+      <!-- Media url -->
+      <td>
+        <input type="text" ng-model="input.mediaUrl" class="span12" id="url" form="addMedia" required>
+      </td>
+
+      <!-- Button Add -->
+      <td>
+        <form id="addMedia" ng-submit="addMedia()">
+          <input type="submit" class="btn btn-primary"  ng-disabled="flag" value="{{'FORM.BTN_ADD'|translate}}">
+        </form>
+      </td>
+    </tr>
+
+    <tr ng-repeat="item in mediaList">
+      <td>
+        <select ng-disabled="!item.isEdit" ng-model="item.aff_id" class="span12"
+          ng-options="a.aff_id as a.aff_name for a in affiliateList"
+          form="edit-{{item.media_id}}" required>
+        </select>
+      </td>
+
+      <td>
+        <input type="text" ng-model="item.media_name" ng-disabled="!item.isEdit" class="span12"
+          id="mediaName-{{item.media_id}}" form="edit-{{item.media_id}}" required>
+      </td>
+
+      <td>
+        <select ng-disabled="!item.isEdit" ng-model="item.flag" class="span12" id="status-{{item.media_id}}"
+          ng-options="s.value as s.label for s in attributes.status" form="edit-{{item.media_id}}" required>
+        </select>
+      </td>
+
+      <td>
+        <input type="text" ng-model="item.media_url" ng-disabled="!item.isEdit" class="span12"
+          id="url-{{item.media_id}}" form="edit-{{item.media_id}}" required>
+      </td>
+
+      <td>
+        <span>
+          <input type="button" ng-if="!item.isEdit" value="{{'FORM.BTN_EDIT'|translate}}"
+            class="btn btn-info" ng-click="mediaEdit(item)">
+        </span>
+        
+        <form id="edit-{{item.media_id}}" ng-submit="mediaSave(item)">
+          <input type="button" ng-if="item.isEdit" value="{{'FORM.BTN_CANCEL'|translate}}"
+            class="btn btn-warning" ng-click="mediaCancel(item)">
+          <input type="submit" ng-if="item.isEdit" value="{{'FORM.BTN_SAVE'|translate}}" class="btn btn-primary">
+        </form>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

@@ -1,0 +1,98 @@
+<div class="page-header">
+    <h3>{{'REPORT.VIDEO_MANAGEMENT.ALL_VIDEO_SECRET_OF_USER'|translate}}</h3>
+</div>
+
+<div class="row-fluid"> 
+    <div class="span8">
+        <pagination
+            next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+            previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+            first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+            last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+            ng-hide="setting.totalItems <= setting.itemsPerPage"
+            on-select-page="load(page)"
+            class="span12"
+            page="setting.currentPage"
+            total-items="setting.totalItems"
+            boundary-links="true"
+            rotate="false"
+            max-size="setting.numberPagesDisplay"
+            items-per-page="setting.itemsPerPage">
+        </pagination>
+    </div>
+    <div class="span4 text-right pagination">
+        <span>{{'LIST.TOTAL_ITEMS'|translate}}&#58;&nbsp;{{setting.totalItems}}</span>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <ul class="thumbnails">
+        <li ng-repeat="item in videoLists">
+            <!-- <div class="thumbnail item-image-approve-deny"> -->
+            <div class="thumbnail item-image-approve-deny item-secret-video">
+                <div class="image_approve_deny">
+                    <videogular-area source="item.url"></videogular-area>
+                </div>
+                <div class="text-info-approve-image wrapper-element">
+                    <p class="text-length-format">
+                        {{'USER.INFO.USER_ID'|translate}}&nbsp;&#58;&nbsp;
+                        <span class="text-info">
+                            <a target="_blank" href="#/user/user_detail/{{item.user_id}}">{{item.user_id}}</a>
+                        </span>
+                    </p>
+                    <p class="text-length-format">
+                        {{'USER.INFO.USER_NAME'|translate}}&nbsp;&#58;&nbsp;
+                        <span class="text-info">{{item.user_name}}</span>
+                    </p>
+                    <p class="text-length-format">
+                        {{'USER.INFO.EMAIL'|translate}}&nbsp;&#58;&nbsp;
+                        <span class="text-info">{{item.email}}</span>
+                    </p>
+                    <p class="text-length-format">
+                        {{'REPORT.VIDEO_MANAGEMENT.VIDEO_ID'|translate}}&nbsp;&#58;&nbsp;
+                        <span class="text-info">{{item.video_id}}</span>
+                    </p>
+                    <p>
+                        {{'REPORT.VIDEO_MANAGEMENT.VIDEO_STATUS'|translate}}&nbsp;&#58;&nbsp;
+                        <span class="text-info">{{item.video_status|label:[attributes.filterByStatus, true]}}</span>
+                    </p>
+                    <p>
+                        {{'REPORT.VIDEO_MANAGEMENT.POSTED_TIME'|translate}}&nbsp;&#58;&nbsp;
+                        <span class="text-info">{{item.upload_time|local:[true]}}</span>
+                    </p>
+                    <p>
+                        {{'REPORT.VIDEO_MANAGEMENT.UPDATED_TIME'|translate}}&nbsp;&#58;&nbsp;
+                        <span class="text-info">{{item.review_time|local:[true]}}</span>
+                    </p>
+                    <a target="_blank" href="#/report/all_videos_of_user/{{item.user_id}}">{{'REPORT.VIDEO_MANAGEMENT.ALL_VIDEO_SECRET_OF_USER'|translate}}</a>
+                </div>
+                <div class="height-30px align-center">
+                    <button ng-hide="item.isSuccess" type="button" ng-class="buttonLeft" ng-click="changeStatusVideo(flagButtonLeft, item)">{{labelButtonLeft}}</button>
+                    <button ng-hide="item.isSuccess" type="button" ng-class="buttonCenter" ng-click="changeStatusVideo(flagButtonCenter, item)">{{labelButtonCenter}}</button>
+                    <button ng-hide="item.isSuccess" type="button" ng-class="buttonRight" ng-click="changeStatusVideo(flagButtonRight, item)">{{labelButtonRight}}</button>
+                    <span ng-class="{'label': true, 'approved-denied-pending': true, 'label-important': item.labelImportant, 'label-success': item.labelSuccess}" ng-show="item.isSuccess">{{item.statusLabel}}</span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="row-fluid">
+    <div class="span8">
+        <pagination
+            next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+            previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+            first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+            last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+            ng-hide="setting.totalItems <= setting.itemsPerPage"
+            on-select-page="load(page)"
+            class="span12"
+            page="setting.currentPage"
+            total-items="setting.totalItems"
+            boundary-links="true"
+            rotate="false"
+            max-size="setting.numberPagesDisplay"
+            items-per-page="setting.itemsPerPage">
+        </pagination>
+    </div>
+</div>

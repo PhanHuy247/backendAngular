@@ -1,0 +1,87 @@
+<div class="page-header">
+  <h3>{{'AFFILIATE_SETTINGS.TITLE'| translate}}</h3>
+</div>
+<div class="row-fluid">
+<table class="table table-bordered table-hover">
+  <thead>
+  <th>{{'ADVERTISE_COMMON.AFF_NAME'| translate}}</th>
+  <th>{{'AFFILIATE_SETTINGS.AFF_LOGIN_ID'| translate}}</th>
+  <th>{{'AFFILIATE_SETTINGS.AFF_PASSWORD'| translate}}</th>
+  <th class="span2">{{'FORM.STATUS'| translate}}</th>
+  <th>{{'AFFILIATE_SETTINGS.AFF_EMAIL'| translate}}</th>
+  <th class="span3"></th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <input type="text" ng-model="input.affName" form="addAffiliate" id="name" class="span12" required>
+      </td>
+      <td>
+        <input type="text" ng-model="input.loginId" form="addAffiliate" class="span12" id="loginId"
+          required pattern="[0-9a-zA-Z]+">
+      </td>
+      <td>
+        <input type="text" ng-model="input.password" form="addAffiliate" class="span12" id="password"
+          required pattern="[0-9a-zA-Z]+">
+      </td>
+      <td>
+        <select ng-model="input.status" form="addAffiliate" class="span12" id="status"
+          ng-options="s.value as s.label for s in attributes.status" required>
+        </select>
+      </td>
+      <td>
+        <input type="email" ng-model="input.email" form="addAffiliate" class="span12" id="email" required>
+      </td>
+      <td>
+        <form id="addAffiliate" ng-submit="addAffiliate()">
+          <input type="submit"  ng-disabled="flag" class="btn btn-primary" value="{{'FORM.BTN_ADD'| translate}}">
+        </form>
+      </td>
+    </tr>
+
+    <tr ng-repeat="item in affList">
+      <td>
+        <input type="text" ng-model="item.aff_name" ng-disabled="!item.isEdit" class="span12"
+          id="name-{{item.aff_id}}" form="edit-{{item.aff_id}}">
+      </td>
+
+      <td>
+        <input type="text" ng-model="item.aff_login_id" ng-disabled="!item.isEdit" class="span12"
+          id="loginId-{{item.aff_id}}" form="edit-{{item.aff_id}}" required pattern="[0-9a-zA-Z]+">
+      </td>
+
+      <td>
+        <input type="text" ng-model="item.aff_pwd" ng-disabled="!item.isEdit" class="span12"
+          id="password-{{item.aff_id}}" form="edit-{{item.aff_id}}" required pattern="[0-9a-zA-Z]+">
+      </td>
+
+      <td>
+        <select ng-disabled="!item.isEdit" ng-model="item.flag" class="span12" id="status-{{item.aff_id}}"
+          ng-options="f.value as f.label for f in attributes.status" form="edit-{{item.aff_id}}" required>
+        </select>
+      </td>
+
+      <td>
+        <input type="email" ng-model="item.aff_email" ng-disabled="!item.isEdit" class="span12"
+          id="email-{{item.aff_id}}" form="edit-{{item.aff_id}}" required>
+      </td>
+
+      <td>
+        <span>
+          <input type="button" ng-if="!item.isEdit" value="{{'FORM.BTN_EDIT'| translate}}"
+            class="btn btn-info" ng-click="affiliateEdit(item)">
+        </span>
+        <form id="edit-{{item.aff_id}}" ng-submit="affiliateSave(item)">
+          <span>
+            <input type="button" ng-if="item.isEdit" value="{{'FORM.BTN_CANCEL'| translate}}"
+              class="btn btn-warning" ng-click="affiliateCancel(item)">
+          </span>
+          <span>
+            <input type="submit" ng-if="item.isEdit" value="{{'FORM.BTN_SAVE'| translate}}" class="btn btn-primary">
+          </span>
+        </form>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

@@ -1,0 +1,53 @@
+<div class="modal-header">
+  <h4>{{'USER.PURCHASE_POINT_LOG.TITLE'|translate}}</h4>
+</div>
+<div class="modal-body">
+  
+  <!-- User ID -->
+  <div class="row-fluid">
+    <label class="span2">{{'USER.INFO.USER_ID'|translate}}</label>
+    <span class="text-info span8">{{user.user_id}}</span>
+  </div>
+
+  <!-- User Name -->
+  <div class="row-fluid">
+    <label class="span2">{{'USER.INFO.USER_NAME'|translate}}</label>
+    <span class="text-info span10">{{user.user_name}}</span>
+  </div>
+  
+  <div class="table-responsive" >
+   <table class="table table-hover table-bordered " style="white-space : inherit">
+    <thead>
+      <tr>
+        <th>
+          <span>{{'USER.PURCHASE_POINT_LOG.LB_TIME'|translate}}</span>
+        </th>
+        <th>
+          <span>{{'USER.PURCHASE_POINT_LOG.LB_POINT'|translate}}</span>
+        </th>
+        <!--10_06_2014-->
+        <th  width="9%" >
+          <span>{{'USER.PURCHASE_POINT_LOG.LB_PRICE'|translate}}</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in data">
+        <td>
+          <span>{{item.time|local:[true]}}</span>
+        </td>
+        <td>
+          <span>{{item.point|stat}}</span>
+        </td>
+        <td>
+          <span>{{item.price|stat}}</span>
+        </td>        
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="close()">{{'DIALOG.CLOSE'|translate}}</button>
+</div>

@@ -1,0 +1,108 @@
+<div class="modal-header">
+  <h4>{{'REPORT.VIEWING_SUB_COMENT.TITLE'|translate}}</h4>
+</div>
+<div class="modal-body">
+  <!-- Table comment content -->
+  <div class="row-fluid">
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>
+            <span>{{'REPORT.COMMENT_MANAGEMENT.USER_ID'|translate}}</span>
+            <br>
+            <span>{{'REPORT.COMMENT_MANAGEMENT.USER_NAME'|translate}}</span>
+          </th>
+          <th>
+            <span>{{'REPORT.COMMENT_MANAGEMENT.BUZZ_ID'|translate}}</span>
+            <br>
+            <span>{{'REPORT.COMMENT_MANAGEMENT.COMMENT_ID'|translate}}</span>
+          </th>
+          <th>
+            <span>{{'REPORT.COMMENT_MANAGEMENT.COMMENT_VALUE'|translate}}</span>
+          </th>
+          <th>
+            <span>{{'REPORT.COMMENT_MANAGEMENT.COMMENT_TIME'|translate}}</span>
+          </th>
+          <th>
+            <span>{{'REPORT.COMMENT_MANAGEMENT.SUB_COMMENT_NUMBER'|translate}}</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <span><a target="_blank" href="#/user/user_detail/{{comment.user_id}}">{{comment.user_id}}</a></span><br><span>{{comment.user_name}}</span>
+          </td>
+          <td>
+            <span>{{comment.buzz_id}}</span><br><span>{{comment.comment_id}}</span>
+          </td>
+          <td class="span5">
+            <span><p>{{comment.comment_value}}</p></span>
+          </td>
+          <td class="span3">
+            <span>{{comment.comment_time|local:[true]}}</span>
+          </td>
+          <td class="span2">
+            <div class="text-center">{{comment.reviewing_sub_comment_number}}</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <hr>
+  <!-- Table subcomment content -->
+  <div class="row-fluid">
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>
+            <span>{{'REPORT.COMMENT_MANAGEMENT.USER_ID'|translate}}</span>
+            <br>
+            <span>{{'REPORT.COMMENT_MANAGEMENT.USER_NAME'|translate}}</span>
+          </th>
+          <th>
+            <span>{{'REPORT.COMMENT_MANAGEMENT.BUZZ_ID'|translate}}</span>
+            <br>
+            <span>{{'REPORT.VIEWING_SUB_COMENT.COMMENT_ID'|translate}}</span>
+          </th>
+          <th class="span4">
+            <span>{{'REPORT.VIEWING_SUB_COMENT.COMMENT_VALUE'|translate}}</span>
+          </th>
+          <th class="span3">
+            <span>{{'REPORT.VIEWING_SUB_COMENT.COMMENT_TIME'|translate}}</span>
+          </th>
+          <th class="span3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in subCommentLists">
+          <td>
+            <span><a target="_blank" href="#/user/user_detail/{{item.user_id}}">{{item.user_id}}</a></span><br><span>{{item.user_name}}</span>
+          </td>
+          <td>
+            <span>{{item.buzz_id}}</span><br><span>{{item.sub_comment_id}}</span>
+          </td>
+          <td>
+            <span><p>{{item.value}}</p></span>
+          </td>
+          <td>
+            <span>{{item.time|local:[true]}}</span>
+          </td>
+          <td>
+            <div class="text-center">
+              <button ng-hide="item.isSuccess" type="button" ng-class="buttonLeft"
+                ng-click="changeStatusComment(flagButtonLeft, item)">{{labelButtonLeft}}</button>
+              <button ng-hide="item.isSuccess" type="button" ng-class="buttonRight"
+                ng-click="changeStatusComment(flagButtonRight, item)">{{labelButtonRight}}</button>
+              <span ng-class="{'label': true, 'approved-denied-pending': true, 'label-important': item.labelImportant,
+                'label-success': item.labelSuccess}" ng-show="item.isSuccess">{{item.statusLabel}}</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="close()">{{'DIALOG.CLOSE'|translate}}</button>
+</div>

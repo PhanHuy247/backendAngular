@@ -1,0 +1,110 @@
+<div class="page-header">
+  <h3>{{'GIFT_STAMP.GIFT_LIST'|translate}}</h3>
+</div>
+<div class="row-fluid">
+  <div class="span6 form-horizontal">
+    <div class="control-group">
+      <label class="control-label">{{'GIFT_STAMP.INFO.VN_CATEGORY_NAME'|translate}}</label>
+      <div class="controls">
+        <input type="text" class="span12" readonly 
+          ng-model="properties.category.jp_name">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">{{'GIFT_STAMP.INFO.EN_CATEGORY_NAME'|translate}}</label>
+      <div class="controls">
+        <input type="text" class="span12" readonly 
+          ng-model="properties.category.en_name">
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+<sortable source="properties.gifts" active="properties.activeOrder"
+  key-prop="id" on-save="saveOrder(orders)"
+  show-image="true"></sortable>
+<table class="table table-hover table-bordered" ng-hide="properties.activeOrder">
+  <thead>
+    <tr>
+      <th class="span1">
+        <span>{{'GIFT_STAMP.INFO.IMAGE'|translate}}</span>
+      </th>
+      <th class="span3">
+        <span>{{'GIFT_STAMP.INFO.VN_NAME'|translate}}</span>
+      </th>
+      <th class="span3">
+        <span>{{'GIFT_STAMP.INFO.EN_NAME'|translate}}</span>
+      </th>
+      <th>
+        <span>{{'GIFT_STAMP.INFO.GIFT_INFO'|translate}}</span>
+      </th>
+      <th class="span2">
+        <span>{{'GIFT_STAMP.INFO.PRICE'|translate}}</span>
+      </th>
+      <th class="span3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <upload form="add" ng-required="true" size="properties.size"
+          base64="input.base64"></upload>
+      </td>
+      <td>
+        <input type="text" class="span12" form="add"
+          ng-model="input.nameJP" required>
+      </td>
+      <td>
+        <input type="text" class="span12" form="add"
+          ng-model="input.nameEN" required>
+      </td>
+      <td>
+        <textarea class="span12" rows="{{properties.textareaHeight}}" form="add"
+          ng-model="input.info"></textarea>
+      </td>
+      <td>
+        <input type="number" min="0" max="1000000" step="any" class="span12" form="add"
+          ng-model="input.price" required>
+      </td>
+      <td>
+        <form ng-submit="add()" id="add">
+          <button type="submit" class="btn btn-primary">{{'FORM.BTN_ADD'|translate}}</button>
+        </form>
+      </td>
+    </tr>
+    <tr ng-repeat="gift in properties.gifts">
+      <td>
+        <upload form="edit-{{gift.cat_id}}" ng-disabled="!gift.isEdit" size="properties.size"
+          base64="gift.base64" source="gift.imgSrc"></upload>
+      </td>
+      <td>
+        <input type="text" class="span12" form="edit-{{gift.cat_id}}" required
+          ng-model="gift.jp_name" ng-disabled="!gift.isEdit">
+      </td>
+      <td>
+        <input type="text" class="span12" form="edit-{{gift.cat_id}}" required
+          ng-model="gift.en_name" ng-disabled="!gift.isEdit">
+      </td>
+      <td>
+        <textarea class="span12" rows="{{properties.textareaHeight}}" form="edit-{{gift.cat_id}}"
+          ng-model="gift.gift_inf" ng-disabled="!gift.isEdit"></textarea>
+      </td>
+      <td>
+        <input type="number" min="0" max="1000000" class="span12" step="any" form="edit-{{gift.cat_id}}" required
+          ng-model="gift.gift_pri" ng-disabled="!gift.isEdit">
+      </td>
+      <td>
+        <button type="button" class="btn btn-info"
+          ng-hide="gift.isEdit" ng-click="beginEdit(gift)">{{'FORM.BTN_EDIT'|translate}}</button>
+        <button type="button" class="btn btn-danger"
+          ng-hide="gift.isEdit" ng-click="remove(gift)">{{'FORM.BTN_DELETE'|translate}}</button>
+        <form ng-submit="save(gift)" id="edit-{{gift.cat_id}}">
+          <button type="button" class="btn btn-warning"
+            ng-show="gift.isEdit" ng-click="discard(gift)">{{'FORM.BTN_CANCEL'|translate}}</button>
+          <button type="submit" class="btn btn-primary"
+            ng-show="gift.isEdit">{{'FORM.BTN_SAVE'|translate}}</button>
+        </form>
+      </td>
+    </tr>
+  </tbody>
+</table>

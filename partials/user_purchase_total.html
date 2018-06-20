@@ -1,0 +1,76 @@
+<div class="modal-header">
+    <h4 ng-if="user.production_type === -1">{{'USER.TOTAL_PURCHASE.TITLE'|translate}}</h4>
+    <h4 ng-if="user.production_type >= 0">{{user.production_type | label:[attributes.productionTypeDialog, true]}}</h4>
+</div>
+<div class="modal-body">
+
+    <!-- User ID -->
+    <div class="row-fluid">
+        <label class="span3">{{'USER.INFO.USER_ID'|translate}}</label>
+        <span class="text-info span9">{{user.user_id}}</span>
+    </div>
+
+    <!-- User Name -->
+    <div class="row-fluid">
+        <label class="span3">{{'USER.INFO.USER_NAME'|translate}}</label>
+        <span class="text-info span9">{{user.user_name}}</span>
+    </div>
+
+    <!-- Total purchase -->
+    <div class="row-fluid">
+        <label class="span3" ng-if="user.production_type === -1">{{'USER.TOTAL_PURCHASE.TITLE'|translate}}</label>
+        <label class="span3" ng-if="user.production_type >= 0">{{user.production_type | label:[attributes.productionTypeDialog]}}</label>
+        <span class="text-info span9">{{user.total_purchase}}</span>
+    </div>
+    <div class="table-responsive" >
+        <table class="table table-hover table-bordered " style="white-space : inherit">
+            <thead>
+            <tr>
+                <th>
+                    <span>{{'LOG.PURCHASE_LOG.PURCHASE_SUCCESS'|translate}}</span>
+                </th>
+                <th>
+                    <span>{{'LOG.PURCHASE_LOG.PURCHASE_TIME'|translate}}</span><br>
+                    <span>{{'LOG.PURCHASE_LOG.PURCHASE_TYPE'|translate}}</span>
+                </th>
+                <!--10_06_2014-->
+                <th  width="10%" >
+                    <span>{{'LOG.PURCHASE_LOG.POINT'|translate}}</span>
+                </th>
+                <th  width="10%">
+                    <span>{{'LOG.PURCHASE_LOG.AMOUNT'|translate}}</span>
+                </th>
+                <!--<th  width="20%">-->
+                    <!--<span>{{'LOG.PURCHASE_LOG.TOTAL_AMOUNT'|translate}}</span>-->
+                <!--</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in purchaseLog">
+                <td>
+                    <span>{{item.success | label:[attributes.purchaseSuccess, true]}}</span>
+                </td>
+                <td>
+                    <span>{{item.time|local:[true]}}</span>
+                    <br>
+                    <span>{{item.production_type | label:[attributes.productionTypes, true]}}</span>
+                </td>
+                <!--10_06_2014-->
+                <td>
+                    <span>{{item.point}}</span>
+                </td>
+                <td>
+                    <span>{{item.price}}</span>
+                </td>
+                <!--<td>-->
+                    <!--<span>{{item.total_price}}</span>-->
+                <!--</td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" ng-click="close()">{{'DIALOG.CLOSE'|translate}}</button>
+</div>

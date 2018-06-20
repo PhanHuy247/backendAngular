@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <h4>{{'USER.PAYMENT_HISTORY.TITLE'|translate}}</h4>
+</div>
+<div class="modal-body">
+
+    <!-- User ID -->
+    <div class="row-fluid">
+        <label class="span2">{{'USER.INFO.USER_ID'|translate}}</label>
+        <span class="text-info span8">{{user.user_id}}</span>
+    </div>
+
+    <!-- User Name -->
+    <div class="row-fluid">
+        <label class="span2">{{'USER.INFO.USER_NAME'|translate}}</label>
+        <span class="text-info span10">{{user.user_name}}</span>
+    </div>
+
+    <!-- Current point -->
+    <div class="row-fluid">
+        <label class="span2">{{'USER.USER_LIST.LB_POINT'|translate}}</label>
+        <span class="text-info span10">{{user.point}}</span>
+    </div>
+    <div class="table-responsive" >
+        <table class="table table-hover table-bordered " style="white-space : inherit">
+            <thead>
+            <tr>
+                <th>
+                    <span>{{'USER.POINT_HISTORY.TB_TIME'|translate}}</span>
+                </th>
+                <!--10_06_2014-->
+                <th  width="12%" >
+                    <span>{{'USER.POINT_HISTORY.BEFORE_POINT'|translate}}</span>
+                </th>
+                <th  width="12%">
+                    <span>{{'USER.POINT_HISTORY.TB_POINT'|translate}}</span>
+                </th>
+                <th  width="12%">
+                    <span>{{'USER.POINT_HISTORY.AFTER_POINT'|translate}}</span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in paymentHistory">
+                <td>
+                    <span>{{item.time|local:[true]}}</span>
+                </td>
+                <!--10_06_2014-->
+                <td>
+                    <span>{{item.before_point|stat}}</span>
+                </td>
+                <td>
+                    <span>{{item.point|stat}}</span>
+                </td>
+                <td>
+                    <span>{{item.after_point|stat}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" ng-click="close()">{{'DIALOG.CLOSE'|translate}}</button>
+</div>

@@ -1,0 +1,129 @@
+<div class="page-header">
+  <h3>{{'GIFT_STAMP.STAMP_CATEGORY_LIST'|translate}}</h3>
+</div>
+<table class="table table-hover table-bordered" ng-hide="properties.activeOrder">
+  <thead>
+    <tr>
+      <th class="span1">
+        <span>{{'GIFT_STAMP.INFO.IMAGE'|translate}}</span>
+      </th>
+      <th>
+        <span>{{'GIFT_STAMP.INFO.STAMP_TYPE'|translate}}</span>
+      </th>
+      
+      <th class="span4">
+        <span>{{'GIFT_STAMP.INFO.VN_NAME'|translate}}</span><br>
+        <span>{{'GIFT_STAMP.INFO.VN_DESC'|translate}}</span>
+      </th>
+      <th class="span4">
+        <span>{{'GIFT_STAMP.INFO.EN_NAME'|translate}}</span><br>
+        <span>{{'GIFT_STAMP.INFO.EN_DESC'|translate}}</span>
+      </th>
+      <th class="span2">
+        <span>{{'GIFT_STAMP.INFO.PRICE'|translate}}</span>
+      </th>
+      <th class="span1">
+        <span>{{'GIFT_STAMP.INFO.NUMBER_OF_STAMPS'|translate}}</span>
+      </th>
+      <th class="span3">
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <upload form="add" base64="input.base64" ng-required="true" size="properties.size"></upload>
+      </td>
+      <td>
+        <select class="span12" ng-model="input.type" form="add" ng-change="setFreePrice(input)"
+          ng-options="d.value as d.label for d in properties.categoryTypes" required></select>
+      </td>
+      <td>
+        <div>
+          <input type="text" class="span12" form="add" required
+            ng-model="input.jp_name">
+        </div>
+        <div>
+          <textarea rows="properties.textareaHeight" class="span12" form="add"
+            ng-model="input.jp_des" required></textarea>
+        </div>
+      </td>
+      <td>
+        <div>
+          <input type="text" class="span12" form="add" required
+            ng-model="input.en_name">
+        </div>
+        <div>
+          <textarea rows="properties.textareaHeight" class="span12" form="add"
+            ng-model="input.en_des" required></textarea>
+        </div>
+      </td>
+      <td>
+        <input type="number" min="0" max="1000000" step="any" form="add" class="span12" required
+          ng-model="input.price" ng-disabled="input.type == properties.categoryTypes[0].value">
+      </td>
+      <td>
+      </td>
+      <td>
+       <form id="add"  ng-submit="add()">
+          <button type="submit" ng-disabled="flag" class="btn btn-primary">{{'FORM.BTN_ADD'|translate}}</button>
+        </form>
+      </td>
+    </tr>
+    <tr ng-repeat="category in properties.stampCategories">
+      <td>
+        <upload form="edit-{{category.cat_id}}" size="properties.size"
+          base64="category.base64" source="category.imgSrc"
+          ng-disabled="!category.isEdit"></upload>
+      </td>
+      <!--<td ng-if="category.type == 0">
+        <span>{{'GIFT_STAMP.INFO.STAMP_TYPES.DEFAULT'|translate}}</span>
+      </td>-->
+	  <!--  ng-if="category.type > 0" -->
+      <td>
+        <select class="span12" ng-model="category.type" form="edit-{{category.cat_id}}" ng-disabled="!category.isEdit"
+          ng-options="d.value as d.label for d in properties.categoryTypes" ng-change="setFreePrice(category)"></select>
+      </td>
+      <td>
+        <div>
+          <input type="text" class="span12" form="edit-{{category.cat_id}}" 
+            ng-model="category.jp_name" ng-disabled="!category.isEdit" required>
+        </div>
+        <div>
+          <textarea class="span12" rows="properties.textareaHeight" ng-disabled="!category.isEdit" 
+            ng-model="category.jp_des" required></textarea>
+        </div>
+      </td>
+      <td>
+        <div>
+          <input type="text" class="span12" form="edit-{{category.cat_id}}" 
+            ng-model="category.en_name" ng-disabled="!category.isEdit" required>
+        </div>
+        <div>
+          <textarea class="span12" rows="properties.textareaHeight" ng-disabled="!category.isEdit" 
+            ng-model="category.en_des" required></textarea>
+        </div>
+      </td>
+      <td>
+        <input type="number" min="0" max="1000000" step="any" class="span12" form="edit-{{category.cat_id}}"
+          ng-model="category.price" ng-disabled="isEditedPrice(category)" required>
+      </td>
+      <td>
+        <div class="text-center">
+          <a href="#/settings/stamp_category/{{category.cat_id}}" class="btn btn-link">{{category.stk_num}}</a>
+        </div>
+      </td>
+      <td>
+        <button type="button" class="btn btn-info" ng-hide="category.isEdit"
+          ng-click="beginEdit(category)">{{'FORM.BTN_EDIT'|translate}}</button>
+        <button type="button" class="btn btn-danger" ng-hide="category.isEdit"
+          ng-click="remove(category)">{{'FORM.BTN_DELETE'|translate}}</button> <!--  ng-if="category.type > 0" -->
+        <form id="edit-{{category.cat_id}}" ng-submit="save(category)">
+          <button type="button" class="btn btn-warning" ng-show="category.isEdit"
+            ng-click="discard(category)">{{'FORM.BTN_CANCEL'|translate}}</button>
+          <button type="submit" class="btn btn-primary" ng-show="category.isEdit">{{'FORM.BTN_SAVE'|translate}}</button>
+        </form>
+      </td>
+    </tr>
+  </tbody>
+</table>

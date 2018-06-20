@@ -1,0 +1,94 @@
+<div class="page-header">
+  <div class="row-fluid">
+    <div class="span8">
+      <h3>{{'LOG.CURRENT_USER_ONLINE.TITLE'|translate}}</h3>
+    </div>
+    <div class="span4 text-right" style="display : none;">
+      <button type="button" class="btn btn-primary">{{'FORM.BTN_EXPORT'|translate}}</button>
+    </div>
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span12 text-right">
+    <button type="button" class="btn btn-primary" ng-click="beginLoad()">{{'FORM.BTN_RELOAD'|translate}}</button>
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span8">
+    <pagination ng-hide="properties.total <= properties.pageSize"
+      on-select-page="load(page)" page="properties.currentPage"
+      total-items="properties.total" boundary-links="true" rotate="false"
+      max-size="properties.pageDisplay" items-per-page="properties.pageSize"
+      next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+      previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+      first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+      last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}" />
+  </div>
+  <div class="span4 text-right pargin-top-margin">
+    <span>{{'STATISTIC.VIDEO_CALL'|translate}}:&nbsp;{{properties.video_call}}, </span>
+    <span>{{'STATISTIC.VOICE_CALL'|translate}}:&nbsp;{{properties.voice_call}}</span>
+    <br>
+    <span>{{'LIST.TOTAL_ITEMS'|translate}}:&nbsp;{{properties.total}}, </span>
+    <span>{{'STATISTIC.MALE'|translate}}:&nbsp;{{properties.male}},</span>
+    <span>{{'STATISTIC.FEMALE'|translate}}:&nbsp;{{properties.female}}</span>
+    
+  </div>
+</div>
+<table ng-if="properties.total" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th class="span4">
+        <span>{{'USER.INFO.USER_ID'|translate}}</span><br>
+        <span>{{'USER.INFO.USER_NAME'|translate}}</span>
+      </th>
+      <th class="span4">
+        <span>{{'USER.INFO.USER_TYPE'|translate}}</span><br>
+        <span>{{'USER.INFO.EMAIL'|translate}}</span>
+      </th>
+      <th class="span2">
+        <span>{{'STATISTIC.VIDEO_CALL'|translate}}</span><br>
+        <span>{{'STATISTIC.VOICE_CALL'|translate}}</span>
+      </th>
+      <th class="span2">
+        <span>{{'USER.INFO.GROUP'|translate}}</span><br>
+        <span>{{'USER.INFO.CM_CODE'|translate}}</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in users">
+      <td>
+        <span>
+          <a target="_blank" href="#/user/user_detail/{{item.user_id}}">{{item.user_id}}</a>
+          <!-- <a class="btn-link" ng-click="userDetail(item.user_id)">{{item.user_id}}</a> -->
+        </span>
+        <br>
+        <span>{{item.user_name}}</span>
+      </td>
+      <td>
+        <span>{{item.user_type|label:[properties.userTypes, true]}}</span><br>
+        <span>{{item.email}}</span>
+      </td>
+      <td>
+        <span>{{item.video_call|label:[properties.userCall, true]}}</span><br>
+        <span>{{item.voice_call|label:[properties.userCall, true] }}</span>
+      </td>
+      <td>
+        <span>{{'LAYOUT.NO_DATA'|translate}}</span><br>
+        <span>{{item.cm_code == null ? 'LAYOUT.NO_DATA' : item.cm_code|translate}}</span> 
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="row-fluid">
+  <div class="span12">
+    <pagination ng-hide="properties.total <= properties.pageSize"
+      on-select-page="load(page)" page="properties.currentPage"
+      total-items="properties.total" boundary-links="true" rotate="false"
+      max-size="properties.pageDisplay" items-per-page="properties.pageSize"
+      next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+      previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+      first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+      last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}" />
+  </div>
+</div>

@@ -1,0 +1,287 @@
+<div class="page-header">
+  <div class="row-fluid">
+    <div class="span8">
+      <h3>{{'LOG.WINK.TITLE'|translate}}</h3> 
+    </div>
+    <div class="span4 text-right">
+      <button type="button" class="btn btn-primary" ng-click="exportCSV()">{{'FORM.BTN_EXPORT'|translate}}</button>
+    </div>
+  </div>
+</div>
+
+<form class="form-horizontal" ng-submit="searchWinkLog()">
+  <div class="row-fluid">
+    <div class="span6">
+      <fieldset>
+        <legend>{{'LOG.WINK.SEND_WINK_PERSON'|translate}}</legend>
+
+        <!-- User type -->
+        <div class="control-group">
+          <label class="control-label" for="userType">{{'USER.INFO.USER_TYPE'|translate}}</label>
+          <div class="controls">
+            <select id="userType" ng-model="wink_log.reqUserType" class="span12"
+              ng-options="u.value as u.label for u in attributes.userTypes">
+            </select>
+          </div>
+        </div>
+
+        <!-- Email / Facebook ID -->
+        <div class="control-group" ng-if="wink_log.reqUserType.toString().length > 0">
+          <label class="control-label" for="account">
+            {{wink_log.reqUserType|label:[attributes.userTypes, true]}}
+          </label>
+          <div class="controls">
+            <input type="text" id="account" ng-model="wink_log.reqAccount" class="span12">
+          </div> 
+        </div>
+
+        <!-- User ID -->
+        <div class="control-group">
+          <label class="control-label" for="userId">{{'USER.INFO.USER_ID'|translate}}</label>
+          <div class="controls">
+            <input type="text" id="userId" ng-model="wink_log.reqUserId" class="span12">
+          </div> 
+        </div>
+
+        <!-- CM code -->
+        <div class="control-group">
+          <label class="control-label" for="cmCode">{{'USER.INFO.CM_CODE'|translate}}</label>
+          <div class="controls">
+            <input type="text" id="cmCode" ng-model="wink_log.reqCmCode" class="span12">
+          </div> 
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="span6">
+      <fieldset>
+        <legend>{{'LOG.WINK.RECEIVE_WINK_PERSON'|translate}}</legend>
+
+        <!-- User type -->
+        <div class="control-group">
+          <label class="control-label" for="partnerUserType">{{'USER.INFO.USER_TYPE'|translate}}</label>
+          <div class="controls">
+            <select id="partnerUserType" ng-model="wink_log.partnerUserType" class="span12"
+              ng-options="u.value as u.label for u in attributes.userTypes">
+            </select>
+          </div>
+        </div>
+
+        <!-- Email / Facebook ID -->
+        <div class="control-group" ng-if="wink_log.partnerUserType.toString().length > 0">
+          <label class="control-label" for="partnerAccount">
+            {{wink_log.partnerUserType|label:[attributes.userTypes, true]}}
+          </label>
+          <div class="controls">
+            <input type="text" id="partnerAccount" ng-model="wink_log.partnerAccount" class="span12">
+          </div> 
+        </div>
+
+        <!-- User ID -->
+        <div class="control-group">
+          <label class="control-label" for="partnerUserId">{{'USER.INFO.USER_ID'|translate}}</label>
+          <div class="controls">
+            <input type="text" id="partnerUserId" ng-model="wink_log.partnerUserId" class="span12">
+          </div> 
+        </div>
+
+        <!-- CM code -->
+        <div class="control-group">
+          <label class="control-label" for="partnerCmCode">{{'USER.INFO.CM_CODE'|translate}}</label>
+          <div class="controls">
+            <input type="text" id="partnerCmCode" ng-model="wink_log.partnerCmCode" class="span12">
+          </div> 
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="control-group">
+        <label class="control-label">{{'LOG.WINK.TIME'|translate}}</label>
+        <div class="controls">
+          <div class="row-fluid">
+            <datetimepicker class="span12" ng-model="wink_log.fromTime"
+              pick-time="false" ng-label="true" label="{{'LAYOUT.DATE.FROM'|translate}}"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label"></label>
+        <div class="controls">
+          <div class="row-fluid">
+            <datetimepicker class="span12" ng-model="wink_log.toTime"
+              pick-time="false" ng-label="true" label="{{'LAYOUT.DATE.TO'|translate}}"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="control-group">
+    <label class="control-label" for="sortBy">{{'LOG.COMMON.SORT_BY'|translate}}</label>
+    <div class="controls">
+      <div class="form-inline">
+        <select id="sortBy" ng-model="wink_log.sortBy"
+          ng-options="c.value as c.label for c in attributes.sortBys">
+        </select>
+        &nbsp;&nbsp;
+        <label class="radio" ng-repeat="item in attributes.orderBys">
+          <input type="radio" name="order_by" value="{{item.value}}" ng-model="wink_log.orderBy">
+          {{item.label}}
+          &nbsp;&nbsp;
+        </label>
+        <button class="pull-right btn btn-primary" type="submit">{{'FORM.BTN_SEARCH'|translate}}</button>
+      </div>
+    </div>
+  </div>
+  <hr>
+</form>
+
+<div class="row-fluid">
+  <div class="span8">
+    <pagination 
+      next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+      previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+      first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+      last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+      ng-hide="setting.totalItems <= setting.itemsPerPage"
+      on-select-page="load(page)"
+      class="span12"
+      page="setting.currentPage"
+      total-items="setting.totalItems"
+      boundary-links="true"
+      rotate="false"
+      max-size="setting.numberPagesDisplay"
+      items-per-page="setting.itemsPerPage">
+    </pagination>
+  </div>
+  <div class="span4 text-right pagination">
+    <span>{{'LIST.TOTAL_ITEMS'|translate}}&#58;&nbsp;{{setting.totalItems}}</span>
+  </div>
+</div>
+
+<div class="row-fluid" ng-if="setting.totalItems">
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th colspan="3">
+          <span>{{'LOG.WINK.SEND_WINK_PERSON'|translate}}</span>
+        </th>
+        <th colspan="3">
+          <span>{{'LOG.WINK.RECEIVE_WINK_PERSON'|translate}}</span>
+        </th>
+        <th rowspan="2">
+          <span>{{'LOG.WINK.TIME'|translate}}</span>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <span>{{'USER.INFO.USER_ID'|translate}}</span>
+          <br>
+          <span>{{'USER.INFO.USER_NAME'|translate}}</span>
+        </th>
+        <th>
+          <span>{{'USER.INFO.USER_TYPE'|translate}}</span>
+          <br>
+          <span>
+            {{'USER.INFO.EMAIL'|translate}}&nbsp;&#47;&nbsp;{{'USER.INFO.FACEBOOK_ID'|translate}}&nbsp;&#47;&nbsp;{{'USER.INFO.MOCOM_ID'|translate}}
+          </span>
+        </th>
+        <th>
+          <span>{{'USER.INFO.GROUP'|translate}}</span><br>
+          <span>{{'USER.INFO.CM_CODE'|translate}}</span><br>
+          <span>{{'USER.INFO.IP'|translate}}</span>
+        </th>
+        <th>
+          <span>{{'USER.INFO.USER_ID'|translate}}</span>
+          <br>
+          <span>{{'USER.INFO.USER_NAME'|translate}}</span>
+        </th>
+        <th>
+          <span>{{'USER.INFO.USER_TYPE'|translate}}</span>
+          <br>
+          <span>
+            {{'USER.INFO.EMAIL'|translate}}&nbsp;&#47;&nbsp;{{'USER.INFO.FACEBOOK_ID'|translate}}&nbsp;&#47;&nbsp;{{'USER.INFO.MOCOM_ID'|translate}}
+          </span>
+        </th>
+        <th>
+          <span>{{'USER.INFO.GROUP'|translate}}</span><br>
+          <span>{{'USER.INFO.CM_CODE'|translate}}</span>
+        </th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <tr ng-repeat="wink in winkLogs">
+        <td>
+          <span>
+            <a href="#/user/user_detail/{{wink.req_id}}" target="_blank">{{wink.req_id}}</a>
+            <!-- <a class="btn-link" ng-click="userDetail(wink.req_id)">{{wink.req_id}}</a> -->
+          </span>
+          <br>
+          <span>{{wink.req_user_name == null ? 'LAYOUT.NO_DATA' : wink.req_user_name|translate}}</span>
+        </td>
+        <td>
+          <span>{{wink.req_user_type|label:[attributes.userTypes, true]}}</span>
+          <br>
+          <span>{{wink.req_email == null ? 'LAYOUT.NO_DATA' : wink.req_email|translate}}</span>
+        </td>
+        <td>
+          <span>{{wink.req_group == null ? 'LAYOUT.NO_DATA' : wink.req_group|translate}}</span>
+          <br>
+          <span>{{wink.req_cm_code == null ? 'LAYOUT.NO_DATA' : wink.req_cm_code|translate}}</span>
+          <br>
+          <span>{{wink.ip}}</span>
+        </td>
+        
+        <td>
+          <span>
+            <a href="#/user/user_detail/{{wink.partner_id}}" target="_blank">{{wink.partner_id}}</a>
+            <!-- <a class="btn-link" ng-click="userDetail(wink.partner_id)">{{wink.partner_id}}</a> -->
+          </span>
+          <br>
+          <span>{{wink.partner_user_name == null ? 'LAYOUT.NO_DATA' : wink.partner_user_name|translate}}</span>
+        </td>
+        <td>
+          <span>{{wink.partner_user_type|label:[attributes.userTypes, true]}}</span>
+          <br>
+          <span>{{wink.partner_email == null ? 'LAYOUT.NO_DATA' : wink.partner_email|translate}}</span>
+        </td>
+        <td>
+          <span>{{wink.partner_group == null ? 'LAYOUT.NO_DATA' : wink.partner_group|translate}}</span><br>
+          <span>{{wink.partner_cm_code == null ? 'LAYOUT.NO_DATA' : wink.partner_cm_code|translate}}</span>
+        </td>
+        <td>
+          <span>{{wink.time|local:[true]}}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="row-fluid">
+  <div class="span8">
+    <pagination 
+      next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+      previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+      first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+      last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+      ng-hide="setting.totalItems <= setting.itemsPerPage"
+      on-select-page="load(page)"
+      class="span12"
+      page="setting.currentPage"
+      total-items="setting.totalItems"
+      boundary-links="true"
+      rotate="false"
+      max-size="setting.numberPagesDisplay"
+      items-per-page="setting.itemsPerPage">
+    </pagination>
+  </div>
+</div>

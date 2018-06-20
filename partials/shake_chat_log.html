@@ -1,0 +1,202 @@
+<div class="page-header">
+  <div class="row-fluid">
+    <div class="span8">
+      <h3>{{'LOG.SHAKE_CHAT.TITLE'|translate}}</h3>
+    </div>
+    <div class="span4 text-right">
+      <button type="button" class="btn btn-primary" ng-click="exportCSV()">{{'FORM.BTN_EXPORT'|translate}}</button>
+    </div>
+  </div>
+</div>
+<!-- Form search -->
+<form class="form-horizontal" ng-submit="searchShakeChat()">
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="control-group">
+        <label class="control-label" for="userType">{{'USER.INFO.USER_TYPE'|translate}}</label>
+        <div class="controls">
+          <select id="userType" ng-model="shake_chat.userType" class="span12"
+            ng-options="d.value as d.label for d in attributes.userTypes"></select>
+        </div>
+      </div>
+      <div class="control-group" ng-show="shake_chat.userType.toString().length > 0">
+        <label class="control-label" for="account">
+          {{shake_chat.userType | label:[attributes.userTypes, true]}}
+        </label>
+        <div class="controls">
+          <input type="text" id="account" ng-model="shake_chat.email" class="span12">
+        </div>
+      </div>
+    </div>
+    <div class="span6">
+      <div class="control-group">
+        <label class="control-label" for="user_id">{{'USER.INFO.USER_ID'|translate}}</label>
+        <div class="controls">
+          <input type="text" id="user_id" class="span12" ng-model="shake_chat.userId">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="cm_code">{{'USER.INFO.CM_CODE'|translate}}</label>
+        <div class="controls">
+          <input type="text" id="cm_code" class="span12" ng-model="shake_chat.cmCode">
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="control-group">
+        <label class="control-label">{{'LOG.SHAKE_CHAT.TIME'|translate}}</label>
+        <div class="controls">
+          <datetimepicker class="span12" pick-time="false" ng-model="shake_chat.fromTime"
+            ng-label="true" label="{{'LAYOUT.DATE.FROM'|translate}}" />
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <datetimepicker class="span12" pick-time="false" ng-model="shake_chat.toTime"
+            ng-label="true" label="{{'LAYOUT.DATE.TO'|translate}}" />
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <hr>
+  <div class="control-group">
+    <label class="control-label" for="sortBy">{{'LOG.COMMON.SORT_BY' | translate}}</label>
+    <div class="controls">
+      <div class="form-inline">
+        <select id="sortBy" ng-model="shake_chat.sortBy"
+            ng-options="d.value as d.label for d in attributes.sortBys"></select>
+        &nbsp;&nbsp;
+        <label class="radio" ng-repeat="item in attributes.orderBys">
+          <input type="radio" ng-model="shake_chat.orderBy" value="{{item.value}}">
+          <span>{{item.label}}</span>
+          &nbsp;&nbsp;
+        </label>
+        <button type="submit" class="btn btn-primary pull-right">{{'FORM.BTN_SEARCH'|translate}}</button>
+      </div>
+    </div>
+  </div>
+</form>
+<hr>
+<div class="row-fluid">
+  <div class="span8">
+    <pagination 
+      ng-hide="setting.totalItems <= setting.itemsPerPage"
+      on-select-page="load(page)" page="setting.currentPage"
+      total-items="setting.totalItems" boundary-links="true" rotate="false"
+      max-size="setting.numberPagesDisplay" items-per-page="setting.itemsPerPage"
+      next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+      previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+      first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+      last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}" />
+  </div>
+  <div class="span4 text-right pargin-top-margin">
+    <span>{{'LIST.TOTAL_ITEMS'|translate}}&#58;&nbsp;{{setting.totalItems|stat}}</span>
+  </div>
+</div>
+
+<table class="table table-hover table-bordered" ng-show="setting.totalItems">
+  <thead>
+    <tr>
+      <th colspan="3">
+        <span>{{'LOG.SHAKE_CHAT.PERSON'|translate}}</span>
+      </th>
+      <th colspan="3">
+        <span>{{'LOG.SHAKE_CHAT.RECEIVE_PERSON'|translate}}</span>
+      </th>
+      <th rowspan="2">
+        <span>{{'LOG.SHAKE_CHAT.TIME'|translate}}</span>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <span>{{'USER.INFO.USER_ID'|translate}}</span><br>
+        <span>{{'USER.INFO.USER_NAME'|translate}}</span>
+      </th>
+      <th>
+        <span>{{'USER.INFO.USER_TYPE'|translate}}</span><br>
+        <span>{{'USER.INFO.EMAIL'|translate}}&nbsp;&#47;&nbsp;{{'USER.INFO.FACEBOOK_ID'|translate}}</span>
+      </th>
+      <th>
+        <span>{{'USER.INFO.GROUP'|translate}}</span><br>
+        <span>{{'USER.INFO.CM_CODE'|translate}}</span><br>
+        <span>{{'USER.INFO.IP'|translate}}</span>
+      </th>
+      <th>
+        <span>{{'USER.INFO.USER_ID'|translate}}</span><br>
+        <span>{{'USER.INFO.USER_NAME'|translate}}</span>
+      </th>
+      <th>
+        <span>{{'USER.INFO.USER_TYPE'|translate}}</span><br>
+        <span>{{'USER.INFO.EMAIL'|translate}}&nbsp;&#47;&nbsp;{{'USER.INFO.FACEBOOK_ID'|translate}}</span>
+      </th>
+      <th>
+        <span>{{'USER.INFO.GROUP'|translate}}</span><br>
+        <span>{{'USER.INFO.CM_CODE'|translate}}</span><br>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in shakeChatList">
+      <td>
+        <span>
+          <a href="#/user/user_detail/{{item.req_id}}" target="_blank">{{item.req_id}}</a>
+          <!-- <a class="btn-link" ng-click="userDetail(item.req_id)">{{item.req_id}}</a> -->
+        </span>
+        <br>
+        <span>{{item.req_user_name}}</span>
+      </td>
+      <td>
+        <span>{{item.req_user_type | label:[attributes.userTypes, true]}}</span>
+        <br>
+        <span>{{item.req_email}}</span>
+      </td>
+      <td>
+        <span>{{'LAYOUT.NO_DATA'|translate}}</span>
+        <br>
+        <span>{{item.req_cm_code == null ? 'LAYOUT.NO_DATA' : item.req_cm_code|translate}}</span>
+        <br>
+        <span>{{item.ip}}</span>
+      </td>
+      <td>
+        <span>
+          <a target="_blank" href="#/user/user_detail/{{item.partner_id}}">{{item.partner_id}}</a>
+          <!-- <a class="btn-link" ng-click="userDetail(item.partner_id)">{{item.partner_id}}</a> -->
+        </span>
+        <br>
+        <span>{{item.partner_user_name}}</span>
+      </td>
+      <td>
+        <span>{{item.partner_user_type | label:[attributes.userTypes, true]}}</span>
+        <br>
+        <span>{{item.partner_email}}</span>
+      </td>
+      <td>
+        <span>{{'LAYOUT.NO_DATA'|translate}}</span>
+        <br>
+        <span>{{item.partner_cm_code == null ? 'LAYOUT.NO_DATA' : item.partner_cm_code|translate}}</span>
+      </td>
+      <td>
+        <span>{{item.time|local:[true]}}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="row-fluid">
+  <div class="span12">
+    <pagination 
+      ng-hide="setting.totalItems <= setting.itemsPerPage"
+      on-select-page="load(page)" page="setting.currentPage"
+      total-items="setting.totalItems" boundary-links="true" rotate="false"
+      max-size="setting.numberPagesDisplay" items-per-page="setting.itemsPerPage"
+      next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+      previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+      first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+      last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}" />
+  </div>
+</div>

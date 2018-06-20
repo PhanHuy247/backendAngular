@@ -1,0 +1,293 @@
+<div class="page-header">
+  <h3>{{'STATISTIC.HEADER_CM_CODE'|translate}}</h3>
+</div>
+<div class="row-fluid">
+  <div class="span3">
+    <datetimepicker class="span12" ng-model="fromDate" ng-label="true"
+      label="{{'LAYOUT.DATE.FROM'|translate}}" />
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span3">
+    <datetimepicker class="span12" ng-model="toDate" ng-label="true"
+      label="{{'LAYOUT.DATE.TO'|translate}}" />
+  </div>
+  <div class="span9 text-right">
+    <button type="button" class="btn btn-primary"
+      ng-click="search()">{{'FORM.BTN_SEARCH'|translate}}</button>
+  </div>
+</div>
+<br>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th rowspan="3" class="span2">
+        <div class="text-center">
+          <span>{{'USER.INFO.CM_CODE'|translate}}</span>
+        </div>
+      </th>
+      <th colspan="2">
+        <div class="text-center">
+          <span>{{'STATISTIC.REGISTER'|translate}}</span>
+        </div>
+      </th>
+      <th colspan="4">
+        <div class="text-center">
+          <span>{{'STATISTIC.INSTALLATION'|translate}}</span>
+        </div>
+      </th>
+      <th colspan="2">
+        <div class="text-center">
+          <span>{{'STATISTIC.ONLINE'|translate}}</span>
+        </div>
+      </th>
+      <th colspan="4">
+        <div class="text-center">
+          <span>{{'STATISTIC.PURCHASE'|translate}}</span>
+        </div>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <div class="text-center">
+          <span>{{'STATISTIC.ANDROID_ENVIROMENT'|translate}}</span>
+        </div>
+      </th>
+      <th>
+        <div class="text-center">
+          <span>{{'STATISTIC.IOS_ENVIROMENT'|translate}}</span>
+        </div>
+      </th>
+      <th colspan="2">
+        <div class="text-center">
+          <span>{{'STATISTIC.ANDROID_ENVIROMENT'|translate}}</span>
+        </div>
+      </th>
+      <th colspan="2">
+        <div class="text-center">
+          <span>{{'STATISTIC.IOS_ENVIROMENT'|translate}}</span>
+        </div>
+      </th>
+      <th>
+        <div class="text-center">
+          <span>{{'STATISTIC.ANDROID_ENVIROMENT'|translate}}</span>
+        </div>
+      </th>
+      <th>
+        <div class="text-center">
+          <span>{{'STATISTIC.IOS_ENVIROMENT'|translate}}</span>
+        </div>
+      </th>
+      <th colspan="2">
+        <div class="text-center">
+          <span>{{'STATISTIC.ANDROID_ENVIROMENT'|translate}}</span>
+        </div>
+      </th>
+      <th colspan="2">
+        <div class="text-center">
+          <span>{{'STATISTIC.IOS_ENVIROMENT'|translate}}</span>
+        </div>
+      </th>
+    </tr>
+    <tr>
+      <th class="span2">
+        <div class="text-center">
+          <span>{{'STATISTIC.TIMES'|translate}}</span>
+        </div>
+      </th>
+      <th class="span2">
+        <div class="text-center">
+          <span>{{'STATISTIC.TIMES'|translate}}</span>
+        </div>
+      </th>
+      <th class="span2">
+        <div class="text-center">
+          <span>{{'STATISTIC.TIME'|translate}}</span>
+        </div>
+      </th>
+      <th class="span2">
+        <div class="text-center">
+          <span>{{'STATISTIC.UNIQUE'|translate}}</span>
+        </div>
+      </th>
+      <th class="span2">
+        <div class="text-center">
+          <span>{{'STATISTIC.TIME'|translate}}</span>
+        </div>
+      </th>
+      <th class="span2">
+        <div class="text-center">
+          <span>{{'STATISTIC.UNIQUE'|translate}}</span>
+        </div>
+      </th>
+      <th class="span2">
+        <div class="text-center">
+          <span>{{'STATISTIC.TIMES'|translate}}</span>
+        </div>
+      </th>
+      <th class="span2">
+        <div class="text-center">
+          <span>{{'STATISTIC.TIMES'|translate}}</span>
+        </div>
+      </th>
+      <th class="span2">
+        <div class="text-center">
+          <span>{{'STATISTIC.TIMES'|translate}}</span>
+        </div>
+      </th>
+      <th class="span2">
+        <div class="text-center">
+          <span>{{'STATISTIC.MONEY'|translate}}</span>
+        </div>
+      </th>
+      <th class="span2">
+        <div class="text-center">
+          <span>{{'STATISTIC.TIMES'|translate}}</span>
+        </div>
+      </th>
+      <th class="span2">
+        <div class="text-center">
+          <span>{{'STATISTIC.MONEY'|translate}}</span>
+        </div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in rows">
+      <td>
+        <div class="text-center">
+          <span>{{item.cm_code}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{item.android_reg_time|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{item.ios_reg_time|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{item.android_install_time|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{item.android_unique_number|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{item.ios_install_time|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{item.ios_unique_number|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{item.android_login_time|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{item.ios_login_time|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{item.android_pur_times|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{item.ios_pur_times|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{item.android_pur_money|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{item.ios_pur_money|stat}}</span>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>
+        <div class="text-center">
+          <span>{{'STATISTIC.TOTAL'|translate}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{total.android_reg_time|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{total.ios_reg_time|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{total.android_install_time|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{total.android_unique_number|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{total.ios_install_time|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{total.ios_unique_number|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{total.android_login_time|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{total.ios_login_time|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{total.android_pur_times|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{total.ios_pur_times|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{total.android_pur_money|stat}}</span>
+        </div>
+      </td>
+      <td>
+        <div class="text-right">
+          <span>{{total.ios_pur_money|stat}}</span>
+        </div>
+      </td>
+    </tr>
+  </tfoot>
+</table>

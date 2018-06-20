@@ -1,0 +1,165 @@
+<div class="page-header">
+  <h3>{{'STATISTIC.HEADER_INSTALLATION'|translate}}</h3>
+</div>
+<div class="row-fluid">
+  <div class="span1">
+    <button type="button" class="btn span12" ng-click="changeDate(-1)">{{'STATISTIC.PREV'|translate}}</button>
+  </div>
+  <div class="span2" ng-show="type == 0">
+    <datetimepicker class="span12" ng-change="load()"
+                    ng-model="time" pick-time="false" text-align="center" />
+  </div>
+  <div class="span2" ng-hide="type == 0">
+    <select class="span12" ng-model="selectedMonthIndex" ng-change="load()"
+            ng-options="selectiveMonths.indexOf(d) as d.label for d in selectiveMonths"></select>
+  </div>
+  <div class="span1">
+    <button type="button" class="btn span12" ng-click="changeDate(1)">{{'STATISTIC.NEXT'|translate}}</button>
+  </div>
+  <form class="form-horizontal pull-right">
+    <div class="control-group">
+      <label class="control-label" for="viewby">{{'STATISTIC.VIEW_BY'|translate}}</label>
+      <div class="controls">
+        <select class="span12" id="viewby" ng-model="type" ng-change="load()">
+          <option value="0">{{'STATISTIC.MONTH'|translate}}</option>
+          <option value="1">{{'STATISTIC.VIEW_MONTH'|translate}}</option>
+        </select>
+      </div>
+    </div>
+  </form>
+</div>
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th rowspan="2" class="span2">
+      <div class="text-center">
+        <span>{{type == 0 ? 'STATISTIC.DAY' : 'STATISTIC.MONTH'|translate}}</span>
+      </div>
+    </th>
+    <th colspan="3" class="span3">
+      <div class="text-center">
+        <span>{{'STATISTIC.INSTALLATION'|translate}}</span>
+      </div>
+    </th>
+    <th colspan="3" class="span3">
+      <div class="text-center">
+        <span>{{'STATISTIC.UNIQUE'|translate}}</span>
+      </div>
+    </th>
+  </tr>
+  <tr>
+    <th class="span3">
+      <div class="text-center">
+        <span>{{'STATISTIC.ANDROID_ENVIROMENT'|translate}}</span>
+      </div>
+    </th>
+    <th class="span3">
+      <div class="text-center">
+        <span>{{'STATISTIC.IOS_ENVIROMENT'|translate}}</span>
+      </div>
+    </th>
+    <th class="span3">
+      <div class="text-center">
+        <span>{{'STATISTIC.TOTAL'|translate}}</span>
+      </div>
+    </th>
+    <th class="span3">
+      <div class="text-center">
+        <span>{{'STATISTIC.ANDROID_ENVIROMENT'|translate}}</span>
+      </div>
+    </th>
+    <th class="span3">
+      <div class="text-center">
+        <span>{{'STATISTIC.IOS_ENVIROMENT'|translate}}</span>
+      </div>
+    </th>
+    <th class="span3">
+      <div class="text-center">
+        <span>{{'STATISTIC.TOTAL'|translate}}</span>
+      </div>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="item in rows track by $index">
+    <td>
+      <div class="text-center">
+        <span>{{item.text}}</span>
+      </div>
+    </td>
+    <!--khi chưa thêm-->
+    <td>
+      <div class="text-right">
+        <span>{{item.android_install_time|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+
+        <span>{{item.ios_install_time|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{item.total|stat}}</span>
+      </div>
+    </td>
+    <!--thêm phần này -->
+    <td>
+      <div class="text-right">
+
+        <span>{{item.android_unique_number|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{item.ios_unique_number|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{item.total_unique_number|stat}}</span>
+      </div>
+    </td>
+    <!--thêm phần này -->
+  </tr>
+  <tr>
+    <td>
+      <div class="text-center">
+        <b>{{'STATISTIC.TOTAL'|translate}}</b>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{total.android_install_time|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{total.ios_install_time|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{total.total|stat}}</span>
+      </div>
+    </td>
+    <!--thêm phần tính tổng-->
+    <td>
+      <div class="text-right">
+        <span>{{total.android_unique_number|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{total.ios_unique_number|stat}}</span>
+      </div>
+    </td>
+    <td>
+      <div class="text-right">
+        <span>{{total.total_unique_number|stat}}</span>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>

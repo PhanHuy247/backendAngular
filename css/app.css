@@ -1,0 +1,507 @@
+p {
+    word-break: break-word;
+}
+
+#stamp-list .thumbnail {
+    position: relative;
+    padding-bottom: 45px;
+}
+
+#stamp-list .thumbnail .footer {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+#stamp-list .thumbnail .footer form {
+    margin: 0;
+    padding: 0;
+}
+
+#stamp-list .thumbnail upload {
+    margin: 0 auto;
+}
+
+upload {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+upload .upload-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+upload .image-area.image-loading {
+    background-color: whitesmoke;
+    background-repeat: no-repeat;
+    background-image: url(../img/ajax-loader.gif);
+    background-position: center center;
+}
+
+upload .image-area.image-loading .image {
+    opacity: 0;
+}
+
+upload .image.gray {
+    -webkit-filter: grayscale(0%);
+}
+
+upload input[type="file"] {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+}
+
+upload .intruction {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    background: #ddd;
+    display: table;
+}
+
+upload .upload-container .intruction .middle-text {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+upload .upload-container .intruction .middle-text span {
+    white-space: normal;
+}
+
+textarea {
+    resize: vertical;
+}
+
+sortable .sortable-thumbnail,upload .image-area {
+    text-align: center;
+}
+
+sortable .sortable-thumbnail img,upload .image-area img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+table.table span,table.table .btn,table.table a,table.table th {
+    white-space: nowrap;
+}
+
+overlay {
+    position: fixed;
+    background-color: rgba(0, 0, 0, .8);
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+overlay .footer {
+    position: fixed;
+    height: 30px;
+    padding: 5px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    bottom: 0;
+    border-top: 1px solid #333;
+}
+
+overlay .footer .btn {
+    margin-left: 10px;
+}
+
+overlay .body {
+    position: fixed;
+    bottom: 50px;
+    top: 10px;
+    left: 0;
+    right: 0;
+}
+
+overlay .body img {
+    width: auto;
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+    outline: 1px solid #333;
+}
+
+.form-horizontal .control-label {
+    width: 140px;
+}
+
+.form-horizontal .control-label-purchase-method {
+    width: 200px;
+    margin-right: 20px;
+}
+
+.form-horizontal .controls {
+    margin-left: 160px;
+}
+
+body {
+    min-width: 1080px;
+}
+
+.ta-editor {
+    min-height: 300px;
+    height: auto;
+    font-family: inherit;
+    border: 1px solid #ccc;
+}
+
+.ta-html {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+datetimepicker {
+    display: inline-block;
+}
+
+datetimepicker {
+    position: relative;
+    display: inline-block;
+}
+
+datetimepicker .picker-label {
+    top: 1px;
+    left: 2px;
+    -webkit-border-radius: 4px 0px 0px 4px;
+    -moz-border-radius: 4px 0px 0px 4px;
+    border-radius: 4px 0px 0px 4px;
+    width: 33px;
+    height: 18px;
+    min-width: 16px;
+    margin-left: -1px;
+    padding: 4px 5px;
+    text-shadow: 0 1px 0 #ffffff;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 18px;
+    text-align: left;
+    border-right: 1px solid #ccc;
+    background-color: #eeeeee;
+    display: inline-block;
+    position: absolute;
+    -webkit-border-radius: 4px 0px 0px 4px;
+}
+
+datetimepicker input {
+    padding-right: 30px !important;
+}
+
+datetimepicker input.right {
+    padding-left: 50px !important;
+}
+
+datetimepicker .add-on {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    -webkit-border-radius: 0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0;
+    border-radius: 0 4px 4px 0;
+    margin-left: -1px;
+    width: auto;
+    height: 18px;
+    min-width: 16px;
+    padding: 4px 5px;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 18px;
+    text-align: center;
+    text-shadow: 0 1px 0 #ffffff;
+    background-color: #eeeeee;
+    border-left: 1px solid #ccc;
+}
+
+/* Put your css in here */
+selectpicker .btn,selectpicker .btn:hover,selectpicker .btn:active {
+    background: #FFF;
+}
+
+.margin-top-10px {
+    margin-top: 10px;
+}
+
+.pargin-top-margin {
+    margin: 20px 0;
+    line-height: 30px;
+}
+
+#menu_ctrl .nav-pills.nav-stacked>li>a {
+    margin-bottom: 0px;
+}
+
+#menu_ctrl .nav-pills>li>a {
+    margin-top: 0px;
+}
+
+.margin-top-bottom-20px {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.box-border {
+    border: 1px solid #CCCCCC;
+}
+
+.font-size-11px {
+    font-size: 11px;
+}
+
+.font-size-10px {
+    font-size: 10px;
+}
+
+.size-image-518px-390px {
+    max-width: 518px;
+    max-height: 390px;
+}
+
+.thumbnail {
+    width: 200px;
+}
+
+.image_approve_deny {
+    height: 200px;
+    overflow: hidden;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.image_approve_deny img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.height-30px {
+    height: 30px;
+}
+
+.text-info-approve-image {
+    margin-top: 10px;
+}
+
+.approved-denied-pending {
+    font-size: 11px;
+    width: 195px;
+    text-align: center;
+    height: 25px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.auto-image-size {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.text-length-format {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+input.invalid {
+    border-color: red;
+}
+
+.user-detail-modal {
+    width: 950px;
+    left: 35%;
+}
+.window-class-style {
+    width: 970px;
+    left: 35%;
+}
+
+.group3-control label{
+    padding-right: 10px;
+}
+
+.group3-control input{
+    display: inherit;
+}
+
+.group3-control input.span2{
+    display: block; float: left;
+}
+.text-wrap {
+    word-wrap: break-word;
+}
+.width-245px {
+    width: 245px;
+}
+#text-left {
+    text-align: left;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+.text-newline {
+    white-space: pre-wrap !important;
+}
+.cursor-default {
+    cursor: default;
+}
+/*videogular|start*/
+.videogular-container {
+    width: 320px;
+    height: 260px;
+    margin: auto;
+    overflow: hidden;
+    cursor: pointer;
+}
+.videogular-container.audio {
+    height: 150px;
+    background: none;
+}
+.videogular-container.audio.verticalVolumeBar {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.label-required:after {
+    content:"*";
+    color:red;
+    margin-left: 5px;
+}
+.sub-comment {
+    margin-left: 50px;
+    width: 95%;
+}
+.sub-comment .span1 {
+    vertical-align: middle;
+}
+.sub-comment .span2 {
+    cursor: pointer;
+}
+.detail-notification label {
+    cursor: default;
+}
+
+.span12.thumbnail.widthCol{
+    margin: 10px;
+}
+
+.item-user-info-approve {
+    margin-bottom: 20px;
+}
+
+.item-user-info-approve .row-fluid{
+    margin-bottom: 5px;
+}
+.approved-user-info-denied-pending {
+    font-size: 11px;
+    width: 195px;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+    vertical-align: middle;
+}
+/*videogular|end*/
+
+#action_package_apple_table tr th,
+#action_package_apple_table tr td,
+#action_package_google_table tr th,
+#action_package_google_table tr td{
+    vertical-align: middle;
+}
+
+.w5pc{
+    width:6%
+}
+
+.min-1200{
+    min-width: 1200px;
+}
+
+.grayCell{
+    background: #cccccc;
+}
+
+.margin-bottom-5px{
+    margin-bottom: 5px !important;
+}
+
+.banner_width{
+    width: 165px;
+    height: 70px;
+    margin-left: 30%;
+}
+
+.text-red {
+    color: red;
+}
+.banner-img {
+    margin-bottom: 20px;
+}
+.button-long {
+    width: 100%;
+}
+.news-preview-modal {
+    width: 270px;
+    left: 60%;
+
+}
+.border-none {
+    border: none;
+    background-color: inherit;
+}
+
+/*  Created by CuongNV
+*   Base reset element
+*/
+.wrapper-element {
+    overflow: hidden!important;
+}
+.align-center {
+    text-align: center!important;
+}
+.left-element {
+    float: left;
+}
+.right-element {
+    float: right;
+}
+.clear-element {
+    clear: both!important;
+}
+.block-search-user-id .holder-item{
+    margin-right: 20px;
+}
+.middle-element{
+    vertical-align: middle!important;
+}
+.item-image-approve-deny p {
+    font-size: 12px!important;
+    margin-bottom: 7px!important;
+}
+.item-image-approve-deny button {
+    font-size: 12px!important;
+    padding: 4px 8px!important;
+}
+
+.item-secret-video {
+    width: 320px!important;
+}
+/*  End Base reset element */

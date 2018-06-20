@@ -1,0 +1,200 @@
+<div class="page-header">
+    <div class="row-fluid">
+        <div class="span8">
+            <h3>{{'SETTINGS.USER_REGISTER.TITLE'|translate }}</h3> 
+        </div>
+    </div>
+</div>
+<form class="form-horizontal" ng-submit="register()" id="detail-user-form">
+    <span>{{default_property.default_property_id}}</span>       
+    <!-- box update default_property -->
+    <div class="row-fluid">
+        <div class="span6">
+            <div ng-class="{'control-group': true, 'error': user.showError.userName}">
+                <label class="control-label label-required" for="userName">{{'USER.INFO.USER_NAME'|translate}}</label>
+                <div class="controls">
+                    <input class="span10" ng-class="{'error':(error.user_name)}" ng-model="user.user_name" type="text" id="userName" pattern=".{1,14}" ng-required="true">
+                </div>
+            </div>
+            <div ng-class="{'control-group': true, 'error': user.showError.age}">
+                <label class="control-label label-required">{{'USER.USER_LIST.LB_BIRTHDAY'|translate}}</label>
+                <div class="controls">
+                    <datetimepicker class="span10" pick-time="false" required ng-model="user.localBirthday.time"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label label-required">{{'USER.USER_LIST.LB_GENDER'|translate}}</label>
+                <div class="controls">
+                    <select class="span10" ng-model="user.gender"
+                            ng-options="d.value as d.label for d in properties.gender">
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">{{'USER.USER_LIST.LB_JOB'|translate}}</label>
+                <div class="controls">
+                    <select  ng-class="{'error':(error.job)}" class="span10" id="inputUserActive" ng-model="user.job"
+                             ng-options="d.value as d.label for d in properties.job">
+                    </select>
+                </div>
+            </div>
+
+            <!-- body type -->
+            <div class="control-group">
+                <label class="control-label">{{'USER.USER_LIST.LB_BODY_TYPE'|translate}}</label>
+                <div class="controls">
+                    <select  ng-class="{'error':(error.body_type)}" class="span10" id="inputUserActive" ng-model="user.body_type"
+                             ng-options="d.value as d.label for d in properties.body_type">
+                    </select>
+                </div>
+            </div>
+            <!-- end body type -->
+
+            <!-- #11854 :Hobby selectbox -->
+            <div class="control-group">
+                <label class="control-label">{{'USER.USER_LIST.LB_HOPPY'|translate}}</label>
+                <div class="controls">
+                    <selectpicker class="span10" ng-model="user.hobby" ng-source="properties.hobby" title="{{'FORM.PLEASE_SELECT'|translate}}" />
+                </div>
+            </div>
+
+            <div class="control-group" ng-if="user.gender == 1">
+                <label class="control-label">{{'USER.USER_LIST.LB_CUP'|translate}}</label>
+                <div class="controls">
+                    <select class="span10" id="inputUserActive" ng-model="user.cup" ng-class="{'error':(error.cup)}"
+                            ng-options="d.value as d.label for d in properties.cup">
+                    </select>
+                </div>
+            </div>
+            <div class="control-group" ng-if="user.gender == 1">
+                <label class="control-label">{{'USER.USER_LIST.LB_JOIN_HOURS'|translate}}</label>
+                <div class="controls">
+                    <select ng-class="{'error':(error.join_hours)}" class="span10" id="inputUserActive" ng-model="user.join_hours"
+                            ng-options="d.value as d.label for d in properties.join_hours">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label label-required">{{'USER.INFO.USER_TYPE'|translate}}</label>
+                <div class="controls">
+                    <select class="span10" ng-model="user.user_type"
+                            ng-options="d.value as d.label for d in properties.user_type">
+                    </select>
+                </div>
+            </div>          
+            <div ng-if="user.user_type == 0" ng-class="{'control-group': true, 'error': user.showError.email}">
+                <label class="control-label label-required">{{'USER.INFO.EMAIL'|translate}}</label>
+                <div class="controls">
+                    <input id="email" class="span10" ng-model="user.email" type="email"  required>
+                </div>
+            </div>
+            <div ng-if="user.user_type == 1" ng-class="{'control-group': true, 'error': user.showError.facebook}">
+                <label class="control-label label-required">{{'USER.INFO.FACEBOOK_ID'|translate}}</label>
+                <div class="controls">
+                    <input id="fb_id" class="span10" ng-model="user.fb_id" type="text"  required>
+                </div>
+            </div>
+            <div ng-if="user.user_type == 2" ng-class="{'control-group': true, 'error': user.showError.email}">
+                <label class="control-label label-required">{{'USER.INFO.MOCOM_ID'|translate}}</label>
+                <div class="controls">
+                    <input id="mocom_id" class="span10" ng-model="user.mocom_id" type="text"  required>
+                </div>
+            </div>
+            <div ng-if="user.user_type == 3" ng-class="{'control-group': true, 'error': user.showError.email}">
+                <label class="control-label label-required">{{'USER.INFO.FAMU_ID'|translate}}</label>
+                <div class="controls">
+                    <input id="famu_id" class="span10" ng-model="user.famu_id" type="text"  required>
+                </div>
+            </div>
+            <div class="control-group" ng-if="user.user_type == 0">
+                <label class="control-label label-required">{{'ACCOUNT.INFO.PASSWORD'|translate}}</label>
+                <div class="controls">
+                    <input type="text" ng-trim="false" class="span10" ng-model="user.original_pwd" required pattern=".{6,12}" title="Password string should be between 6 - 12 characters">
+                </div>
+            </div>
+            <div class="control-group ">
+                <label class="control-label label-required">{{'USER.USER_LIST.LB_REGION'|translate}}</label>
+                <div class="controls">
+                    <select ng-class="{'error':(error.region)}" class="span10" ng-model="user.region" required
+                            ng-options="d.value as d.label for d in properties.region">
+                    </select>
+                </div>
+            </div>
+            <!--Telephone Number-->
+            <div>
+                <label class="control-label label-required" for="numberPhone">{{'USER.USER_LIST.TELEPHONE_NUMBER'|translate}}</label>
+                <div class="controls">
+                    <input class="span10"  ng-model="user.phone_number" type="text" id="numberPhone" pattern=".{1,11}" ng-required="true">
+                </div>
+            </div>  
+            <div class="control-group" ng-if="user.gender == 1">
+                <label class="control-label">{{'USER.USER_LIST.LB_CUTE_TYPE'|translate}}</label>
+                <div class="controls">
+                    <select class="span10" ng-model="user.cute_type" ng-class="{'error':(error.cute_type)}"
+                            ng-options="d.value as d.label for d in properties.cute_type">
+                    </select>
+                </div>
+            </div>
+            <div class="control-group" ng-if="user.gender == 1">
+                <label class="control-label">{{'USER.USER_LIST.LB_MEASUREMENT'|translate}}</label>
+                <div class="controls group3-control">
+                    <label class="control-label span2">{{'USER.USER_LIST.LB_BREAST'|translate}}</label>
+                    <input min="50" max="120" type="number" class="span2" ng-model="user.measurements[0]" ng-required='user.measurements.length'>
+                    <label class="control-label span2" >{{'USER.USER_LIST.LB_WAIST'|translate}}</label>
+                    <input min="50" max="120"  type="number" class=" span2"  ng-model="user.measurements[1]" ng-required='user.measurements.length'>
+                    <label class=" span2 control-label ">{{'USER.USER_LIST.LB_HIPS'|translate}}</label>
+                    <input min="50" max="120"  type="number" class="controls span2"  ng-model="user.measurements[2]" ng-required='user.measurements.length'>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12 control-group"  ng-if="user.gender == 1">
+            <div ng-class="{'control-group': true}">
+                <label class="control-label" for="type_of_man">{{'USER.USER_LIST.LB_TYPE_OF_MAN'|translate}}</label>
+                <div class="controls">
+                    <textarea id="about" ng-model="user.type_of_man" rows="5" class="span12" maxlength="100"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12 control-group" ng-if="user.gender == 1">
+            <div ng-class="{'control-group': true}">
+                <label class="control-label" for="fetish">{{'USER.USER_LIST.LB_FETISH'|translate}}</label>
+                <div class="controls">
+                    <textarea id="about" ng-model="user.fetish" rows="5" class="span12" maxlength="100"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hobby -->
+    <!-- <div class="row-fluid"  ng-if="user.gender == 0">
+        <div class="span12 control-group">
+            <div ng-class="{'control-group': true}">
+                <label class="control-label" for="hobby">{{'USER.USER_LIST.LB_HOPPY'|translate}}</label>
+                <div class="controls">
+                    <textarea id="hobby" ng-model="user.hobby" rows="5" class="span12" maxlength="100"></textarea>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    
+    <div class="row-fluid">
+        <div class="span12">
+            <div ng-class="{'control-group': true, 'error': user.showError.about}">
+                <label class="control-label" for="about" ng-if="user.gender == 1">{{'USER.USER_LIST.LB_ABT'|translate}}</label>
+                <label class="control-label" for="about" ng-if="user.gender == 0">{{'USER.USER_LIST.LB_MSG'|translate}}</label>
+                <div class="controls">
+                    <textarea id="about" ng-model="user.abt" rows="5" class="span12" maxlength="200"  ng-required="setRequire.abt == true"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary" form="detail-user-form">{{'SETTINGS.USER_REGISTER.FORM_BUTTON_REGISTER'|translate}}</button>
+    </div>
+</form>

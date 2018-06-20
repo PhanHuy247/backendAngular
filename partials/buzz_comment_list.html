@@ -1,0 +1,48 @@
+<div class="modal-header">
+  <h4>{{'LOG.BUZZ_DETAIL.COMMENT_LIST_HEADER_TITLE'|translate}}</h4>
+</div>
+<div class="modal-body">
+  <!-- Comment -->
+  <div class="row-fluid">
+	<table class="table table-bordered table-striped">
+	  <tbody>
+		<tr ng-repeat="cmt in comments">
+		  <td>
+			<span>{{cmt.cmt_time|local:[true]}}</span>
+			<br>
+			<span>
+			  {{'USER.INFO.USER_ID'|translate}}&#58;&nbsp;
+			  <a target="_blank" href="#/user/user_detail/{{cmt.user_id}}">{{cmt.user_id}}</a>
+			  <!-- <a class="btn-link" ng-click="userDetail(cmt.user_id)">{{cmt.user_id}}</a> -->
+			</span>
+			<hr>
+			<p>{{cmt.cmt_val}}</p>
+		  </td>
+		</tr>
+	  </tbody>
+	</table>
+  </div>
+
+  <div class="row-fluid">
+	<div class="span8">
+	  <pagination
+		next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+		previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+		first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+		last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+		ng-hide="setting.totalItems <= setting.itemsPerPage"
+		on-select-page="load(page)"
+		class="span12"
+		page="setting.currentPage"
+		total-items="setting.totalItems"
+		boundary-links="true"
+		rotate="false"
+		max-size="setting.numberPagesDisplay"
+		items-per-page="setting.itemsPerPage">
+	  </pagination>
+	</div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-info" ng-click="close()">{{'DIALOG.CLOSE'|translate}}</button>
+</div>

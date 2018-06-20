@@ -1,0 +1,14 @@
+<div class="page-header">
+  <h3>Developer Section</h3>
+</div>
+<form ng-submit="login()">
+  <fieldset>
+    <label>Login ID</label>
+    <input type="text" required autofocus
+      ng-model="input.loginId">
+    <label>Password</label>
+    <input type="password" required
+      ng-model="input.password">
+  </fieldset>
+  <button type="submit" class="btn btn-primary">Login</button>
+</form>

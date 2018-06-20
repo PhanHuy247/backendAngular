@@ -1,0 +1,42 @@
+<div class="page-header">
+  <div class="row-fluid">
+    <div class="span6">
+      <h3>{{'REPORT.IMAGE.DETAIL'|translate}}</h3> 
+    </div>
+  </div>
+</div>
+
+<!-- User ID -->
+<div class="row-fluid">
+  <label class="span2">{{'USER.INFO.USER_ID'|translate}}</label>
+  <span class="text-info span8">{{user.user_id}}</span>
+</div>
+
+<!-- User Name -->
+<div class="row-fluid">
+  <label class="span2">{{'USER.INFO.USER_NAME'|translate}}</label>
+  <span class="text-info span10">{{user.user_name}}</span>
+</div>
+
+<!-- Email -->
+<div class="row-fluid">
+  <label class="span2">{{user.user_type | label:[attributes.userTypes, true]}}</label>
+  <span class="text-info span10">{{user.email}}</span>
+</div>
+
+<hr>
+
+<!-- Form search -->
+<form class="form-horizontal" ng-submit="deleteImage()">
+  <div class="row-fluid">
+    <div class="text-center auto-image-size">
+      <img ng-src="{{imageUrl}}">
+    </div>
+  </div>
+  
+  <hr>
+  
+  <div class="control-group">
+    <button type="submit" class="pull-right btn btn-danger">{{'FORM.BTN_DELETE'|translate}}</button>
+  </div>
+</form>

@@ -1,0 +1,28 @@
+.accordion-body.collapse.in {
+  overflow: visible;
+}
+.modal {
+    overflow-y: auto;
+}
+body.modal-open {
+    overflow: hidden;
+}
+body.no-scroll {
+  height: auto;
+}
+
+.table.table span, table.table .btn, table.table a, table.table th{
+  white-space : inherit;
+}
+.pagination ul > li{
+  cursor: pointer;
+}
+
+input.error:focus, input.error ,select.error:focus, select.error {
+    border-color: #e9322d;
+    box-shadow: 0 0 6px #f8b9b7;
+}
+
+.form-horizontal .control-label.span2{
+  width: 14.5299%;
+}

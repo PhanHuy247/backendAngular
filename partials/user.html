@@ -1,0 +1,512 @@
+<div class="page-header">
+    <div class="row-fluid">
+        <div class="span8">
+            <h3>{{'USER.USER_LIST.TITLE_LIST'|translate }}</h3>
+        </div>
+        <div class="span4 text-right">
+            <button type="button" class="btn btn-primary" ng-click="exportCSV()">{{'FORM.BTN_EXPORT'| translate}}</button>
+        </div>
+    </div>
+</div>
+<!-- Form filter -->
+<form class="form-horizontal" ng-submit="beginSearch()">
+    <!-- List control filter -->
+    <div class="row-fluid">
+        <!-- Left column -->
+        <div class="span4">
+            <!-- User ID -->
+            <div class="control-group">
+                <label for="inputUserId" class="control-label">{{'USER.INFO.USER_ID'|translate }}</label>
+                <div class="controls">
+                    <input class="span12" type="text" id="inputUserId" ng-model="input.user_id">
+                </div>
+            </div>
+            <!--User Name-->
+            <div class="control-group">
+                <label for="inputUserName" class="control-label">{{'USER.INFO.USER_NAME'|translate }}</label>
+                <div class="controls">
+                    <input class="span12" type="text" id="inputUserName" ng-model="input.user_name">
+                </div>
+            </div>
+            <!--User type-->
+            <div class="control-group">
+                <label for="inputUserType" class="control-label">{{'USER.INFO.USER_TYPE'|translate }}</label>
+                <div class="controls">
+                    <select class="span12" id="inputUserType" ng-model="input.user_type" ng-options="c.value as c.label for c in property.user_type"></select>
+                </div>
+            </div>
+            <div class="control-group" ng-show="input.user_type.toString().length > 0">
+                <label for="inputUserEmail" class="control-label">
+                    {{input.user_type| label:[property.user_type, true]}}
+                </label>
+                <div class="controls">
+                    <input class="span12" ng-model="input.email" type="text" id="inputUserEmail">
+                </div>
+            </div>
+            <!--Device ID-->
+            <div class="control-group">
+                <label for="inputUserDeviceID" class="control-label">{{'USER.INFO.DEVICE_ID'|translate}}</label>
+                <div class="controls">
+                    <input id="inputUserDeviceID" class="span12" type="text" ng-model="input.device_id">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Center column -->
+        <div class="span4">
+            <!-- Gender -->
+            <div class="control-group">
+                <label for="inputUserGender" class="control-label">{{'USER.USER_LIST.LB_GENDER'|translate}}</label>
+                <div class="controls">
+                    <select class="span12" id="inputUserGender" ng-model="input.gender" ng-options="d.value as d.label for d in property.gender"></select>
+                </div>
+            </div>
+            <!-- Job -->
+            <div class="control-group">
+                <label class="control-label">{{'USER.USER_LIST.LB_JOB'|translate}}</label>
+                <div class="controls">
+                    <selectpicker class="span12" ng-model="input.job" ng-source="property.job" title="{{'FORM.PLEASE_SELECT'|translate}}" />
+                </div>
+            </div>
+            <!-- Region -->
+            <div class="control-group">
+                <label class="control-label">{{'USER.USER_LIST.LB_REGION'|translate}}</label>
+                <div class="controls">
+                    <selectpicker class="span12" ng-model="input.region" ng-source="property.region" title="{{'FORM.PLEASE_SELECT'|translate}}"
+                    />
+                </div>
+            </div>
+            <!-- Device type -->
+            <div class="control-group">
+                <label for="inputUserDeviceType" class="control-label">{{'USER.USER_LIST.LB_DEVICE_TYPE'|translate}}</label>
+                <div class="controls">
+                    <select class="span12" id="inputUserDeviceType" ng-model="input.device_type" ng-options="d.value as d.label for d in property.device_type"></select>
+                </div>
+            </div>
+            <!-- Cup -->
+            <div class="control-group" ng-show="is_show_field_when_is_female">
+                <label class="control-label">{{'USER.USER_LIST.LB_CUP'|translate}}</label>
+                <div class="controls">
+                    <selectpicker class="span12" ng-model="input.cup" ng-source="property.cup" title="{{'FORM.PLEASE_SELECT'|translate}}" />
+                </div>
+            </div>
+            <!-- Cute Type -->
+            <div class="control-group" ng-show="is_show_field_when_is_female">
+                <label class="control-label">{{'USER.USER_LIST.LB_CUTE_TYPE'|translate}}</label>
+                <div class="controls">
+                    <selectpicker class="span12" ng-model="input.cute_type" ng-source="property.cute_type" title="{{'FORM.PLEASE_SELECT'|translate}}"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <!-- Right column -->
+        <div class="span4">
+            <!-- Status -->
+            <div class="control-group">
+                <label for="inputUserStatus" class="control-label">{{'USER.USER_LIST.LB_FLAG'|translate}}</label>
+                <div class="controls">
+                    <select class="span12" id="inputUserStatus" ng-model="input.flags" ng-options="c.value as c.label for c in property.flags"></select>
+                </div>
+            </div>
+            <!-- cm code -->
+            <div class="control-group">
+                <label class="control-label">{{'USER.INFO.CM_CODE'|translate}}</label>
+                <div class="controls">
+                    <input class="span12" type="text" id="inputCMCode" ng-model="input.cm_code">
+                    <!-- <selectpicker class="span12" ng-model="input.cm_code" ng-source="property.cm_code" picker-id="cm_code" size = "cm_code_size"
+                      title="{{'FORM.PLEASE_SELECT'|translate}}" /> -->
+                    <!-- <select class="span12" id="inputCMCode"
+                      ng-model="input.cm_code"
+                      ng-options="cm for cm in property.cm_code"></select> -->
+                </div>
+            </div>
+            <!-- Profile Image -->
+            <div class="control-group">
+                <label for="inputProfileImage" class="control-label">{{'USER.USER_LIST.LB_PROFILE_IMAGE'|translate}}</label>
+                <div class="controls">
+                    <!--<select id = "inputProfileImage" class="span12"-->
+                    <!--ng-model="input.profileImage" title="{{'FORM.PLEASE_SELECT'|translate}}" >-->
+                    <select class="span12" id="inputProfileImage" ng-model="input.profile_image" ng-options="p.value as p.label for p in property.profile_image"></select>
+                    <!--<option value="">{{'FORM.PLEASE_SELECT'|translate}}</option>-->
+                    <!--<option value="0">{{'FORM.NO'|translate}}</option>-->
+                    <!--<option value="1">{{'FORM.YES'|translate}}</option>-->
+                    <!--</select>-->
+                </div>
+            </div>
+            <!-- Body type -->
+            <div class="control-group">
+                <label for="inputUserGender" class="control-label">{{'USER.USER_LIST.LB_BODY_TYPE'|translate}}</label>
+                <div class="controls">
+                    <selectpicker class="span12" ng-model="input.body_type" ng-source="property.body_type" title="{{'FORM.PLEASE_SELECT'|translate}}"
+                    />
+                </div>
+            </div>
+            <!-- Money -->
+            <div class="control-group" ng-show="is_show_money_pur_day">
+                <label class="control-label">{{'USER.USER_LIST.LB_MONEY'|translate}}</label>
+                <div class="controls">
+                    <div class="span5">
+                        <input ng-model="input.from_money" type="number" min="0" max="1000000" class="span12" id="inputUserAgeFrom">
+                    </div>
+                    <div class="span2 text-center">
+                        <b>&sim;</b>
+                    </div>
+                    <div class="span5">
+                        <input ng-model="input.to_money" type="number" min="0" max="1000000" class="span12" id="inputUserAgeFrom">
+                    </div>
+                </div>
+            </div>
+            <!-- Cute Type -->
+            <div class="control-group" ng-show="is_show_field_when_is_female">
+                <label for="inputUserGender" class="control-label">{{'USER.USER_LIST.LB_JOIN_HOURS'|translate}}</label>
+                <div class="controls">
+                    <selectpicker class="span12" ng-model="input.join_hours" ng-source="property.join_hours" title="{{'FORM.PLEASE_SELECT'|translate}}"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <!--From register time Input-->
+    <div class="row-fluid">
+        <div class="span4">
+            <!-- User ID -->
+            <div class="control-group">
+                <label class="control-label">{{'USER.USER_LIST.LB_REGISTER_TIME'|translate}}</label>
+                <div class="controls">
+                    <datetimepicker class="span12" ng-model="input.from_reg_day" ng-label="true" label="{{'LAYOUT.DATE.FROM'|translate}}" />
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <datetimepicker class="span12" ng-model="input.to_reg_day" ng-label="true" label="{{'LAYOUT.DATE.TO'|translate}}" />
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <!---Last Login Time-->
+            <div class="control-group">
+                <label class="control-label">{{'USER.USER_LIST.LB_LAST_LOGIN_TIME'|translate}}</label>
+                <div class="controls">
+                    <datetimepicker class="span12" ng-model="input.from_login_day" ng-label="true" label="{{'LAYOUT.DATE.FROM'|translate}}" />
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <datetimepicker class="span12" ng-model="input.to_login_day" ng-label="true" label="{{'LAYOUT.DATE.TO'|translate}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span4">
+            <!-- User ID -->
+            <div class="control-group">
+                <label class="control-label">{{'USER.USER_LIST.LB_BIR'|translate}}</label>
+                <div class="controls">
+                    <datetimepicker class="span12" ng-model="input.lower_bir" ng-label="true" label="{{'LAYOUT.DATE.FROM'|translate}}" />
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <datetimepicker class="span12" ng-model="input.upper_bir" ng-label="true" label="{{'LAYOUT.DATE.TO'|translate}}" />
+                </div>
+            </div>
+        </div>
+        <div class="span4" ng-show="is_show_money_pur_day">
+            <!--From Purchase time Input -->
+            <div class="control-group">
+                <label class="control-label">{{'USER.USER_LIST.LB_PUR_TIME'|translate}}</label>
+                <div class="controls">
+                    <datetimepicker class="span12" ng-model="input.from_pur_day" ng-label="true" label="{{'LAYOUT.DATE.FROM'|translate}}" />
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <datetimepicker class="span12" ng-model="input.to_pur_day" ng-label="true" label="{{'LAYOUT.DATE.TO'|translate}}" />
+                </div>
+            </div>
+        </div>
+        <!--Telephone number -->
+        <div class="span4">
+            <div class="control-group">
+                <label for="inputUserId" class="control-label">{{'USER.USER_LIST.TELEPHONE_NUMBER'|translate }}</label>
+                <div class="controls">
+                    <input class="span12" type="text" id="inputNumberPhone" ng-model="input.phone_number">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <hr id="block-center-screen">
+    <!-- Sort By -->
+    <div class="row-fluid">
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label" for="sortBy">{{'LOG.COMMON.SORT_BY'|translate}}</label>
+                <div class="controls">
+                    <div class="form-inline">
+                        <select class="span6" id="sortBy" ng-model="input.sort" ng-options="c.value as c.label for c in property.sort"></select>&nbsp;&nbsp;
+                        <label class="radio" data-ng-repeat="order in property.order">
+                            <input type="radio" ng-model="input.order" value="{{order.value}}">
+                            <span>{{order.label}}</span>&nbsp;&nbsp;
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="span6 text-right">
+            <div>
+                <button type="submit" class="btn btn-primary">{{'FORM.BTN_SEARCH'|translate}}</button>
+            </div>
+
+            <!-- <div  ng-show="is_show_button_when_is_search">
+              <button type="button" ng-click="addPointList()"
+                class="btn btn-info">{{'FORM.BTN_ADD_POINT'|translate}}</button> 
+              <button type="button" ng-click="createAutoMessage()"
+                class="btn btn-info">{{'USER.USER_AUTO_MESSAGE.LB_CREATE_AUTO_MESSAGE'|translate}}
+              </button>
+              <button type="button" ng-click="createNotification()"
+                class="btn btn-info">{{'USER.USER_AUTO_NOTIFICATION.LB_CREATE_AUTO_NOTIFICATION'|translate}}
+              </button>
+              <button type="button" ng-click="createNewsLogin()"
+                class="btn btn-info">{{'USER.USER_NEW_LOGIN.LB_CREATE_NEW_LOGIN'|translate}}
+              </button>
+              <button type="submit" class="btn btn-primary">{{'FORM.BTN_SEARCH'|translate}}</button>
+            </div> -->
+
+        </div>
+    </div>
+
+    <div class="row-fluid" ng-show="show_when_total_larger_one">
+        <hr>
+        <div class="span6" style="margin-left: 20%; padding-left: 5%; padding-top: 10px; padding-bottom: 10px; border: silver solid 3px;">
+            <div class="controls">
+                <p style="font-size: 18px;">{{'USER.USER_LIST.LB_FOUND'|translate}}:&nbsp;
+                    <span style="color: red;">{{setting.total}}</span>&nbsp;{{'USER.USER_LIST.LB_RECORDS'|translate}}</p>
+            </div>
+            <div class="controls">
+                <select class="span5" id="btn_action" ng-model="input.btn_action" ng-options="c.value as c.label for c in property.btn_action"></select>
+                <button type="button" ng-click="selectAction()" class="btn btn-info">{{'FORM.SUBMIT'|translate}}</button>
+            </div>
+        </div>
+    </div>
+</form>
+<hr>
+<div class="row-fluid">
+    <div class="span8">
+        <pagination next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}" previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+            first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}" last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+            ng-hide="setting.total <= setting.pageSize" on-select-page="search(page)" class="span12" page="setting.currentPage"
+            total-items="setting.total" boundary-links="true" rotate="false" max-size="setting.pageDisplay" items-per-page="setting.pageSize"
+        />
+    </div>
+    <div class="span4 text-right pargin-top-margin">
+        <span>{{'USER.USER_LIST.LB_TOTAL_ITEM'|translate}}:&nbsp;{{setting.total}}</span>
+    </div>
+</div>
+<!-- table -->
+<div class="row-fluid">
+    <div class="span12">
+        <!-- table table-striped table-bordered table-hover table-condensed -->
+        <table class="table table-bordered table-hover" ng-hide="setting.total === 0">
+            <thead>
+                <tr>
+                    <th>
+                        <div>
+                            <span>{{'USER.INFO.USER_ID'|translate}}</span>
+                        </div>
+                        <div>
+                            <span>{{'USER.INFO.USER_NAME'|translate}}</span>
+                        </div>
+                        <div>
+                            <span>{{'USER.USER_LIST.TELEPHONE_NUMBER'|translate}}</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <span>{{'USER.USER_LIST.LB_APPLICATION_ID'|translate}}</span>
+                        </div>
+                        <div>
+                            <span>{{'USER.USER_LIST.LB_APPLICATION_NAME'|translate}}</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <span>{{'USER.INFO.USER_TYPE'|translate}}</span>
+                        </div>
+                        <div>
+                            <span>{{'USER.INFO.EMAIL'|translate}}&nbsp;&#47;&nbsp;{{'USER.INFO.FACEBOOK_ID'|translate}}</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <span>{{'USER.INFO.GROUP'|translate}}</span>
+                        </div>
+                        <div>
+                            <span>{{'USER.INFO.CM_CODE'|translate}}</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <span>{{'USER.USER_LIST.LB_GENDER'|translate}}</span>
+                        </div>
+                        <div>
+                            <span>{{'USER.USER_LIST.LB_AGE'|translate}}</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <span>{{'USER.USER_LIST.LB_BIR'|translate}}</span>
+                        </div>
+                        <div>
+                            <span>{{'USER.USER_LIST.LB_RELSH_STT'|translate}}</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <span>{{'USER.USER_LIST.LB_LAST_LOGIN_TIME'|translate}}</span>
+                        </div>
+                        <div>
+                            <span>{{'USER.USER_LIST.LB_REGISTER_TIME'|translate}}</span>
+                        </div>
+                        <div>
+                            <span>{{'USER.USER_LIST.LB_FIRST_PUR_TIME'|translate}}</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <span>{{'USER.USER_LIST.LB_POINT'|translate}}</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <span>{{'USER.USER_LIST.LB_FLAG'|translate}}</span>
+                        </div>
+                    </th>
+                    <!-- <th>
+                      <div>
+                        <span>{{'USER.USER_LIST.LB_MEMO'|translate}}</span>
+                      </div>
+                    </th> -->
+                    <th>
+                        <div>
+                            <span>{{'USER.USER_LIST.LB_VERIFIED'|translate}}</span>
+                        </div>
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="item in userList">
+                <tr>
+                    <td>
+                        <div>
+                            <span>
+                                <a ng-if="item.user_name != null" target="_blank" href="#/user/user_detail/{{item.user_id}}">{{item.user_id}}</a>
+                                <a ng-if="item.user_name == null">{{item.user_id}}</a>
+                                <!-- <a class="btn-link" ng-click="userDetail(item.user_id)">{{item.user_id}}</a> -->
+                            </span>
+                        </div>
+                        <div>
+                            <span>{{item.user_name}}</span>
+                        </div>
+                        <div>
+                            <span>{{item.phone_number}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span>{{item.application_id}}</span>
+                        </div>
+                        <div>
+                            <span>{{item.application_name}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span>{{item.user_type|label:[property.user_type]}}</span>
+                        </div>
+                        <div>
+                            <span>{{item.email}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span>{{'LAYOUT.NO_DATA'|translate}}</span>
+                        </div>
+                        <div>
+                            <span>{{(item.cm_code == null ? 'LAYOUT.NO_DATA' : item.cm_code)|translate}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span>{{item.gender|label:[property.gender]}}</span>
+                        </div>
+                        <div>
+                            <span>{{item.age}}</span>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div>
+                            <span>{{item.bir|local:[true, 'yyyy/MM/dd']}}</span>
+                        </div>
+                        <div>
+                            <span>{{item.relsh_stt|label:[property.relsh_sttes]}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span>{{item.last_login_time|local:[true]}}</span>
+                        </div>
+                        <div>
+                            <span>{{item.reg_date|local:[true]}}</span>
+                        </div>
+                        <div>
+                            <span>{{item.first_pur_time|local:[true]}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span>{{item.point|stat}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span>{{item.flag|label:[property.flags]}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span class="text-newline">{{item.memo}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span>{{getAgeCheck(item) | translate}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <a target="_blank" class="btn-link" href="#/log/chat/{{item.user_id}}">{{'USER.USER_LIST.CHAT_LOG'|translate}}</a>
+                        </div>
+                        <div>
+                            <span ng-click="purchaseLog(item)" class="btn-link">{{'USER.USER_LIST.PURCHASE_POINT_lOG1'|translate}}</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--paging -->
+<div class="row-fluid">
+    <pagination next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}" previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+        first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}" last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}" ng-hide="setting.total <= setting.pageSize"
+        on-select-page="search(page)" class="span12" page="setting.currentPage" total-items="setting.total" boundary-links="true"
+        rotate="false" max-size="setting.pageDisplay" items-per-page="setting.pageSize" />
+</div>

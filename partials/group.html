@@ -1,0 +1,54 @@
+<div class="page-header">
+  <h3>{{'ACCOUNT_GROUP.PAGE_TITLE'|translate}}</h3>
+</div>
+<form ng-submit="add()">
+  <label>{{'ACCOUNT_GROUP.NEW_ROLE'|translate}}</label>
+  <input type="text" required ng-model="input">
+  <br>
+  <button  ng-disabled="flag" type="submit" class="btn btn-primary">{{'ACCOUNT_GROUP.ADD_ROLE_BTN'|translate}}</button>
+</form>
+<hr>
+<br>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>
+        <h4>{{'ACCOUNT_GROUP.GROUP' | translate}}</h4>
+      </th>
+      <th ng-repeat="role in roles" class="span3">
+        <div class="row-fluid">
+          <input type="text" ng-model="role.name" ng-disabled="!role.isEditMode" class="span12 text-center">
+        </div>
+        <div ng-show="role.isEditMode">
+          <div class="btn-group span12 text-center">
+            <button class="btn" ng-click="save(role)" title="{{'FORM.BTN_SAVE'|translate}}">
+              <i class="icon-ok-circle"></i></button>
+            <button class="btn" ng-click="discard(role)" title="{{'FORM.BTN_CANCEL'|translate}}">
+              <i class="icon-ban-circle"></i></button>
+          </div>
+        </div>
+        <div ng-hide="role.isEditMode">
+          <div class="btn-group span12 text-center">
+            <button class="btn" ng-click="edit(role)" title="{{'FORM.BTN_EDIT'|translate}}">
+              <i class="icon-edit"></i></button>
+            <button class="btn" ng-click="remove(role)" title="{{'FORM.BTN_DELETE'|translate}}">
+              <i class="icon-remove-circle"></i></button>
+          </div>
+        </div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="screenGroup in screenGroups track by $index">
+      <td>
+        <span>{{'MENU.' + screenGroup.name + '.TITLE'|translate}}</span>
+      </td>
+      <td ng-repeat="role in roles">
+        <div class="text-center">
+          <input type="checkbox" ng-disabled="!role.isEditMode"
+            ng-model="role.checks[screenGroup.id]">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

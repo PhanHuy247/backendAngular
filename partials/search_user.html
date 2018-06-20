@@ -1,0 +1,21 @@
+<div class="page-header">
+    <div class="row-fluid">
+        <div class="span8">
+            <h3>{{'USER.USER_DETAIL.TITLE_DETAIL'|translate }}</h3>
+        </div>
+    </div>
+</div>
+<div class="row-fluid mtm15">
+    <div class="span6">
+        <form class="form-horizontal block-search-user-id" ng-submit="searchUserID()" id="search-userid-form">
+            <div class="control-group">
+                <label class="control-label left-element holder-item">{{'USER.INFO.LB_USER_ID_SEARCH'|translate}}</label>
+                <div class="controls">
+                    <input class="span8 left-element holder-item" type="text" id="input-user-id" ng-model="input.id_user_search">
+                    <button type="submit" class="btn btn-primary" form="search-userid-form">{{'FORM.BTN_SEARCH'|translate}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<hr>

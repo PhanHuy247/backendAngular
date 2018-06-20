@@ -1,0 +1,305 @@
+<div class="page-header">
+  <h3>{{'LOG.USER_INFO.TITLE'|translate}}</h3>
+</div>
+<form class="form-horizontal" ng-submit="searchInfoUsers()">
+  <div class="row-fluid">
+    <div class="span4">
+      <div class="control-group">
+        <label class="control-label" for="filterBy">{{'LOG.USER_INFO.LB_USER_ID'|translate}}</label>
+        <div class="controls">
+          <input type="text" ng-model="info_user.id" id="user-id" />
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="span4">
+      <div class="control-group">
+        <label class="control-label" for="filterBy">{{'LOG.USER_INFO.LB_BUZZ_ID'|translate}}</label>
+        <div class="controls">
+          <input type="text" ng-model="user_info.buzz_id" id="buzz_id" />
+        </div>
+      </div>
+    </div> -->
+    <!-- <div class="span4">
+      <div class="control-group">
+        <label class="control-label">{{'LOG.USER_INFO.LB_LISTLOG'|translate}}</label>
+        <div class="controls">
+            <select class="span6" ng-model="user_info.list_logs" ng-class="{'error':(error.list_logs)}"
+                    ng-options="d.value as d.label for d in properties.list_logs">
+            </select>
+        </div>
+      </div>
+    </div> -->
+    <div class="span4">
+      <div class="control-group">
+        <label class="control-label">{{'LOG.USER_INFO.LB_GENDER'|translate}}</label>
+        <div class="controls">
+            <select class="span6" ng-model="user_info.gender" ng-class="{'error':(error.list_logs)}"
+                    ng-options="d.value as d.label for d in properties.gender">
+            </select>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row-fluid">
+  <div class="span12">
+    <!-- <div class="span4">
+      <div class="control-group">
+        <label class="control-label" for="sortBy">{{'LOG.USER_INFO.LB_USER_NAME'|translate}}</label>
+        <div class="controls">
+        <input type="text" ng-model="user_info.user_name" id="user_name" />
+      </div>
+  </div>
+  </div> -->
+  <div class="span4">
+    <div class="control-group">
+      <label class="control-label" for="sortBy">{{'LOG.USER_INFO.LB_APP_ID'|translate}}</label>
+      <div class="controls">
+        <input type="text" ng-model="user_info.app_id" id="app_id" />
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="sortBy">{{'LOG.USER_INFO.LB_TIME'|translate}}</label>
+      <div class="controls">
+        <input type="text" ng-model="user_info.time" id="time" />
+      </div>
+    </div>
+  </div>
+
+  
+
+  <div class="span4">
+    <div class="control-group" style="margin-bottom: 20">
+        <label class="control-label" for="sortBy">{{'LOG.USER_INFO.LB_USER_TYPE'|translate}}</label>
+        <div class="controls">
+      <select id="sortBy" ng-model="user_info.user_type" class="span6"
+              ng-options="s.value as s.label for s in properties.user_type">
+          </select>
+        </div>
+        </div>
+        <div ng-if="user_info.user_type == 0" class="control-group">
+            <label class="control-label">{{'LOG.USER_INFO.LB_EMAIL'|translate}}</label>
+            <div class="controls">
+                <input id="email" class="span10" ng-model="user_info.email" type="email">
+            </div>
+        </div>
+      <div ng-if="user_info.user_type == 1" class="control-group">
+            <label class="control-label">{{'LOG.USER_INFO.LB_FACEBOOK_ID'|translate}}</label>
+            <div class="controls">
+                <input id="fb_id" class="span10" ng-model="user_info.fb_id" type="text" >
+            </div>
+        </div>
+    
+  </div>
+  </div>
+  
+
+  
+
+  </div>
+  <div class="row-fluid">
+  <div class="span11 left">
+    <div class="control-group">
+        <button type="submit" class="pull-right btn btn-primary">{{'FORM.BTN_SEARCH'|translate}}</button>
+      </div>
+  </div>
+  </div>
+</form>
+
+<hr id="block-center-screen">
+<!-- pagination -->
+<div class="row-fluid">
+  <div class="span8">
+    <pagination
+      next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+      previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+      first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+      last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+      ng-hide="setting.totalItems <= setting.itemsPerPage"
+      on-select-page="loadInfoUsersData(page)"
+      class="span12"
+      page="setting.currentPage"
+      total-items="setting.totalItems"
+      boundary-links="true"
+      rotate="false"
+      max-size="setting.numberPagesDisplay"
+      items-per-page="setting.itemsPerPage">
+    </pagination>
+  </div>
+    <div class="span4 text-right pagination">
+      <span>{{'LIST.TOTAL_ITEMS'|translate}}&#58;&nbsp;{{setting.totalItems}}</span>
+    </div>
+</div>
+<!-- end_pagination -->
+
+<!-- Table content -->
+<div class="row-fluid">
+    <div ng-repeat="userItem in listInfoUserData" class="span12 thumbnail widthCol">
+      <div class="row-fluid">
+        <div class="span12">
+          <p class="text-length-format">
+          {{'LOG.USER_INFO.LB_USER_ID'|translate}}&#58;&nbsp;
+          <span class="text-info">
+            <a target="_blank" href="#/user/user_detail/{{userItem.user_id}}">{{userItem.user_id}}</a>
+          </span>
+          </p>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span12">
+          <p class="text-length-format">
+            {{'LOG.USER_INFO.LB_USER_NAME'|translate}}&#58;&nbsp;
+            <span class="text-info">{{userItem.user_name}}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span12">
+          <p class="text-length-format">
+            {{'LOG.USER_INFO.LB_GENDER'|translate}}&#58;&nbsp;
+            <span class="text-info">{{userItem.gender|label:[properties.gender]}}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span8">
+          <p class="text-length-format">
+            {{'LOG.USER_INFO.LB_TIME'|translate}}&#58;&nbsp;
+            <span class="text-info">{{userItem.time|local:[true]}}</span>
+          </p>
+        </div>
+        <div class="span4 text-right">
+          <button ng-hide="userItem.statusChecked.all || userItem.statusChecked.checkedAll" type="button" ng-class="buttonLeft" ng-click="changeStatusInfoUser(flagDeny, userItem, 'all')">{{labelButtonLeftAll}}</button>
+
+          <button ng-hide="userItem.statusChecked.all || userItem.statusChecked.checkedAll" type="button" ng-class="buttonRight" ng-click="changeStatusInfoUser(flagApprove, userItem, 'all')">{{labelButtonRightAll}}</button>
+          <span ng-class="{'label': true, 'approved-user-info-denied-pending': true}" ng-show="userItem.statusChecked.checkedAll">{{userItem.statusChecked.checkedAll.statusName}}</span>
+          <span ng-class="{'label': true, 'approved-user-info-denied-pending': true, 'label-important': userItem.statusChecked.all.labelImportant, 'label-success': userItem.statusChecked.all.labelSuccess}" ng-show="userItem.statusChecked.all">{{userItem.statusChecked.all.statusName}} all</span>
+        </div>
+      </div>
+      <hr>
+      <div class="item-user-info-approve">
+        <div class="row-fluid" ng-hide="!userItem.about">
+          <div class="span9">
+            <p class="text-length-format">
+              {{'LOG.USER_INFO.LB_ABOUT'|translate}}&#58;&nbsp;
+              <span class="text-info">{{userItem.about}}</span>
+            </p>
+          </div>
+          <div class="span3 text-right">
+            <button ng-hide="userItem.statusChecked.about || userItem.statusChecked.all" type="button" ng-class="buttonLeft" ng-click="changeStatusInfoUser(flagDeny, userItem, 'about')">{{labelButtonLeft}}</button>
+            <button ng-hide="userItem.statusChecked.about || userItem.statusChecked.all" type="button" ng-class="buttonRight" ng-click="changeStatusInfoUser(flagApprove,userItem, 'about')">{{labelButtonRight}}</button>
+
+            <span ng-class="{'label': true, 'approved-user-info-denied-pending': true, 'label-important': userItem.statusChecked.all.labelImportant, 'label-success': userItem.statusChecked.all.labelSuccess}" ng-show="userItem.statusChecked.all">{{userItem.statusChecked.all.statusName}}</span>
+
+            <span ng-class="{'label': true, 'approved-user-info-denied-pending': true, 'label-important': userItem.statusChecked.about.labelImportant, 'label-success': userItem.statusChecked.about.labelSuccess}" ng-show="userItem.statusChecked.about && !userItem.statusChecked.all">{{userItem.statusChecked.about.statusName}}</span>
+          </div>
+        </div>
+
+        <div class="row-fluid" ng-hide="!userItem.hobby">
+          <div class="span9">
+            <p class="text-length-format" >
+                {{'LOG.USER_INFO.LB_HOBBY'|translate}}&#58;&nbsp;
+                <span class="text-info">{{userItem.hobby}}</span>
+            </p>
+          </div>
+          <div class="span3 text-right">
+            <button ng-hide="userItem.statusChecked.hobby || userItem.statusChecked.all" type="button" ng-class="buttonLeft" ng-click="changeStatusInfoUser(flagDeny, userItem, 'hobby')">{{labelButtonLeft}}</button>
+        
+            <button ng-hide="userItem.statusChecked.hobby || userItem.statusChecked.all" type="button" ng-class="buttonRight" ng-click="changeStatusInfoUser(flagApprove, userItem, 'hobby')">{{labelButtonRight}}</button>
+        
+             <span ng-class="{'label': true, 'approved-user-info-denied-pending': true, 'label-important': userItem.statusChecked.all.labelImportant, 'label-success': userItem.statusChecked.all.labelSuccess}" ng-show="userItem.statusChecked.all">{{userItem.statusChecked.all.statusName}}</span>
+        
+            <span ng-class="{'label': true, 'approved-user-info-denied-pending': true, 'label-important': userItem.statusChecked.hobby.labelImportant, 'label-success': userItem.statusChecked.hobby.labelSuccess}" ng-show="userItem.statusChecked.hobby || !userItem.statusChecked.all">{{userItem.statusChecked.hobby.statusName}}</span>
+          </div>
+        </div>
+
+        <div class="row-fluid" ng-hide="!userItem.type_of_man">
+          <div class="span9">
+            <p class="text-length-format" >
+              {{'LOG.USER_INFO.LB_TYPE_OF_MAN'|translate}}&#58;&nbsp;
+              <span class="text-info">{{userItem.type_of_man}}</span>
+            </p>
+          </div>
+          <div class="span3 text-right">
+            <button ng-hide="userItem.statusChecked.type_of_man || userItem.statusChecked.all" type="button" ng-class="buttonLeft" ng-click="changeStatusInfoUser(flagDeny, userItem, 'type_of_man')">{{labelButtonLeft}}</button>
+
+            <button ng-hide="userItem.statusChecked.type_of_man || userItem.statusChecked.all" type="button" ng-class="buttonRight" ng-click="changeStatusInfoUser(flagApprove, userItem, 'type_of_man')">{{labelButtonRight}}</button>
+
+             <span ng-class="{'label': true, 'approved-user-info-denied-pending': true, 'label-important': userItem.statusChecked.all.labelImportant, 'label-success': userItem.statusChecked.all.labelSuccess}" ng-show="userItem.statusChecked.all">{{userItem.statusChecked.all.statusName}}</span>
+
+            <span class="" ng-class="{'label': true, 'approved-user-info-denied-pending': true, 'label-important': userItem.statusChecked.type_of_man.labelImportant, 'label-success': userItem.statusChecked.type_of_man.labelSuccess}" ng-show="userItem.statusChecked.type_of_man && !userItem.statusChecked.all">{{userItem.statusChecked.type_of_man.statusName}}</span>
+          </div>
+        </div>
+        <div class="row-fluid" ng-hide="!userItem.fetish">
+          <div class="span9">
+           <p class="text-length-format" >
+              {{'LOG.USER_INFO.LB_FETISH'|translate}}&#58;&nbsp;
+              <span class="text-info">{{userItem.fetish}}</span>
+            </p>
+          </div>
+          <div class="span3 text-right">
+            <button ng-hide="userItem.statusChecked.fetish || userItem.statusChecked.all" type="button" ng-class="buttonLeft" ng-click="changeStatusInfoUser(flagDeny, userItem, 'fetish')">{{labelButtonLeft}}</button>
+
+            <button ng-hide="userItem.statusChecked.fetish || userItem.statusChecked.all" type="button" ng-class="buttonRight" ng-click="changeStatusInfoUser(flagApprove, userItem, 'fetish')">{{labelButtonRight}}</button>
+
+             <span ng-class="{'label': true, 'approved-user-info-denied-pending': true, 'label-important': userItem.statusChecked.all.labelImportant, 'label-success': userItem.statusChecked.all.labelSuccess}" ng-show="userItem.statusChecked.all">{{userItem.statusChecked.all.statusName}}</span>
+
+            <span class="" ng-class="{'label': true, 'approved-user-info-denied-pending': true, 'label-important': userItem.statusChecked.fetish.labelImportant, 'label-success': userItem.statusChecked.fetish.labelSuccess}" ng-show="userItem.statusChecked.fetish && !userItem.statusChecked.all">{{userItem.statusChecked.fetish.statusName}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span12 text-right">
+          <button ng-hide="userItem.statusChecked.applied" ng-disabled="!userItem.enableApply" type="button" ng-class="buttonRight" ng-click="apply(1, userItem)">{{labelApply}}</button>
+          <button ng-hide="userItem.statusChecked.applied" ng-disabled="!userItem.enableCancel" type="button" ng-class="buttonLeft" ng-click="apply(-1, userItem)">{{labelCancel}}</button>
+          <span ng-class="{'label': true, 'approved-user-info-denied-pending': true, 'label-success': true}" ng-show="userItem.statusChecked.applied">{{userItem.statusChecked.applied.statusName}}</span>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- end Table content -->
+
+<!-- demo_date -->
+<div class="row-fluid">
+  <div class="span1">
+    <button type="button" class="btn span12" ng-click="changeDate(-1)">{{'STATISTIC.PREV'|translate}}</button>
+  </div>
+  <div class="span2" ng-show="type == 0">
+    <datetimepicker class="span12" ng-change="load()"
+      ng-model="time" pick-time="false" text-align="center" />
+  </div>
+  <div class="span2" ng-hide="type == 0">
+    <select class="span12" ng-model="selectedMonthIndex" ng-change="load()"
+      ng-options="selectiveMonths.indexOf(d) as d.label for d in selectiveMonths"></select>
+  </div>
+  <div class="span1">
+    <button type="button" class="btn span12" ng-click="changeDate(1)">{{'STATISTIC.NEXT'|translate}}</button>
+  </div>
+</div>
+<!-- end_demo_date -->
+<!-- pagination -->
+<div class="row-fluid">
+  <div class="span8">
+    <pagination
+      next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+      previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+      first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+      last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+      ng-hide="setting.totalItems <= setting.itemsPerPage"
+      on-select-page="loadInfoUsersData(page)"
+      class="span12"
+      page="setting.currentPage"
+      total-items="setting.totalItems"
+      boundary-links="true"
+      rotate="false"
+      max-size="setting.numberPagesDisplay"
+      items-per-page="setting.itemsPerPage">
+    </pagination>
+  </div>
+    <div class="span4 text-right pagination">
+      <span>{{'LIST.TOTAL_ITEMS'|translate}}&#58;&nbsp;{{setting.totalItems}}</span>
+    </div>
+</div>
+<!-- end_pagination -->

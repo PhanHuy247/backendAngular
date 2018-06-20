@@ -1,0 +1,312 @@
+ <div class="modal-header">
+   <h4>{{'USER.USER_DETAIL.TITLE_DETAIL'|translate}}</h4>
+ </div>
+ <div class="modal-body">
+
+   <form class="form-horizontal" ng-submit="update()" id="detail-user-form">
+     <span>{{default_property.default_property_id}}</span>       
+     <!---box update default_property--->
+     <div class="row-fluid">
+       <div class="span6">
+         <div class="control-group">
+           <label class="control-label">{{'USER.INFO.USER_ID'|translate}}</label>
+           <div class="controls">
+             <input class="span12" type="text" ng-model="user.user_id" disabled>
+           </div>
+         </div>
+         <div class="control-group" ng-if="user.user_type == 0">
+           <label class="control-label">{{'ACCOUNT.INFO.PASSWORD'|translate}}</label>
+           <div class="controls">
+             <input type="text" class="span6" ng-model="user.original_pwd" disabled>
+             <button type="button" class="btn" ng-click="resetPassword(user.user_id)">{{'USER.USER_DETAIL.RESET_PASSWORD'| translate}}</button>
+           </div>
+         </div>
+         <div class="control-group">
+           <label class="control-label">{{'USER.INFO.USER_TYPE'|translate}}</label>
+           <div class="controls">
+             <select class="span6" ng-model="user.user_type" disabled
+                     ng-options="d.value as d.label for d in properties.user_type">
+             </select>
+           </div>
+         </div>
+           
+        <div ng-if="user.user_type == 0" ng-class="{'control-group': true, 'error': user.showError.email}">
+            <label class="control-label">{{'USER.INFO.EMAIL'|translate}}</label>
+            <div class="controls">
+                <input id="email" class="span12" ng-model="user.email" type="text"  required>
+            </div>
+        </div>
+        <div ng-if="user.user_type == 1" ng-class="{'control-group': true, 'error': user.showError.facebook}">
+            <label class="control-label">{{'USER.INFO.FACEBOOK_ID'|translate}}</label>
+            <div class="controls">
+                <input id="fb_id" class="span12" ng-model="user.fb_id" type="text"  required>
+            </div>
+        </div>
+		<div ng-if="user.user_type == 2" ng-class="{'control-group': true, 'error': user.showError.email}">
+            <label class="control-label">{{'USER.INFO.MOCOM_ID'|translate}}</label>
+            <div class="controls">
+                <input id="mocom_id" class="span12" ng-model="user.mocom_id" type="text"  required>
+            </div>
+        </div>
+		<div ng-if="user.user_type == 3" ng-class="{'control-group': true, 'error': user.showError.email}">
+			<label class="control-label">{{'USER.INFO.FAMU_ID'|translate}}</label>
+			<div class="controls">
+				<input id="famu_id" class="span12" ng-model="user.famu_id" type="text"  required>
+			</div>
+        </div>
+<!--         <div ng-class="{'control-group': true, 'error': user.showError.email}">
+           <label class="control-label">{{user.user_type == 0 ? 'USER.INFO.EMAIL' : 'USER.INFO.FACEBOOK_ID'|translate}}</label>
+           <div class="controls">
+             <input id="email" class="span12" ng-model="user.email" type="text" required>
+           </div>
+         </div>-->
+         <div ng-class="{'control-group': true, 'error': user.showError.userName}">
+           <label class="control-label" for="userName">{{'USER.INFO.USER_NAME'|translate}}</label>
+           <div class="controls">
+             <input class="span12" ng-model="user.user_name" type="text" id="userName" pattern=".{1,14}" ng-required="setRequire.user_name == true" >
+<!--             <input ng-if="user.finish_register_flag != 1" class="span12" ng-model="user.user_name" type="text" id="userName" pattern=".{1,14}" >-->
+           </div>
+         </div>
+         <div ng-class="{'control-group': true, 'error': user.showError.age}">
+           <label class="control-label">{{'USER.USER_LIST.LB_BIRTHDAY'|translate}}</label>
+           <div class="controls">
+             <datetimepicker class="span6" pick-time="false"
+                             ng-model="user.localBirthday.time" />
+           </div>
+         </div>
+
+         <div class="control-group">
+           <label class="control-label">{{'USER.USER_LIST.LB_GENDER'|translate}}</label>
+           <div class="controls">
+               <select class="span6" ng-model="user.gender" disabled="true"
+                     ng-options="d.value as d.label for d in properties.gender">
+             </select>
+           </div>
+         </div>
+         <div class="control-group">
+           <label class="control-label">{{'USER.INFO.GROUP'|translate}}</label>
+           <div class="controls">
+             <select class="span6" disabled>
+             </select>
+           </div>
+         </div>
+         <div class="control-group">
+           <label class="control-label">{{'USER.INFO.CM_CODE'|translate}}</label>
+           <div class="controls">
+             <input type="text" class="span12" disabled ng-model="user.cm_code">
+           </div>
+         </div>
+         
+        
+        <div class="control-group" ng-if="is_show_field_when_is_female">
+            <label class="control-label">{{'USER.USER_LIST.LB_CUP'|translate}}</label>
+            <div class="controls">
+                <select class="span6" id="inputUserActive" ng-model="user.cup" ng-class="{'error':(error.cup)}"
+                        ng-options="d.value as d.label for d in properties.cup">
+                </select>
+            </div>
+        </div>
+        <div class="control-group" ng-if="is_show_field_when_is_female">
+            <label class="control-label">{{'USER.USER_LIST.LB_CUTE_TYPE'|translate}}</label>
+            <div class="controls">
+                <select class="span6" id="inputUserActive" ng-model="user.cute_type" ng-class="{'error':(error.cute_type)}"
+                        ng-options="d.value as d.label for d in properties.cute_type">
+                </select>
+            </div>
+        </div>
+        
+        <div class="control-group" ng-if="is_show_field_when_is_female">
+            <label class="control-label">{{'USER.USER_LIST.LB_VERIFIED'|translate}}</label>
+            <div class="controls">
+                <select class="span6" id="inputUserActive" ng-model="user.verification_flag"
+                        ng-options="d.value as d.label for d in properties.verification_flag">
+                </select>
+            </div>
+        </div>
+       </div>
+
+       <div class="span6">
+         <div class="control-group">
+           <label class="control-label">{{'USER.USER_LIST.LB_POINT'|translate}}</label>
+           <div class="controls">
+             <input type="text" class="span6" disabled ng-model="user.point">
+           </div>
+         </div>
+        
+         <div class="control-group">
+             <label class="control-label"></label>
+           <div class="controls">
+            <div class="span4 text-left">
+                <a ng-click="addPoint()"
+                   class="btn">{{'FORM.BTN_ADD_POINT'|translate}}</a>
+            </div>
+             <div class="span4 text-left">
+               <a ng-click="viewPoint()"
+                  class="btn btn-info">{{'FORM.BTN_VIEW_POINT_HISTORY'|translate}}</a>
+             </div>
+           </div>
+         </div>
+         <div class="control-group">
+           <label class="control-label">{{'USER.USER_LIST.LB_FLAG'|translate}}</label>
+           <div class="controls">
+             <select class="span6" ng-model="user.flag"
+                     ng-options="d.value as d.label for d in properties.flags">
+             </select>
+           </div>
+         </div>
+         <div class="control-group">
+           <label class="control-label">{{'USER.USER_LIST.LB_REGISTER_TIME'|translate}}</label>
+           <div class="controls">
+             <input type="text" class="span6" disabled value="{{user.reg_date|local:[true]}}">
+           </div>
+         </div>
+         <div class="control-group">
+           <label class="control-label">{{'USER.USER_LIST.LB_LAST_LOGIN_TIME'|translate}}</label>
+           <div class="controls">
+             <input type="text" class="span6" disabled value="{{user.last_login_time|local:[true]}}">
+           </div>
+         </div>
+         <div class="control-group">
+           <label class="control-label">{{'USER.USER_LIST.LB_LAST_PUR_TIME'|translate}}</label>
+           <div class="controls">
+             <input type="text" class="span6" disabled value="">
+           </div>
+         </div>
+        
+        
+        <div class="control-group ">
+            <label class="control-label">{{'USER.USER_LIST.LB_REGION'|translate}}</label>
+            <div class="controls">
+                <select ng-class="{'error':(error.region)}" class="span6" ng-model="user.region" required
+                        ng-options="d.value as d.label for d in properties.region">
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">{{'USER.USER_LIST.LB_JOB'|translate}}</label>
+            <div class="controls">
+                <select  ng-class="{'error':(error.job)}" class="span6" id="inputUserActive" ng-model="user.job"
+                        ng-options="d.value as d.label for d in properties.job">
+                </select>
+            </div>
+        </div>
+           
+        <div class="control-group">
+            <label class="control-label">{{'USER.USER_LIST.LB_VIDEO_CALL_WAITING'|translate}}</label>
+            <div class="controls">
+                <select class="span6" id="inputUserActive" ng-model="user.video_call_waiting"
+                        ng-options="d.value as d.label for d in properties.video_call_waiting">
+                </select>
+            </div>
+        </div>
+           
+        <div class="control-group">
+            <label class="control-label">{{'USER.USER_LIST.LB_VOICE_CALL_WAITING'|translate}}</label>
+            <div class="controls">
+                <select class="span6" id="inputUserActive" ng-model="user.voice_call_waiting"
+                        ng-options="d.value as d.label for d in properties.voice_call_waiting">
+                </select>
+            </div>
+        </div>
+        <div class="control-group" ng-if="is_show_field_when_is_female">
+            <label class="control-label">{{'USER.USER_LIST.LB_MEASUREMENT'|translate}}</label>
+            <div class="controls group3-control">
+                <label class="control-label span2">{{'USER.USER_LIST.LB_BREAST'|translate}}</label>
+                <input ng-change="check_full_three_value()" min="50" max="120" type="number" class="span2" ng-model="user.measurements[0]"  value="{{user.measurements[0]}}">
+                <label class="control-label span2" >{{'USER.USER_LIST.LB_WAIST'|translate}}</label>
+                <input ng-change="check_full_three_value()" min="50" max="120"  type="number" class=" span2"  ng-model="user.measurements[1]" value="{{user.measurements[1]}}">
+                <label class=" span2 control-label ">{{'USER.USER_LIST.LB_HIPS'|translate}}</label>
+                <input ng-change="check_full_three_value()" min="50" max="120"  type="number" class="controls span2"  ng-model="user.measurements[2]" value="{{user.measurements[2]}}">
+            </div>
+        </div>
+        <div class="control-group" ng-if="is_show_field_when_is_female">
+            <label class="control-label">{{'USER.USER_LIST.LB_JOIN_HOURS'|translate}}</label>
+            <div class="controls">
+                <select ng-class="{'error':(error.join_hours)}" class="span6" id="inputUserActive" ng-model="user.join_hours"
+                        ng-options="d.value as d.label for d in properties.join_hours">
+                </select>
+            </div>
+        </div>
+
+       </div>
+     </div>
+     <div class="row-fluid">
+       <div class="span12 control-group"  ng-if="is_show_field_when_is_female">
+         <div ng-class="{'control-group': true}">
+           <label class="control-label" for="type_of_man">{{'USER.USER_LIST.LB_TYPE_OF_MAN'|translate}}</label>
+           <div class="controls">
+             <textarea id="about" ng-model="user.type_of_man" rows="1" class="span12" maxlength="100"></textarea>
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="row-fluid">
+       <div class="span12 control-group" ng-if="is_show_field_when_is_female">
+         <div ng-class="{'control-group': true}">
+           <label class="control-label" for="fetish">{{'USER.USER_LIST.LB_FETISH'|translate}}</label>
+           <div class="controls">
+             <textarea id="about" ng-model="user.fetish" rows="1" class="span12" maxlength="100"></textarea>
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="row-fluid"  ng-if="!is_show_field_when_is_female">
+       <div class="span12 control-group">
+         <div ng-class="{'control-group': true}">
+           <label class="control-label" for="hobby">{{'USER.USER_LIST.LB_HOPPY'|translate}}</label>
+           <div class="controls">
+             <textarea id="hobby" ng-model="user.hobby" rows="1" class="span12" maxlength="100"></textarea>
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="row-fluid">
+       <div class="span12 control-group">
+         <div ng-class="{'control-group': true}">
+           <label class="control-label" for="memo">{{'USER.USER_LIST.LB_MEMO'|translate}}</label>
+           <div class="controls">
+             <textarea id="about" ng-model="user.memo" rows="5" class="span12" maxlength="1000"></textarea>
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="row-fluid">
+       <div class="span12">
+         <div ng-class="{'control-group': true, 'error': user.showError.about}">
+           <label class="control-label" for="about">{{'USER.USER_LIST.LB_ABT'|translate}}</label>
+           <div class="controls">
+             <textarea id="about" ng-model="user.abt" rows="2" class="span12" maxlength="200"  ng-required="setRequire.abt == true"></textarea>
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="row-fluid" ng-if='user.ava_id'>
+	 <div class="span12 control-group">
+	     <div ng-class="{'control-group':true}">
+		 <label class="control-label" for="IMAGE">{{'USER.USER_LIST.LB_AVATAR'|translate}}</label>
+		 <div class="controls ">
+		     <div class='image_approve_deny '>
+			<zoom ng-image="user" show-image="true"></zoom>
+		     </div>
+		     
+		 </div>
+	     </div>
+	     
+	 </div>
+     </div>
+ <!--    <div class="row-fluid">
+       <div class="span12">
+         <div class="control-group">
+           <div class="controls">
+             <button type="submit" ng-click="updateUser()" class="btn btn-primary">{{'FORM.BTN_SAVE'|translate}}</button>
+           </div>
+         </div>
+       </div>
+     </div>-->
+   </form>
+ </div>
+  <div class="modal-footer">
+   <button type="submit" class="btn btn-primary" form="detail-user-form">{{'FORM.BTN_SAVE'|translate}}</button>
+   <button type="button" class="btn btn-info" ng-click="close()">{{'DIALOG.CLOSE'|translate}}</button>
+ </div>

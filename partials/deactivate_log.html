@@ -1,0 +1,165 @@
+<div class="page-header">
+  <div class="row-fluid">
+    <div class="span8">
+      <h3>{{'LOG.DEACTIVATE.TITLE_USER'|translate}}</h3>
+    </div>
+    <div class="span4 text-right">
+      <button type="button" class="btn btn-primary" ng-click="exportCSV()">{{'FORM.BTN_EXPORT'|translate}}</button>
+    </div>
+  </div>
+</div>
+<form class="form-horizontal" ng-submit="startSearch()">
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="control-group">
+        <label class="control-label" for="userType">{{'USER.INFO.USER_TYPE'|translate}}</label>
+        <div class="controls">
+          <select id="userType" class="span12" ng-model="input.userType"
+            ng-options="u.value as u.label for u in attributes.userTypes">
+          </select>
+        </div>
+      </div>
+      <div class="control-group" ng-if="input.userType.toString().length > 0">
+        <label class="control-label" for="account">
+          {{input.userType | label:[attributes.userTypes, true]}}
+        </label>
+        <div class="controls">
+          <input class="span12" id="account" type="text" ng-model="input.account">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">{{'LOG.DEACTIVATE.DEACTIVATE_TIME'|translate}}</label>
+        <div class="controls">
+          <datetimepicker class="span12" ng-model="input.fromDate"
+            ng-label="true" label="{{'LAYOUT.DATE.FROM'|translate}}" />
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <datetimepicker class="span12" ng-model="input.toDate"
+            ng-label="true" label="{{'LAYOUT.DATE.TO'|translate}}" />
+        </div>
+      </div>
+    </div>
+    <div class="span6">
+      <div class="control-group">
+        <label class="control-label">{{'USER.INFO.USER_ID'|translate}}</label>
+        <div class="controls">
+          <input class="span12" type="text" ng-model="input.userId">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">{{'USER.INFO.CM_CODE'|translate}}</label>
+        <div class="controls">
+          <input class="span12" type="text" ng-model="input.cm">
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="control-group">
+    <label class="control-label" for="sort">{{'LOG.COMMON.SORT_BY' | translate}}</label>
+    <div class="controls">
+      <div class="form-inline">
+        <select id="sort" ng-model="input.sort">
+          <option value="1">{{'LOG.DEACTIVATE.DEACTIVATE_TIME'|translate}}</option>
+        </select>&nbsp;&nbsp;
+        <label class="radio" ng-repeat="item in attributes.orderBys">
+          <input type="radio" ng-model="input.order" value="{{item.value}}">
+          <span>{{item.label}}</span>
+          &nbsp;&nbsp;
+        </label>
+        <button type="submit" class="pull-right btn btn-primary">{{'FORM.BTN_SEARCH'|translate}}</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<hr id="block-center-screen">
+
+<div class="row-fluid">
+  <div class="span8">
+    <pagination 
+      ng-hide="setting.totalItems <= setting.itemsPerPage"
+      on-select-page="load(page)" page="setting.currentPage"
+      total-items="setting.totalItems" boundary-links="true" rotate="false"
+      max-size="setting.numberPagesDisplay" items-per-page="setting.itemsPerPage"
+      next-text = "{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}" 
+      previous-text = "{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}" 
+      first-text = "{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}" 
+      last-text = "{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}" />
+  </div>
+  <div class="span4 text-right pargin-top-margin">
+    <span>{{'LIST.TOTAL_ITEMS'|translate}}&#58;&nbsp;{{setting.totalItems}}</span>
+  </div>
+</div>
+<table ng-hide="setting.totalItems == 0" class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>
+        <span>{{'USER.INFO.USER_ID'|translate}}</span>
+        <br>
+        <span>{{'USER.INFO.USER_NAME'|translate}}</span>
+      </th>
+      <th>
+        <span>{{'USER.INFO.USER_TYPE'|translate}}</span>
+        <br>
+        <span>{{'USER.INFO.EMAIL'|translate}}&nbsp;&#47;&nbsp;{{'USER.INFO.FACEBOOK_ID'|translate}}</span>
+      </th>
+      <th>
+        <span>{{'LOG.DEACTIVATE.DEACTIVATE_COMMENT'|translate}}</span>
+      </th>  
+      <th>
+        <span>{{'USER.INFO.GROUP'|translate}}</span>
+        <br>
+        <span>{{'USER.INFO.CM_CODE'|translate}}</span>
+        <br>
+        <span>{{'USER.INFO.IP'| translate}}</span>
+      </th>
+      <th>
+        <span>{{'LOG.DEACTIVATE.DEACTIVATE_TIME'|translate}}</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in data">
+      <td>
+        <span>
+          <a href="#/user/user_detail/{{item.user_id}}" class="btn-link" target="_blank">{{item.user_id}}</a>
+          <!-- <a class="btn-link" ng-click="userDetail(item.user_id)">{{ item.user_id }}</a> -->
+        </span>
+        <br>
+        <span>{{item.user_name}}</span>
+      </td>
+      <td>
+        <span>{{item.user_type | label:[attributes.userTypes, true]}}</span>
+        <br>
+        <span>{{item.email}}</span>
+      </td>
+      <td><span class="text-newline">{{item.deactivate_comment}}</span></td>
+      <td>
+        <span>{{'LAYOUT.NO_DATA'|translate}}</span>
+        <br>
+        <span>{{item.cm_code == null ? 'LAYOUT.NO_DATA' : item.cm_code|translate}}</span>
+        <br>
+        <span>{{item.ip}}</span>
+      </td>
+      <td>
+        <span>{{item.time|local:[true]}}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="row-fluid">
+  <div class="span12">
+    <pagination 
+      ng-hide="setting.totalItems <= setting.itemsPerPage"
+      on-select-page="load(page)" page="setting.currentPage"
+      total-items="setting.totalItems" boundary-links="true" rotate="false"
+      max-size="setting.numberPagesDisplay" items-per-page="setting.itemsPerPage"
+      next-text = "{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}" 
+      previous-text = "{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}" 
+      first-text = "{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}" 
+      last-text = "{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}" />
+  </div>
+</div>

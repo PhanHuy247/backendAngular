@@ -1,0 +1,100 @@
+<!-- Header -->
+<div class="page-header">
+    <h3>
+        {{'USER.USER_LOGIN_MESSAGE.LIST_PAGE_TITLE'|translate}}
+    </h3>
+</div>
+<!-- Create Login Message Button -->
+<div class="row-fluid">
+    <a href="#/user/login_message/create" class="btn btn-primary">{{'USER.USER_LOGIN_MESSAGE.CREATE_MESSAGE'|translate}}</a>
+</div>
+
+<!-- Paging -->
+<div class="row-fluid">
+    <div class="span8">
+        <pagination next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+                    previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+                    first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+                    last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+                    ng-hide="properties.total <= properties.pageSize"
+                    on-select-page="load(page)"
+                    page="properties.currentPage" total-items="properties.total" boundary-links="true"
+                    rotate="false" max-size="properties.pageDisplay" items-per-page="properties.pageSize" ></pagination>
+    </div>
+    <div class="span4 text-right pargin-top-margin">
+        <span>{{'LIST.TOTAL_ITEMS'|translate}}:&nbsp;{{properties.total|stat}}</span>
+    </div>
+</div>
+<!-- Login Message List -->
+
+<div class="row-fluid">
+    <table class="table table-bordered table-hover"
+           ng-hide="totalItems === 0">
+        <thead>
+            <tr>
+                <th class="span2">{{'USER.USER_LOGIN_MESSAGE.DAILY_BONUS_NUMBER'|translate}}</th>
+                <th class="span2">{{'USER.USER_LOGIN_MESSAGE.GENDER'|translate}}</th>
+                <th class="span3">{{'USER.USER_LOGIN_MESSAGE.MESSAGE_TYPE'|translate}}</th>
+                <th>{{'USER.USER_LOGIN_MESSAGE.CONTENT'|translate}}</th>
+                <th class="span2">{{'USER.USER_LOGIN_MESSAGE.RECEIVER_NUMBER'|translate}}</th>
+                <th class="span3"></th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="item in messages">
+            <tr>
+                <td>
+                    <input type="number" ng-disabled="true" class="span12"
+                               ng-model = "item.login_bonus_times"
+                               min="1">
+                </td>
+                <td>
+                    <select class="span12" ng-disabled="!item.isEditMode"
+                            ng-options="c.id as c.name for c in properties.gender"
+                            ng-model = "item.gender"></select>
+                </td>
+                <td>
+                    <select class="span12" ng-disabled="!item.isEditMode"
+                            ng-options="c.id as c.name for c in properties.messageTypes"
+                            ng-model ="item.sender"></select>
+                </td>
+                <td>
+                    <div ng-class="{'control-group': true, 'error': item.showError.content}">
+                        <textarea class="span12" ng-disabled="!item.isEditMode" rows="5"
+                                  id="content-{{item.id}}" ng-model="item.content" required>
+                        </textarea>
+                    </div>
+                </td>
+                <td>
+                    <div class="text-center"><a class="btn-link" ng-click="infoDialog(item)">{{item.receiver_number}}</a></div>
+                </td>
+                <td>
+                    <span>
+                        <button type="button" class="btn btn-primary" ng-show ="item.isEditMode"
+                                ng-click="save(item)">{{'FORM.BTN_SAVE'|translate}}</button>
+                        <button type="button" class="btn btn-primary" ng-hide="item.isEditMode"
+                                ng-click="edit(item)">{{'FORM.BTN_EDIT'|translate}}</button>
+                        <button type="button" class="btn btn-primary" ng-show ="item.isEditMode"
+                                ng-click="cancel(item)">{{'FORM.BTN_CANCEL'|translate}}</button>
+                        <button type="button" class="btn btn-danger" ng-hide = "item.isEditMode"
+                                ng-click="remove(item)">{{'FORM.BTN_DELETE'|translate}}</button>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Paging -->
+<div class="row-fluid">
+    <div class="span8">
+        <pagination next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+                    previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+                    first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+                    last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+                    ng-hide="properties.total <= properties.pageSize"
+                    on-select-page="load(page)"
+                    page="properties.currentPage" total-items="properties.total" boundary-links="true"
+                    rotate="false" max-size="setting.numberPagesDisplay" items-per-page="setting.itemsPerPage" ></pagination>
+    </div>
+</div>

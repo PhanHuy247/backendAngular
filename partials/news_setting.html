@@ -1,0 +1,122 @@
+<!-- Header -->
+<div class="page-header">
+    <h3>{{'SETTINGS.NEWS.PAGE_TITLE'|translate}}</h3>
+</div>
+<!--paging-->
+
+<div class="row-fluid">
+    <a href="#/settings/news/create" class="btn btn-primary">{{'SETTINGS.NEWS.CREATE_NEWS'|translate}}</a>
+    <a href="javascript:void(0)" class="btn btn-warning" ng-click="updateNewsToApp()">{{'SETTINGS.NEWS.UPDATE_NEWS_TO_APP'|translate}}</a>
+</div>
+
+<div class="row-fluid">
+    <div class="span8">
+        <pagination next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+                    previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+                    first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+                    last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+                    ng-hide="setting.totalItems <= setting.itemsPerPage"
+                    on-select-page="load(page)"
+                    page="setting.currentPage" total-items="setting.totalItems" boundary-links="true"
+                    rotate="false" max-size="setting.numberPagesDisplay" items-per-page="setting.itemsPerPage" />
+    </div>
+    <div class="span4 text-right pargin-top-margin">
+        <span>{{'LIST.TOTAL_ITEMS'|translate}}:&nbsp;{{setting.totalItems|stat}}</span>
+    </div>
+</div>
+<!--table -->
+<div class="row-fluid">
+    <table class="table table-bordered table-hover" ng-hide="setting.totalItems === 0">
+        <thead>
+        <tr>
+            <th rowspan="2" class="span2">
+                <div class="text-center">{{'SETTINGS.NEWS.DATA_UPDATE_TIME'|translate}}</div>
+            </th>
+            <th rowspan="2" class="span2">
+                <div class="text-center">{{'SETTINGS.NEWS.BANNER_IMAGE'|translate}}</div>
+            </th>
+            <th rowspan="2" class="span3">
+                <div class="text-center">{{'SETTINGS.NEWS.DISPLAY_PERIOD'|translate}}</div>
+            </th>
+            <th rowspan="2" class="span2">
+                <div class="text-center">{{'USER.PROPERTY.SELECT_SORT.REGISTER_TIME'|translate}}</div>
+            </th>
+            <th colspan="2" class="span2">
+                <div class="text-center">{{'SETTINGS.NEWS.DISPLAY_STATUS'|translate}}</div>
+            </th>
+            <th rowspan="2" class="span1">
+                <div class="text-center">{{'SETTINGS.NEWS.OS'|translate}}</div>
+            </th>
+            <th rowspan="2" class="span2">
+                <div class="text-center">{{'USER.USER_LIST.LB_IS_PURCHASE'|translate}}</div>
+            </th>
+            <th rowspan="2" class="span1">
+                <div class="text-center">{{'SETTINGS.NEWS.PREVIEW'|translate}}</div>
+            </th>
+            <th rowspan="2" class="span1">
+                <div class="text-center">{{'SETTINGS.NEWS.DELETE'|translate}}</div>
+            </th>
+        </tr>
+        <tr>
+            <th class="span2">
+                <div class="text-center">{{'SETTINGS.NEWS.MALE'|translate}}</div>
+            </th>
+            <th class="span2">
+                <div class="text-center">{{'SETTINGS.NEWS.FEMALE'|translate}}</div>
+            </th>
+        </tr>
+        </thead>
+        <tbody ng-repeat="item in list">
+        <tr>
+            <td class="">
+                <div class="text-center">{{item.update_dateStr|local:[true, 'yyyy/MM/dd HH:mm']}}</div>
+            </td>
+            <td class="" width="330px">
+                <div class="text-center banner_width" ng-hide ="!item.banner_id"><zoom ng-image="item" show-image="true"></zoom></div>
+                <div class="text-center" ng-show="!item.banner_id">{{item.title}}</div>
+            </td>
+            <td class="">
+                <div class="text-center">{{item.fromStr|local:[true,'yyyy/MM/dd HH:mm']}} &#126; {{item.toStr|local:[true, 'yyyy/MM/dd HH:mm']}}</div>
+            </td>
+            <td class="">
+                <div class="text-center" ng-show="item.register_time!=null">{{item.register_time}} {{'SETTINGS.NEWS.DAYS'|translate}} &#176;  {{item.register_type|label:[attributes.registerType,true]}}</div>
+            </td>
+            <td class="" ng-class="item.is_shown == false && item.target_gender != 1 ? 'grayCell' :'' ">
+                <div class="text-center" ng-hide="item.target_gender == 1">{{item.status|label:[attributes.showStatus, true]}}</div>
+                <div class="text-center" ng-show="item.target_gender == 1">&ndash;</div>
+            </td>
+            <td class="" ng-class="item.is_shown == false && item.target_gender != 0 ? 'grayCell' :'' ">
+                <div class="text-center" ng-hide="item.target_gender == 0">{{item.status|label:[attributes.showStatus, true]}}</div>
+                <div class="text-center" ng-show="item.target_gender == 0">&ndash;</div>
+            </td>
+            <td class="">
+                <div class="text-center">{{item.device_type|label:[attributes.deviceType, true]}}</div>
+            </td>
+            <td class="">
+                <div class="text-center">{{item.is_purchase|label:[attributes.isPurchase, true]}}</div>
+            </td>
+            <td class="">
+                <div class="text-center"><a class="btn-link ng-binding" href="#/settings/news/update/{{item.id}}">{{'SETTINGS.NEWS.DETAIL'|translate}}</a></div>
+            </td>
+            <td class="">
+                <div class="text-center">
+                    <button type="button" class="btn btn-danger ng-binding"
+                            ng-click="deleteNews(item)">{{'SETTINGS.NEWS.DELETE'|translate}}
+                    </button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!--paging-->
+<div class="row-fluid">
+    <pagination next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+                previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+                first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+                last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}"
+                ng-hide="setting.totalItems <= setting.itemsPerPage"
+                on-select-page="load(page)"
+                page="setting.currentPage" total-items="setting.totalItems" boundary-links="true"
+                rotate="false" max-size="setting.numberPagesDisplay" items-per-page="setting.itemsPerPage" />
+</div>

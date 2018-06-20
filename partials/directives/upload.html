@@ -1,0 +1,15 @@
+<div class="upload-container">
+  <div class="image-area image-loading" style="width: {{size.width}}; height: {{size.height}}; line-height: {{size.height}}">
+    <img class="image" ng-src="{{source}}" ng-show="base64 == null && source != null"
+      ng-class="{'gray' : ngDisabled}">
+  </div>
+  <div class="intruction" style="width: {{size.width}}; height: {{size.height}};" ng-show="source == null && base64 == null">
+    <div class="middle-text">
+      <span>{{'UPLOAD.SELECT_AN_IMAGE'|translate}}</span>
+    </div>
+  </div>
+</div>
+<!-- <input class="upload-trigger" type="file" class="image-uploader" accept="image/*" 
+    form="{{form}}" ng-disabled="ngDisabled" ng-required="ngRequired" > -->
+
+

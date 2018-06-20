@@ -1,0 +1,174 @@
+<div class="page-header">
+  <div class="row-fluid">
+    <div class="span8">
+      <h3>{{'LOG.LOOK_AT_ME.TITLE'|translate}}</h3>
+    </div>
+    <div class="span4 text-right">
+      <button type="button" class="btn btn-primary" ng-click="exportCSV()">{{'FORM.BTN_EXPORT'|translate}}</button>
+    </div>
+  </div>
+</div>
+<!-- Form search -->
+<form class="form-horizontal" ng-submit="beginSearch()">
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="control-group">
+        <label class="control-label" for="userType">{{'USER.INFO.USER_TYPE'|translate}}</label>
+        <div class="controls">
+          <select id="userType" ng-model="input.userType" class="span12"
+            ng-options="d.value as d.label for d in properties.userTypes"></select>
+        </div>
+      </div>
+      <div class="control-group" ng-show="input.userType.toString().length > 0">
+        <label class="control-label" for="account">
+          {{input.userType | label:[properties.userTypes, true]}}
+        </label>
+        <div class="controls">
+          <input type="text" id="account" ng-model="input.email" class="span12">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">{{'LOG.LOOK_AT_ME.PLACE_BID_TIME'|translate}}</label>
+        <div class="controls">
+          <datetimepicker class="span12" pick-time="false" ng-model="input.fromTime"
+            ng-label="true" label="{{'LAYOUT.DATE.FROM'|translate}}" />
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <datetimepicker class="span12" pick-time="false" ng-model="input.toTime"
+            ng-label="true" label="{{'LAYOUT.DATE.TO'|translate}}" />
+        </div>
+      </div>  
+    </div>
+    <div class="span6">
+      <div class="control-group">
+        <label class="control-label" for="user_point">{{'LOG.LOOK_AT_ME.USED_POINT'|translate}}</label>
+        <div class="controls">
+          <div class="span5">
+            <input type="number" min="0" max="1000000" ng-model="input.from_point" class="span12">
+          </div>
+          <div class="span2 text-center">
+            <b>&sim;</b>
+          </div>
+          <div class="span5">
+            <input type="number" min="0" max="1000000" ng-model="input.to_point" class="span12">
+          </div>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="user_id">{{'USER.INFO.USER_ID'|translate}}</label>
+        <div class="controls">
+          <input type="text" id="user_id" class="span12" ng-model="input.id">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="cm_code">{{'USER.INFO.CM_CODE'|translate}}</label>
+        <div class="controls">
+          <input type="text" id="cm_code" class="span12" ng-model="input.cmCode">
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="control-group">
+    <label class="control-label" for="sortBy">{{'LOG.COMMON.SORT_BY' | translate}}</label>
+    <div class="controls">
+      <div class="form-inline">
+        <select id="sortBy" ng-model="input.sort"
+            ng-options="d.value as d.label for d in properties.sort"></select>
+        &nbsp;&nbsp;
+        <label class="radio" ng-repeat="item in properties.orderBys">
+          <input type="radio" ng-model="input.order" value="{{item.value}}">
+          <span>{{item.label}}</span>
+          &nbsp;&nbsp;
+        </label>
+        <button type="submit" class="btn btn-primary pull-right">{{'FORM.BTN_SEARCH'|translate}}</button>
+      </div>
+    </div>
+  </div>
+</form>
+<hr>
+<div class="row-fluid">
+  <div class="span8">
+    <pagination 
+      ng-hide="properties.totalItems <= properties.itemsPerPage"
+      on-select-page="load(page)" page="properties.currentPage"
+      total-items="properties.totalItems" boundary-links="true" rotate="false"
+      max-size="properties.numberPagesDisplay" items-per-page="properties.itemsPerPage"
+      next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+      previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+      first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+      last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}" />
+  </div>
+  <div class="span4 text-right pargin-top-margin">
+    <span>{{'LIST.TOTAL_ITEMS'|translate}}&#58;&nbsp;{{properties.totalItems|stat}}</span>
+  </div>
+</div>
+
+<table class="table table-hover table-bordered" ng-show="properties.totalItems > 0" >
+  <thead>
+    <tr>
+      <th class="span3">
+        <span>{{'USER.INFO.USER_ID'|translate}}</span><br>
+        <span>{{'USER.INFO.USER_NAME'|translate}}</span>
+      </th>
+      <th>
+        <span>{{'USER.INFO.USER_TYPE'|translate}}</span><br>
+        <span>{{'USER.INFO.EMAIL'| translate}}&nbsp;&#47;&nbsp;{{'USER.INFO.FACEBOOK_ID'|translate}}</span>
+      </th>
+      <th class="span3">
+        <span>{{'USER.INFO.GROUP'|translate}}</span><br>
+        <span>{{'USER.INFO.CM_CODE'|translate}}</span><br>
+        <span>{{'USER.INFO.IP'|translate}}</span>
+      </th>
+      <th class="span2">
+        <span>{{'LOG.LOOK_AT_ME.USED_POINT'| translate}}</span>
+      </th>
+      <th class="span3">
+        <span>{{'LOG.LOOK_AT_ME.PLACE_BID_TIME'|translate}}</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in log">
+      <td>
+        <span>
+          <a href="#/user/user_detail/{{item.user_id}}" class="btn-link" target="_blank">{{item.user_id}}</a>
+          <!-- <a class="btn-link" ng-click="userDetail(item.user_id)">{{ item.user_id }}</a> -->
+        </span>
+        <br>
+        <span>{{item.user_name}}</span>
+      </td>
+      <td>
+        <span>{{item.user_type | label:[properties.userTypes, true]}}</span><br>
+        <span>{{item.email}}</span>
+      </td>
+      <td>
+        <span>{{'LAYOUT.NO_DATA'|translate}}</span><br>
+        <span>{{item.cm_code == null ? 'LAYOUT.NO_DATA' : item.cm_code|translate}}</span><br>
+        <span>{{item.ip == null ? 'LAYOUT.NO_DATA' : item.ip|translate}}</span>
+      </td>
+      <td>
+        <span>{{item.point|stat}}</span>
+      </td>
+      <td>
+        <span>{{item.time|local:[true]}}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="row-fluid">
+  <div class="span12">
+    <pagination 
+      ng-hide="properties.totalItems <= properties.itemsPerPage"
+      on-select-page="load(page)" page="properties.currentPage"
+      total-items="properties.totalItems" boundary-links="true" rotate="false"
+      max-size="properties.numberPagesDisplay" items-per-page="properties.itemsPerPage"
+      next-text="{{'SETTINGS.GENERAL.PAGING.NEXT'|translate}}"
+      previous-text="{{'SETTINGS.GENERAL.PAGING.PREVIOUS'|translate}}"
+      first-text="{{'SETTINGS.GENERAL.PAGING.FIRST'|translate}}"
+      last-text="{{'SETTINGS.GENERAL.PAGING.LAST'|translate}}" />
+  </div>
+</div>
